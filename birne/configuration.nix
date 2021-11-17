@@ -52,6 +52,7 @@
     shell = pkgs.fish;
     password = "print";
   };
+  services.openssh.extraConfig = "DenyUsers	print";
 
   services.xserver.displayManager.autoLogin = {
     enable = true;
