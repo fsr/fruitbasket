@@ -31,7 +31,9 @@
   time.timeZone = "Europe/Berlin";
 
   networking.hostName = "birne"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
+  # enable the networkmanager applet
+  programs.nm-applet.enable = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -46,7 +48,7 @@
   users.users.print = {
     createHome = true;
     isNormalUser = true;
-    extraGroups = [ "video" "audio" "dialout" ];
+    extraGroups = [ "video" "audio" "networkmanager" ];
     group = "users";
     home = "/home/print";
     shell = pkgs.fish;
