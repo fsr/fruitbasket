@@ -12,6 +12,7 @@
       <modules/base.nix>
       <modules/desktop.nix>
       <modules/printing.nix>
+      <modules/autoupdate.nix>
     ];
 
   # setup the NIX_PATH so modules from the repo found
