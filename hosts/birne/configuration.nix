@@ -7,7 +7,12 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    ./hardware-configuration.nix
+
+    ../../modules/base.nix
+    ../../autoupdate.nix
+    ../../desktop.nix
+    ../../printing.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
