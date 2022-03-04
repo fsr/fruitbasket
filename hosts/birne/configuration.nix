@@ -44,8 +44,12 @@
   # services.xserver.enable = true;
 
   nixpkgs.config.allowUnfree = true;
-  
-
+  nix = {
+    package = pkgs.nixUnstable; # or versioned attributes like nix_2_4
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };  
   # Configure keymap in X11
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
