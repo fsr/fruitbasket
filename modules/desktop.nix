@@ -2,16 +2,18 @@
 
 {
   # enable XFCE as lightweight desktop environment
-  services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.displayManager.defaultSession = "xfce";
+  services = {
+  	xserver.enable = true;
+	xserver.desktopManager.xfce.enable = true;
+  	xserver.displayManager.defaultSession = "xfce";
 
-  # Configure keymap in X11
-  services.xserver.layout = "de";
-  services.xserver.xkbOptions = "eurosign:e,ctrl:nocaps,compose:prsc";
+  	# Configure keymap in X11
+  	xserver.layout = "de";
+  	xserver.xkbOptions = "eurosign:e,ctrl:nocaps,compose:prsc";
 
-  # enable touchpad support
-  services.xserver.libinput.enable = true;
-
+  	# enable touchpad support
+  	xserver.libinput.enable = true;
+  };
   # enable sound
   sound.enable = true;
   sound.mediaKeys.enable = true;
