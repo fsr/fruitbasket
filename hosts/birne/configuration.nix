@@ -13,6 +13,7 @@
       ../../modules/autoupdate.nix
       ../../modules/desktop.nix
       ../../modules/printing.nix
+      ../../modules/wifi.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
