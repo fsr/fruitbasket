@@ -20,13 +20,18 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "birne"; # Define your hostname.
-
   # Set your time zone.
   time.timeZone = "Europe/Busingen";
-
-  networking.useDHCP = false;
-  networking.interfaces.enp1s0.useDHCP = true;
+  
+  networking = {
+    hostName = "birne";
+    interfaces.wlp4s0.useDHCP = true;
+    networking.interfaces.enp1s0.useDHCP = true;
+    wireless = {
+      enable = true;
+      interfaces = [ "wlp4s0" ];
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
   nix = {
