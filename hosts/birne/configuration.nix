@@ -26,7 +26,7 @@
   networking = {
     hostName = "birne";
     interfaces.wlp4s0.useDHCP = true;
-    networking.interfaces.enp1s0.useDHCP = true;
+    interfaces.enp1s0.useDHCP = true;
     wireless = {
       enable = true;
       interfaces = [ "wlp4s0" ];

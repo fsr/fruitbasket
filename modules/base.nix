@@ -51,6 +51,7 @@
     tmux
     usbutils
     wget
+    neovim
   ];
 }
 
