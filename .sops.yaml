@@ -1,0 +1,18 @@
+keys:
+  - &birne age1jyxk2z69pm8hpz5zlf5lh05vrws2sprum3ucx2xjpq8efctcfdaq0jhs3w
+  - &revol-xut 91EBE87016391323642A6803B966009D57E69CC6
+   # private key stored in repo, used for test VM
+  - &test age1925katzy5gws3f9hnvnlwspu6trxf488arwt6ayw3urg2mgumqhszxnmqh 
+creation_rules:
+  - path_regex: secrets/birne\.yaml$
+    key_groups:
+      - pgp:
+        - *revol-xut
+        age:
+        - *birne
+  - path_regex: secrets/birne\.test\.yaml$
+    key_groups:
+      - pgp:
+        - *revol-xut
+        age:
+        - *test
