@@ -12,14 +12,18 @@
     ];
     avahi.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    gnome.gnome-control-center
+  ];
   # set up Heiko
-  #hardware.printers.ensurePrinters = [
-  #   {
-  #     description = "Drucker im FSR Buero";
-  #     deviceUri = "";
-  #     location = "FSR Buero";
-  #     model = "";
-  #     name = "Heiko";
-  #   }
-  #];
+  hardware.printers.ensurePrinters = [
+     {
+       description = "Drucker im FSR Buero";
+       deviceUri = "";
+       location = "FSR Buero";
+       model = "Kyocera ECOSYS M6630cidn KPDL";
+       name = "Heiko";
+     }
+  ];
 }
