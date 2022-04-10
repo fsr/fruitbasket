@@ -1,6 +1,14 @@
 { pkgs, config, ... }:
 
 {
+
+  nix = {
+    package = pkgs.nixUnstable; # or versioned attributes like nix_2_4
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };  
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -32,8 +40,7 @@
     ];
   };
 
-  # allow unfree licenced packges
-  # nixpkgs.config.allowUnfree = true;
+  time.timeZone = "Europe/Berlin";
 
   # basic shell & editor
   programs.fish.enable = true;

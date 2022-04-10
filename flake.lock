@@ -1,6 +1,75 @@
 {
   "nodes": {
+    "dvb-source": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1648841086,
+        "narHash": "sha256-OzK9r6tyyjawdDzqrDw9CFh0lf8Bn11rJpQl60YCoT8=",
+        "owner": "revol-xut",
+        "repo": "dvbpy",
+        "rev": "66c975f58b9f831ff6044aa65da58c3246938e5e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "revol-xut",
+        "repo": "dvbpy",
+        "type": "github"
+      }
+    },
+    "flask-misaka-source": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1607432564,
+        "narHash": "sha256-RYDD+Bj3+S2isTdccl04zvLjpbalQ5sqb3sYnUy1+bU=",
+        "owner": "singingwolfboy",
+        "repo": "flask-misaka",
+        "rev": "d960e512ac1ea16225d236984fcf130a46bb7b83",
+        "type": "github"
+      },
+      "original": {
+        "owner": "singingwolfboy",
+        "repo": "flask-misaka",
+        "type": "github"
+      }
+    },
+    "fsr-infoscreen": {
+      "inputs": {
+        "dvb-source": "dvb-source",
+        "flask-misaka-source": "flask-misaka-source",
+        "nixpkgs": "nixpkgs",
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1649586198,
+        "narHash": "sha256-mG0dlqTwYUw4qJcwK1ByqOb07kM9+1jENe3w6dTf9aU=",
+        "owner": "fsr",
+        "repo": "infoscreen",
+        "rev": "73215980cf5465f660d4237389ca92a33c035f1a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fsr",
+        "repo": "infoscreen",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1649490789,
+        "narHash": "sha256-YrhVxwoofZSx/wLZ4GYET//8vS+uqWX572zvdmP/Etg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c86185d20d708013caf97a6adaa8dc6d72313c75",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-21.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1646258393,
         "narHash": "sha256-mKDoCi5Baqainjf0Nx6oTPhaxKQdj4P17XTdhTtXGRA=",
@@ -18,7 +87,8 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
+        "fsr-infoscreen": "fsr-infoscreen",
+        "nixpkgs": "nixpkgs_2",
         "sops-nix": "sops-nix"
       }
     },
@@ -39,6 +109,21 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1648297722,
+        "narHash": "sha256-W+qlPsiZd8F3XkzXOzAoR+mpFqzm3ekQkJNa+PIh1BQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "0f8662f1319ad6abf89b3380dd2722369fc51ade",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     }
