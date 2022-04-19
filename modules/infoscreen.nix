@@ -1,8 +1,4 @@
-{ pkgs
-, lib
-, config
-, ...
-}: 
+{ pkgs, lib, config, ...}:
 let
   fsr-infoscreen = pkgs.fsr-infoscreen;
 

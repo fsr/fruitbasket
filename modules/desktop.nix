@@ -1,6 +1,16 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, office_stuff, ... }:
 
-{
+let 
+
+extra_office_packages = (lib.ifEnable config.fsr.enable_office_bloat (with pkgs; [
+  vlc 
+  libreoffice-fresh
+  okular
+  texlive.combined.scheme-full
+]));
+
+
+in {
   # enable XFCE as lightweight desktop environment
   services = {
   	xserver.enable = true;
@@ -24,16 +34,8 @@
     ## audio management
     pavucontrol
     ## terminal, browsers, text editing
-    vscodium
+    #vscodium
     firefox
-    ## document viewers
-    okular
-    ## LaTeX
-    texlive.combined.scheme-full
-    texstudio
-    ## the eternal pain continues
-    libreoffice-fresh
-    # media viewers
-    vlc
-  ];
+  ] ++ extra_office_packages;
+
 }

@@ -7,7 +7,6 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -35,7 +34,7 @@
     firefox
   ];
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "21.05";
 
 }
 

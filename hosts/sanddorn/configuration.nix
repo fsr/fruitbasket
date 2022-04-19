@@ -1,9 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
   boot = {
     loader = {
       grub.enable = false;
@@ -18,6 +14,11 @@
     tmpOnTmpfs = true;
   };
 
+  nix = {
+    autoOptimiseStore = true;
+  };
+
+
   networking = {
     hostName = "sanddorn";
 
@@ -26,6 +27,8 @@
     interfaces.wlan0.useDHCP = true;
     firewall.enable = false;
   };
+
+  programs.tmux.enable = true;
 
   # Do not log to flash:
   services.journald.extraConfig = ''
@@ -37,6 +40,7 @@
     wheelNeedsPassword = false;
   };
 
-  system.stateVersion = "21.11"; 
+  documentation.enable = false;
+  
+  system.stateVersion = "21.05"; 
 }
-

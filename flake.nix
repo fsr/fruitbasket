@@ -9,6 +9,9 @@
   outputs = { self, nixpkgs, sops-nix, fsr-infoscreen, ... }@inputs:  
   let 
   in {
+    packages."aarch64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
+    packages."x86_64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
+
     nixosConfigurations = {
       birne = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -20,6 +23,10 @@
           ./modules/desktop.nix
           ./modules/printing.nix
           ./modules/wifi.nix
+          ./modules/options.nix
+          {
+            fsr.enable_office_bloat = true;
+          }
 
         ];
       };
@@ -37,7 +44,11 @@
           ./modules/autoupdate.nix
           ./modules/wifi.nix
           ./modules/desktop.nix
+          ./modules/options.nix
           "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          {
+            fsr.enable_office_bloat = false;
+          }
         ];
       };
     };
