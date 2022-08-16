@@ -1,6 +1,6 @@
 {
   inputs = { 
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-21.11;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-22.05;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     
@@ -49,6 +49,13 @@
           {
             fsr.enable_office_bloat = false;
           }
+        ];
+      };
+      durian = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/durian/configuration.nix
+          ./modules/base.nix
         ];
       };
     };

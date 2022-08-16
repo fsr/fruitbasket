@@ -1,7 +1,4 @@
-{ pkgs, config, ... }:
-
-{
-
+{ pkgs, config, ... }: {
   nix = {
     package = pkgs.nixUnstable; # or versioned attributes like nix_2_4
     extraOptions = ''
@@ -43,7 +40,6 @@
   time.timeZone = "Europe/Berlin";
 
   # basic shell & editor
-  programs.fish.enable = true;
   programs.vim.defaultEditor = true;
 
   # List packages installed in system profile. To search, run:
