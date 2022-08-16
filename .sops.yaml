@@ -1,18 +1,25 @@
 keys:
-  - &birne age1jyxk2z69pm8hpz5zlf5lh05vrws2sprum3ucx2xjpq8efctcfdaq0jhs3w
+  - &bennofs B8E1727497FC48AA14158BDF947F769D7B95EC2B
+  - &felix F8634A1CFF7D61608503A70B24363525EA0E8A99
   - &revol-xut 91EBE87016391323642A6803B966009D57E69CC6
+  - &durian age18g49g3hv0lvck9k767qevnyuzzwc7fnzcvun4e453vruv5zmufjscwep3q
+
    # private key stored in repo, used for test VM
   - &test age1925katzy5gws3f9hnvnlwspu6trxf488arwt6ayw3urg2mgumqhszxnmqh 
 creation_rules:
-  - path_regex: secrets/birne\.yaml$
+  - path_regex: secrets/durian\.yaml$
     key_groups:
       - pgp:
+        - *bennofs
         - *revol-xut
+        - *felix
         age:
-        - *birne
-  - path_regex: secrets/birne\.test\.yaml$
+        - *durian
+  - path_regex: secrets\.test\.yaml$
     key_groups:
       - pgp:
+        - *bennofs
         - *revol-xut
+        - *felix
         age:
         - *test

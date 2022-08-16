@@ -9,11 +9,11 @@
   outputs = { self, nixpkgs, sops-nix, fsr-infoscreen, ... }@inputs:  
   let 
   in {
-    packages."aarch64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
-    packages."x86_64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
+    #packages."aarch64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
+    #packages."x86_64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
 
     nixosConfigurations = {
-      birne = nixpkgs.lib.nixosSystem {
+      /*birne = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hosts/birne/configuration.nix
@@ -51,6 +51,7 @@
           }
         ];
       };
+      */
       durian = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
