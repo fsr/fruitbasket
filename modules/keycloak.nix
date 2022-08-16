@@ -1,6 +1,6 @@
 {pkgs, config, lib, ...}: {
   
-  sops.secrets.postgres_keycloak.owner = config.systemd.services.keycloak.serviceConfig.User;
+  sops.secrets.postgres_keycloak.owner = config.systemd.services.postgres_keycloak.serviceConfig.User;
 
   services = {
     keycloak = {
