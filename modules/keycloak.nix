@@ -1,4 +1,4 @@
-{pkgs, conifg, lib}: {
+{pkgs, config, lib, ...}: {
   
   sops.secrets.postgres_keycloak.owner = config.systemd.services.keycloak.serviceConfig.User;
 
@@ -13,7 +13,7 @@
       database = {
         username = "keycloak";
         type = "postgresql";
-        passwordFile = ;
+        passwordFile = config.sops.secrets.postgres_keycloak.path;
         name = "keycloak";
         host = "localhost";
       };
