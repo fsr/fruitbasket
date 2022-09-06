@@ -53,8 +53,6 @@ in {
 
   sops.secrets.postgres_hedgedoc.owner = config.systemd.services.hedgedoc.serviceConfig.User;
   sops.secrets.hedgedoc_session_secret.owner = config.systemd.services.hedgedoc.serviceConfig.User;
-  sops.secrets.restic_hedgedoc.owner = config.systemd.services.hedgedoc.serviceConfig.User;
-  sops.secrets.kaki_private_key.group = "remote-backups";
 
   systemd.services.hedgedoc.preStart = lib.mkBefore ''
     export DB_PASSWORD="$(cat ${config.sops.secrets.postgres_hedgedoc.path})"
