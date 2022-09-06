@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
-  sops.secrets.postgres_mediawiki.owner = config.systemd.services.mediawiki.serviceConfig.User;
-  sops.secrets.mediawiki_initial_admin.owner = config.systemd.services.mediawiki.serviceConfig.User;
+  sops.secrets.postgres_mediawiki.owner = config.users.users.mediawiki.name;
+  sops.secrets.mediawiki_initial_admin.owner = config.users.users.mediawiki.name;
   services = {
     mediawiki = {
       enable = true;
