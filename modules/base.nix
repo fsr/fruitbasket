@@ -34,6 +34,7 @@
       ./keys/jannusch
       ./keys/jannusch-arch
       ./keys/tassilo
+      ./keys/jonasga
     ];
   };
 
