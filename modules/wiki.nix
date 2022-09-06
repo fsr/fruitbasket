@@ -89,6 +89,17 @@
     };
     postgresql = {
       enable = true;
+      ensureUsers = [
+        {
+            name = "mediawiki";
+            ensurePermissions = {
+                "DATABASE \"mediawiki\"" = "ALL PRIVILEGES";
+            };
+        }
+      ];
+      ensureDatabases = [
+        "mediawiki"
+      ];
     };
   };
   systemd.services.mediawiki-pgsetup = {
