@@ -59,6 +59,7 @@
           ./modules/base.nix
           ./modules/sops.nix
           ./modules/keycloak.nix
+  	  ./modules/nginx.nix
           {
             sops.defaultSopsFile = ./secrets/durian.yaml;
           }
