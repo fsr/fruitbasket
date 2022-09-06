@@ -1,28 +1,29 @@
 { pkgs, lib, config, office_stuff, ... }:
 
-let 
+let
 
-extra_office_packages = (lib.ifEnable config.fsr.enable_office_bloat (with pkgs; [
-  vlc 
-  libreoffice-fresh
-  okular
-  texlive.combined.scheme-full
-]));
+  extra_office_packages = (lib.ifEnable config.fsr.enable_office_bloat (with pkgs; [
+    vlc
+    libreoffice-fresh
+    okular
+    texlive.combined.scheme-full
+  ]));
 
 
-in {
+in
+{
   # enable XFCE as lightweight desktop environment
   services = {
-  	xserver.enable = true;
-	xserver.desktopManager.xfce.enable = true;
-  	xserver.displayManager.defaultSession = "xfce";
+    xserver.enable = true;
+    xserver.desktopManager.xfce.enable = true;
+    xserver.displayManager.defaultSession = "xfce";
 
-  	# Configure keymap in X11
-  	xserver.layout = "de";
-  	xserver.xkbOptions = "eurosign:e,ctrl:nocaps,compose:prsc";
+    # Configure keymap in X11
+    xserver.layout = "de";
+    xserver.xkbOptions = "eurosign:e,ctrl:nocaps,compose:prsc";
 
-  	# enable touchpad support
-  	xserver.libinput.enable = true;
+    # enable touchpad support
+    xserver.libinput.enable = true;
   };
   # enable sound
   sound.enable = true;

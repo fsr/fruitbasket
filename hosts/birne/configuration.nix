@@ -5,7 +5,8 @@
 { config, pkgs, ... }:
 
 {
-  imports =[ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
@@ -24,11 +25,11 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-   users.users.printer = {
-     isNormalUser = true;
-     password = "printer";
-     extraGroups = [];
-   };
+  users.users.printer = {
+    isNormalUser = true;
+    password = "printer";
+    extraGroups = [ ];
+  };
 
   environment.systemPackages = with pkgs; [
     firefox

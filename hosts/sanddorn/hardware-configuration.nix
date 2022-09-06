@@ -21,19 +21,19 @@
       fsType = "vfat";
     };
     "/swap" = {
-    	device = "/dev/disk/by-uuid/SWAP";
-    	fsType = "btrfs";
-    	options = [ "subvol=swap" "compress=lzo" "noatime" ]; # Note these options effect the entire BTRFS filesystem and not just this volume, with the exception of `"subvol=swap"`, the other options are repeated in my other `fileSystem` mounts
+      device = "/dev/disk/by-uuid/SWAP";
+      fsType = "btrfs";
+      options = [ "subvol=swap" "compress=lzo" "noatime" ]; # Note these options effect the entire BTRFS filesystem and not just this volume, with the exception of `"subvol=swap"`, the other options are repeated in my other `fileSystem` mounts
     };
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
     };
   };
- 
+
   swapDevices = [{
-	device = "/swap/swapfile";
-	size = (1024 * 2); 
+    device = "/swap/swapfile";
+    size = (1024 * 2);
   }];
 
   hardware.enableRedistributableFirmware = true;

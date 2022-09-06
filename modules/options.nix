@@ -1,4 +1,4 @@
-{config, lib, ...}: with lib; {
+{ config, lib, ... }: with lib; {
   options.fsr.enable_office_bloat = mkOption {
     type = types.bool;
     default = false;

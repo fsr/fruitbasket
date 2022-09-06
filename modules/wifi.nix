@@ -3,10 +3,11 @@
 # https://tu-dresden.de/zih/dienste/service-katalog/arbeitsumgebung/zugang_datennetz/wlan-eduroam
 # https://www.stura.htw-dresden.de/stura/ref/hopo/dk/nachrichten/eduroam-meets-nixos
 #
-{ pkgs, config, ... }: 
-let  
+{ pkgs, config, ... }:
+let
   password = "$(${pkgs.coreutils}/bin/cat /run/secrets/fsr_wifi_psk)";
-in {
+in
+{
   networking = {
     wireless = {
       enable = true;

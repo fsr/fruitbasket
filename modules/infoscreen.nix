@@ -1,8 +1,9 @@
-{ pkgs, lib, config, ...}:
+{ pkgs, lib, config, ... }:
 let
   fsr-infoscreen = pkgs.fsr-infoscreen;
 
-in {
+in
+{
 
   systemd = {
     services."fsr-infoscreen" = {
@@ -13,16 +14,16 @@ in {
       '';
 
       serviceConfig = {
-          User = "infoscreen";
-          Restart = "on-failure";
-        };
+        User = "infoscreen";
+        Restart = "on-failure";
       };
     };
+  };
 
-    users.users.infoscreen = {
-      name = "infoscreen";
-      description = "custom user for service infoscreen service";
-      isNormalUser = true;
-    };
+  users.users.infoscreen = {
+    name = "infoscreen";
+    description = "custom user for service infoscreen service";
+    isNormalUser = true;
+  };
 
 }

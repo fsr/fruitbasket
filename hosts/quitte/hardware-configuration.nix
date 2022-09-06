@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "megaraid_sas" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
@@ -14,36 +15,42 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "rpool/nixos/root";
+    {
+      device = "rpool/nixos/root";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };
 
   fileSystems."/home" =
-    { device = "rpool/nixos/home";
+    {
+      device = "rpool/nixos/home";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };
 
   fileSystems."/var/lib" =
-    { device = "rpool/nixos/var/lib";
+    {
+      device = "rpool/nixos/var/lib";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };
 
   fileSystems."/var/log" =
-    { device = "rpool/nixos/var/log";
+    {
+      device = "rpool/nixos/var/log";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7FE6-F583";
+    {
+      device = "/dev/disk/by-uuid/7FE6-F583";
       fsType = "vfat";
     };
 
   fileSystems."/nix" =
-    { device = "rpool/nixos/nix";
+    {
+      device = "rpool/nixos/nix";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };

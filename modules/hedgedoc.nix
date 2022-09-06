@@ -1,7 +1,8 @@
 { config, pkgs, lib, ... }:
-let 
+let
   domain = "pad.quitte.tassilo-tanneberger.de";
-in {
+in
+{
   services = {
     postgresql = {
       enable = true;

@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -17,19 +18,19 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/";
   networking.hostId = "a41d87fc";
-  
+
   networking.interfaces.enp65s0f0np0 = {
-     useDHCP = false;
-     ipv4.addresses = [
-       {
-	address = "141.30.30.169";
+    useDHCP = false;
+    ipv4.addresses = [
+      {
+        address = "141.30.30.169";
         prefixLength = 25;
-       }
+      }
     ];
   };
   networking.defaultGateway = "141.30.30.129";
   networking.nameservers = [ "141.30.1.1" ];
-  
+
   networking.hostName = "quitte"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -54,7 +55,7 @@
   # services.xserver.enable = true;
 
 
-  
+
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -104,7 +105,7 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.permitRootLogin = "yes";
-  
+
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 443 80 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
