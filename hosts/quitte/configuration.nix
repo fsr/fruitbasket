@@ -30,7 +30,7 @@
   networking.defaultGateway = "141.30.30.129";
   networking.nameservers = [ "141.30.1.1" ];
   
-  networking.hostName = "durian"; # Define your hostname.
+  networking.hostName = "quitte"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
