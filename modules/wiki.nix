@@ -5,7 +5,15 @@
     "mediawiki/initial_admin".owner = config.users.users.mediawiki.name;
     "mediawiki/ldapprovider".owner = config.users.users.mediawiki.name;
   };
-
+  
+#  users.users.mediawiki.extraGroups = [ "postgres" ];
+  nixpkgs.overlays = [
+    (final: prev: {
+	final.config.systemd.services.mediawiki-init.script = ''
+	
+	'';
+    }) 
+  ];
   services = {
     mediawiki = {
       enable = true;
@@ -13,24 +21,45 @@
       passwordFile = config.sops.secrets."mediawiki/initial_admin".path;
       database = {
         type = "postgres";
-        socket = "/var/run/postgresql";
+#        socket = "/run/postgresql";
         user = "mediawiki";
         name = "mediawiki";
+	host = "localhost";
+	port = 5432;
+        passwordFile = config.sops.secrets."mediawiki/postgres".path;
       };
 
-      virtualHost = {
-        hostName = "wiki.quitte.tassilo-tanneberger.de";
-        adminAddr = "root@ifsr.de";
-        forceSSL = true;
-        enableACME = true;
-      };
+#      virtualHost = {
+#        hostName = "wiki.quitte.tassilo-tanneberger.de";
+#        adminAddr = "root@ifsr.de";
+#        forceSSL = true;
+#        enableACME = true;
+#      };
+
+	virtualHost = {
+    	  hostName = "wiki.quitte.tassilo-tanneberger.de";
+    	  adminAddr = "root@ifsr.de";
+  	  #forceSSL = true;
+          #enableACME = true;
+  	};
+
+	virtualHost.listen = [
+  	  {
+    	    ip = "127.0.0.1";
+    	    port = 8080;
+    	    ssl = false;
+  	  }
+	];
 
       extraConfig = ''
-        $wgArticlePath = '/$1';
+	$wgDBport = "5432";
+	$wgDBmwschema = "mediawiki";
 
-        $wgShowExceptionDetails = true;
-        $wgDBserver = "${config.services.mediawiki.database.socket}";
-        $wgDBmwschema       = "mediawiki";
+	$wgDBserver = "localhost";
+	$wgDBname = "mediawiki";
+
+
+        /////// $wgArticlePath = '/$1';
 
         // $wgLogo =  "https://www.c3d2.de/images/ck.png";
         $wgEmergencyContact = "root@ifsr.de";
@@ -87,10 +116,10 @@
         $wgPluggableAuth_EnableLocalLogin = true;
       '';
       extensions = {
-        Cite = pkgs.fetchzip {
-          url = "https://web.archive.org/web/20220627203658/https://extdist.wmflabs.org/dist/extensions/Cite-REL1_38-d40993e.tar.gz";
-          sha256 = "sha256-dziMo6sH4yMPjnDtt0TXiGBxE5uGRJM+scwdeuer5sM=";
-        };
+        #Cite = pkgs.fetchzip {
+        #  url = "https://web.archive.org/web/20220627203658/https://extdist.wmflabs.org/dist/extensions/Cite-REL1_38-d40993e.tar.gz";
+        #  sha256 = "sha256-dziMo6sH4yMPjnDtt0TXiGBxE5uGRJM+scwdeuer5sM=";
+        #};
         CiteThisPage = pkgs.fetchzip {
           url = "https://web.archive.org/web/20220627203556/https://extdist.wmflabs.org/dist/extensions/CiteThisPage-REL1_38-bb4881c.tar.gz";
           sha256 = "sha256-sTZMCLlOkQBEmLiFz2BQJpWRxSDbpS40EZQ+f/jFjxI=";
@@ -132,10 +161,10 @@
           url = "https://web.archive.org/web/20220807185047/https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_38-126bad8.tar.gz";
           sha256 = "sha256-cdJdhj7+qisVVePuyKDu6idoUy0+gYo3zMN0y6weH84=";
         };
-        Scribunto = pkgs.fetchzip {
-          url = "https://web.archive.org/web/20220627202748/https://extdist.wmflabs.org/dist/extensions/Scribunto-REL1_38-9b9271a.tar.gz";
-          sha256 = "sha256-4sy2ZCnDFzx43WzfS4Enh+I0o0+sFl1RnNV4xGiyU0k=";
-        };
+        #Scribunto = pkgs.fetchzip {
+        #  url = "https://web.archive.org/web/20220627202748/https://extdist.wmflabs.org/dist/extensions/Scribunto-REL1_38-9b9271a.tar.gz";
+        #  sha256 = "sha256-4sy2ZCnDFzx43WzfS4Enh+I0o0+sFl1RnNV4xGiyU0k=";
+        #};
         SyntaxHightlight = pkgs.fetchzip {
           url = "https://web.archive.org/web/20220627203440/https://extdist.wmflabs.org/dist/extensions/SyntaxHighlight_GeSHi-REL1_38-79031cd.tar.gz";
           sha256 = "sha256-r1NgrhSratleQ356imxmF7KmAANvWvKpAgnLkm8IdKY=";
@@ -156,6 +185,20 @@
         "mediawiki"
       ];
     };
+    nginx = {
+      recommendedProxySettings = true;
+      virtualHosts = {
+        "wiki.quitte.tassilo-tanneberger.de" = {
+          enableACME = true;
+          forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:8080";
+            proxyWebsockets = true;
+          };
+        };
+      };
+    };
+
   };
   systemd.services.mediawiki-pgsetup = {
     description = "Prepare Mediawiki postgres database";
