@@ -31,6 +31,7 @@ in {
       };
       owncast = {
         enable = true;
+        port = 13142;
       };
   };
 }
