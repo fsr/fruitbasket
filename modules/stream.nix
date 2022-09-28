@@ -1,8 +1,7 @@
 {pkgs, lib, config, ...}: 
 let 
-  website = pkgs.fetchFromGitHub {
-    owner = "fsr";
-    repo = "ese20-ansible";
+  website = pkgs.fetchgit {
+    url = "ssh+git://git@github.com:fsr/fruitbasket.git";
     rev = "1b380f3bfd48aae2a17aefbbdd0538f09b7d3bcf";
     sha256 = "";
   };
