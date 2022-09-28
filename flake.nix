@@ -62,6 +62,7 @@
             ./modules/nginx.nix
             ./modules/hedgedoc.nix
             ./modules/wiki.nix
+            ./modules/stream.nix
             {
               sops.defaultSopsFile = ./secrets/durian.yaml;
             }

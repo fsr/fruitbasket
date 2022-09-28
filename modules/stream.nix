@@ -1,6 +1,6 @@
 {pkgs, lib, config, ...}: 
 let 
-  website = fetchFromGithub {
+  website = pkgs.fetchFromGitHub {
     owner = "fsr";
     repo = "ese20-ansible";
     rev = "1b380f3bfd48aae2a17aefbbdd0538f09b7d3bcf";
@@ -24,11 +24,10 @@ in {
             locations."/" = let 
               cfg = config.services.owncast;  
             in {
-              proxyPass = "http://${toString cfg.listen}:${toString cfg.post}";
+              proxyPass = "http://${toString cfg.listen}:${toString cfg.port}";
               proxyWebsockets = true;
             };
           };
-        };
         };
       };
       owncast = {
