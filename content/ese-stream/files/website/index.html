@@ -1,0 +1,138 @@
+<html>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+  <script type="text/javascript" src="clappr.min.js"></script>
+  <script type="text/javascript" src="level-selector.min.js"></script>
+  <title>ESE 2021 Livestream</title>
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">ESE 2021 Livestream</a>
+    <span class="navbar-text mr-auto" id="streamtitle"></span>
+    <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#infoModal">Ext. Player/Audio Only</button>
+  </nav>
+  
+  <!-- The player will be in here -->
+  <div class="container-fluid fill">
+    <div id="player"></div>
+  </div>
+  
+  <!-- Info Dialog -->
+  <div class="modal fade" id="infoModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Externe Player und Nur-Audio-Stream</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4>Videostream im externen Player</h4>
+          <p>Um diesen Stream in VLC zu öffnen, nutze die folgende Netzwerkadresse:</p>
+          <p><code id="urlStream">unset</code></p>
+          <h4>Nur-Audio-Stream</h4>
+          <audio id="audioPlayer" controls>
+          </audio>
+          <p>Um den Audiostream in VLC zu öffnen, nutze die folgende Netzwerkadresse:</p>
+          <p><code id="urlAudio">unset</code></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Player and other script stuff -->
+  <script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var streamName = "stream/main";
+    var availableMirrors = ['bei.ese', 'nan.ese'];
+
+    var mirror;
+    if(urlParams.get('mirror')){
+      mirror = urlParams.get('mirror')
+    }
+    else{
+      mirror = availableMirrors[Math.floor(Math.random() * availableMirrors.length)];
+    }
+    
+    var targetPlayerElement = "#player";
+    var posterImage = "poster.png";
+    var offlineContent = "<div class='offlineImg'></div>";
+    var streamURL = 'https://' + mirror + '.ifsr.de/' + streamName + '.m3u8';
+    var audioURL = 'https://' + mirror + '.ifsr.de/' + streamName;
+    var isLive = false;
+
+    $('#streamtitle').html('#' + streamName + ' (Mirror: ' + mirror + ')');
+    $('#urlStream').html(streamURL);
+    $('#urlAudio').html(audioURL);
+    $('#audioPlayer').html('<source src="' + audioURL + '" type="audio/mpeg">');
+
+    function getClapprPlayer() {
+      return new Clappr.Player({
+        source: streamURL,
+        autoPlay: true,
+        mute: true,
+        parentId: targetPlayerElement,
+        width: "100%",
+        height: "100%",
+        poster: posterImage,
+        mediacontrol: {seekbar: "#4a7aac", buttons: "#4a7aac"},
+        hlsMinimumDvrSize: 0,
+        hlsjsConfig: {
+          liveSyncDurationCount: 2
+        },
+        plugins: [LevelSelector],
+        levelSelectorConfig: {
+          title: 'Quality',
+          labels: {
+            1: 'High',
+            0: 'Low',
+          }
+        }
+      });
+    }
+    
+    function checkLive() {
+      var player;
+      console.log("Checking stream status...");
+      $.ajax({
+        
+        url: streamURL, //stream url
+        success: function(data){
+          if(!isLive)
+          {
+            $(targetPlayerElement).empty();
+            isLive = true;
+            player = getClapprPlayer();
+            console.log("Stream is running; creating player");
+            
+          }
+        },
+        error: function(data){
+          if(isLive)
+          {
+            isLive = false;
+            $(targetPlayerElement).empty();
+            $(targetPlayerElement).html(offlineContent);
+          }
+          if(!isLive)
+          $(targetPlayerElement).html(offlineContent);
+        },
+      })
+      setTimeout(checkLive, 10000);
+    }
+
+    checkLive();
+    
+  </script>
+</body>
+</html>

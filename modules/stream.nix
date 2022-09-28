@@ -13,7 +13,7 @@ in {
             enableACME = true;
             forceSSL = true;
             locations."/" = {
-              root = "${website}/roles/stream_frontend/";
+              root = "${../content/ese-stream/files/website}/";
               proxyWebsockets = true;
             };
           };

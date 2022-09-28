@@ -1,0 +1,17 @@
+- name: require nginx
+  include_role:
+    name: nginx
+- name: apply nginx config template to /etc/nginx/conf.d/stream_frontend.conf
+  template:
+    src: stream_frontend.conf.j2
+    dest: /etc/nginx/conf.d/stream_frontend.conf
+  notify: restart nginx
+- name: copy streaming website
+  copy:
+    src: "{{ item }}"
+    dest: "/var/www/{{ stream_frontend_nginx_url }}/"
+    owner: www-data
+  with_fileglob:
+  - "website/*"
+
+
