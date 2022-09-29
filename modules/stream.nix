@@ -17,7 +17,7 @@ in {
               proxyWebsockets = true;
             };
           };
-          "owncast.quitte.tassilo-tanneberger.de" = {
+          "stream.ifsr.de" = {
             enableACME = true;
             forceSSL = true;
             locations."/" = let 
@@ -32,6 +32,7 @@ in {
       owncast = {
         enable = true;
         port = 13142;
+	openFirewall = true;
       };
   };
 }
