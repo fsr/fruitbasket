@@ -50,12 +50,33 @@
     bat
     git
     htop
+    fd
     ripgrep
     tldr
     tmux
     usbutils
     wget
     neovim
+    nmap
+    tcpdump
+    bat
+	dig
+	ethtool
+	iftop
+ipcalc
+iperf3
+ipv6calc
+lsof
+ltrace
+strace
+mtr
+traceroute
+smartmontools
+sysstat
+tree
+whois
+	exa
+	zsh	
   ];
 }
 

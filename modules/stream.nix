@@ -28,11 +28,20 @@ in {
             };
           };
         };
+        streamConfig = ''
+          server {
+		listen            1935;
+		proxy_pass        [::1]:1935;
+		proxy_buffer_size 32k;
+	  }
+        '';
       };
       owncast = {
         enable = true;
         port = 13142;
+	listen = "[::ffff:127.0.0.1]";
 	openFirewall = true;
+	rtmp-port = 1935;
       };
   };
 }

@@ -1,0 +1,4 @@
+time="2022-09-30T18:42:45+02:00" level=info msg="Owncast v0.0.11-dev (20220930)"
+time="2022-09-30T18:42:45+02:00" level=info msg="Video transcoder started using x264 with 1 stream variants."
+time="2022-09-30T18:42:45+02:00" level=info msg="RTMP is accepting inbound streams on port 1935."
+time="2022-09-30T18:42:45+02:00" level=fatal msg="listen tcp :1935: bind: address already in use"
