@@ -9,14 +9,6 @@ in {
   services = {
     nginx = {
       virtualHosts = {
-        "stream-frontend.quitte.tassilo-tanneberger.de" = {
-            enableACME = true;
-            forceSSL = true;
-            locations."/" = {
-              root = "${../content/ese-stream/files/website}/";
-              proxyWebsockets = true;
-            };
-          };
           "stream.ifsr.de" = {
             enableACME = true;
             forceSSL = true;
@@ -28,13 +20,13 @@ in {
             };
           };
         };
-        streamConfig = ''
-          server {
-		listen            1935;
-		proxy_pass        [::1]:1935;
-		proxy_buffer_size 32k;
-	  }
-        '';
+        #streamConfig = ''
+        #  server {
+        #  listen            1935;
+        #  proxy_pass        [::1]:1935;
+        #  proxy_buffer_size 32k;
+        #}
+        #'';
       };
       owncast = {
         enable = true;
