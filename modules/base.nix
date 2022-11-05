@@ -29,12 +29,12 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAmb1kv+7HU1QKE53+gNxUhrggbwomC40Xjxd9hACkoo bennofs@d-cube"
     ];
     keyFiles = [
-      ./keys/marcus-sapphire
-      ./keys/schrader
-      ./keys/jannusch
-      ./keys/jannusch-arch
-      ./keys/tassilo
-      ./keys/jonasga
+      ../keys/ssh/marcus-sapphire
+      ../keys/ssh/schrader
+      ../keys/ssh/jannusch
+      ../keys/ssh/jannusch-arch
+      ../keys/ssh/tassilo
+      ../keys/ssh/jonasga
     ];
   };
 
