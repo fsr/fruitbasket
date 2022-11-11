@@ -27,6 +27,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDdOcXORg+akeN2t3yZlKWdoTURKxtV29eQ7UrIMkCHv felix@entropy"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH73n+ZfJqNzIh9rPh6JYQaI4OAw9WKkPeqj2XRFmRfQ pascal@ifsr.de"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAmb1kv+7HU1QKE53+gNxUhrggbwomC40Xjxd9hACkoo bennofs@d-cube"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA0X6L7NwTHiOmFzo8mJBCy6H+DKUePAAXU4amm32DAQ fugi@arch"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHD1ZkrAmC9g5eJPDgv4zuEM+UIIEWromDzM1ltHt4TM fugi@macbook"
     ];
     keyFiles = [
       ../keys/ssh/marcus-sapphire
