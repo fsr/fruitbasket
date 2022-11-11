@@ -29,6 +29,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAmb1kv+7HU1QKE53+gNxUhrggbwomC40Xjxd9hACkoo bennofs@d-cube"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA0X6L7NwTHiOmFzo8mJBCy6H+DKUePAAXU4amm32DAQ fugi@arch"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHD1ZkrAmC9g5eJPDgv4zuEM+UIIEWromDzM1ltHt4TM fugi@macbook"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICBtP2ltExnQL5llOvfSKp6OCZKbPWsa2s6P0i00XyrH helene_emilia.hausmann@mailbox.tu-dresden.de"
     ];
     keyFiles = [
       ../keys/ssh/marcus-sapphire
@@ -38,6 +39,7 @@
       ../keys/ssh/tassilo
       ../keys/ssh/jonasga
       ../keys/ssh/rouven
+      ../keys/ssh/helene
     ];
   };
 
@@ -66,18 +68,18 @@
 	dig
 	ethtool
 	iftop
-ipcalc
-iperf3
-ipv6calc
-lsof
-ltrace
-strace
-mtr
-traceroute
-smartmontools
-sysstat
-tree
-whois
+    ipcalc
+    iperf3
+    ipv6calc
+    lsof
+    ltrace
+    strace
+    mtr
+    traceroute
+    smartmontools
+    sysstat
+    tree
+    whois
 	exa
 	zsh	
   ];
