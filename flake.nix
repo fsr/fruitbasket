@@ -10,7 +10,8 @@
     let
     in {
       #packages."aarch64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
-      #packages."x86_64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
+      packages."x86_64-linux".quitte = self.nixosConfigurations.quitte.config.system.build.vm;
+      packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;
 
       nixosConfigurations = {
         birne = nixpkgs.lib.nixosSystem {
@@ -64,6 +65,25 @@
             ./modules/wiki.nix
             ./modules/stream.nix
             {
+              sops.defaultSopsFile = ./secrets/quitte.yaml;
+            }
+          ];
+        };
+        quitte-vm = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            inputs.sops-nix.nixosModules.sops
+            ./modules/base.nix
+            ./modules/sops.nix
+            ./modules/keycloak.nix
+            ./modules/nginx.nix
+            ./modules/hedgedoc.nix
+            ./modules/wiki.nix
+            ./modules/stream.nix
+            ./modules/vm.nix
+            "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+            {
+              _module.args.buildVM = true;
               sops.defaultSopsFile = ./secrets/durian.yaml;
             }
           ];
