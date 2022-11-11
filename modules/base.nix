@@ -37,6 +37,7 @@
       ../keys/ssh/jannusch-arch
       ../keys/ssh/tassilo
       ../keys/ssh/jonasga
+      ../keys/ssh/rouven
     ];
   };
 
