@@ -38,6 +38,7 @@
       ../keys/ssh/jannusch-arch
       ../keys/ssh/tassilo
       ../keys/ssh/jonasga
+      ../keys/ssh/rouven
       ../keys/ssh/helene
     ];
   };
@@ -67,18 +68,18 @@
 	dig
 	ethtool
 	iftop
-ipcalc
-iperf3
-ipv6calc
-lsof
-ltrace
-strace
-mtr
-traceroute
-smartmontools
-sysstat
-tree
-whois
+    ipcalc
+    iperf3
+    ipv6calc
+    lsof
+    ltrace
+    strace
+    mtr
+    traceroute
+    smartmontools
+    sysstat
+    tree
+    whois
 	exa
 	zsh	
   ];
