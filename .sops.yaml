@@ -7,7 +7,7 @@ keys:
    # private key stored in repo, used for test VM
   - &test age1925katzy5gws3f9hnvnlwspu6trxf488arwt6ayw3urg2mgumqhszxnmqh 
 creation_rules:
-  - path_regex: secrets/durian\.yaml$
+  - path_regex: secrets/quitte\.yaml$
     key_groups:
       - pgp:
         - *bennofs
@@ -15,7 +15,7 @@ creation_rules:
         - *felix
         age:
         - *durian
-  - path_regex: secrets\.test\.yaml$
+  - path_regex: secrets/test\.yaml$
     key_groups:
       - pgp:
         - *bennofs

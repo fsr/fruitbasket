@@ -38,7 +38,7 @@
       ../keys/ssh/jannusch-arch
       ../keys/ssh/tassilo
       ../keys/ssh/jonasga
-      ../keys/shh/helene
+      ../keys/ssh/helene
     ];
   };
 

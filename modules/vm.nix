@@ -6,6 +6,7 @@
   ];
 
   users.users.root.hashedPassword = "";
+  users.users.root.initialPassword = "";
   users.mutableUsers = false;
 
   networking.useDHCP = lib.mkForce false;
@@ -14,11 +15,12 @@
   };
   networking.defaultGateway = lib.mkForce null;
 
-  sops.defaultSopsFile = lib.mkForce ../secrets/quitte-vm.yaml;
+  sops.defaultSopsFile = lib.mkForce ../secrets/test.yaml;
   sops.age.sshKeyPaths = lib.mkForce [ ];
   sops.gnupg.sshKeyPaths = lib.mkForce [ ];
-  sops.age.keyFile = lib.mkForce "${../keys/gpg/test.age}";
+  sops.age.keyFile = lib.mkForce "${../keys/test.age}";
   sops.age.generateKey = lib.mkForce false;
+
 
   # don't use production endpoint for test vm, to avoid rate limiting
   security.acme.defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
