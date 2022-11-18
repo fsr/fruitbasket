@@ -60,7 +60,7 @@
             ./modules/sops.nix
             ./modules/keycloak.nix
             ./modules/nginx.nix
-            #./modules/hedgedoc.nix
+            ./modules/hedgedoc.nix
             ./modules/wiki.nix
             ./modules/stream.nix
             ./modules/nextcloud.nix
@@ -77,7 +77,7 @@
             ./modules/base.nix
             ./modules/keycloak.nix
             ./modules/nginx.nix
-            #./modules/hedgedoc.nix
+            ./modules/hedgedoc.nix
             ./modules/wiki.nix
             ./modules/stream.nix
             ./modules/vm.nix
