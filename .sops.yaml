@@ -2,6 +2,11 @@ keys:
   - &bennofs B8E1727497FC48AA14158BDF947F769D7B95EC2B
   - &felix F8634A1CFF7D61608503A70B24363525EA0E8A99
   - &revol-xut 91EBE87016391323642A6803B966009D57E69CC6
+  - &simon 47E7559E037A35652DBBF8AA8D3C82F9F309F8EC
+  - &rouven 116987A8DD3F78FF8601BF4DB95E8FE6B11C4D09
+  - &helene B43C3A8A92CA28486AC6C4E2F115100C787C1C19
+  - &fugi BF37903AE6FD294C4C674EE24472A20091BFA792
+  - &emmanuel E83F398E6423179FE4F63D4FF085CAD394DE329D
   - &durian age18g49g3hv0lvck9k767qevnyuzzwc7fnzcvun4e453vruv5zmufjscwep3q
 
    # private key stored in repo, used for test VM
@@ -12,7 +17,12 @@ creation_rules:
       - pgp:
         - *bennofs
         - *revol-xut
-        - *felix
+        # - *felix
+        - *simon
+        - *rouven
+        - *helene
+        - *fugi
+        - *emmanuel
         age:
         - *durian
   - path_regex: secrets/test\.yaml$
@@ -20,6 +30,11 @@ creation_rules:
       - pgp:
         - *bennofs
         - *revol-xut
-        - *felix
+        # - *felix
+        - *simon
+        - *rouven
+        - *helene
+        - *fugi
+        - *emmanuel
         age:
         - *test
