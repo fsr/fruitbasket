@@ -17,7 +17,7 @@ creation_rules:
       - pgp:
         - *bennofs
         - *revol-xut
-        # - *felix
+        - *felix
         - *simon
         - *rouven
         - *helene
@@ -30,7 +30,7 @@ creation_rules:
       - pgp:
         - *bennofs
         - *revol-xut
-        # - *felix
+        - *felix
         - *simon
         - *rouven
         - *helene
