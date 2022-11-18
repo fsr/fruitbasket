@@ -67,9 +67,9 @@
     nmap
     tcpdump
     bat
-	dig
-	ethtool
-	iftop
+    dig
+    ethtool
+    iftop
     ipcalc
     iperf3
     ipv6calc
@@ -82,8 +82,8 @@
     sysstat
     tree
     whois
-	exa
-	zsh	
+    exa
+    zsh
   ];
 }
 

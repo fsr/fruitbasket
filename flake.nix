@@ -1,5 +1,6 @@
 {
   inputs = {
+    nixpkgs.url = github:nixpkgs/nixos/nixos-22.05;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     fsr-infoscreen.url = github:fsr/infoscreen;

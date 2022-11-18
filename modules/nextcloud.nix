@@ -61,7 +61,7 @@ in
 
   # ensure that postgres is running *before* running the setup
   systemd.services."nextcloud-setup" = {
-    requires = ["postgresql.service"];
-    after = ["postgresql.service"];
+    requires = [ "postgresql.service" ];
+    after = [ "postgresql.service" ];
   };
 }
