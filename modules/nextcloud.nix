@@ -40,8 +40,8 @@ in
         dbtype = "pgsql";
         dbuser = "nextcloud";
         dbhost = "/run/postgresql";
-	dbname = "nextcloud";
-	dbpassFile = config.sops.secrets.postgres_nextcloud.path;
+        dbname = "nextcloud";
+        dbpassFile = config.sops.secrets.postgres_nextcloud.path;
         adminpassFile = config.sops.secrets.nextcloud_adminpass.path;
         adminuser = "root";
       };
