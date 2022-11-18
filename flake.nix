@@ -1,7 +1,5 @@
 {
   inputs = {
-    nixpkgs.url = github:revol-xut/nixpkgs/nixos-22.05;
-    #nixpkgs.url = github:revol-xut/nixpkgs/master;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     fsr-infoscreen.url = github:fsr/infoscreen;
@@ -64,6 +62,7 @@
             ./modules/hedgedoc.nix
             ./modules/wiki.nix
             ./modules/stream.nix
+            ./modules/nextcloud.nix
             {
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
