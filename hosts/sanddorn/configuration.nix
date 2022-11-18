@@ -15,7 +15,7 @@
   };
 
   nix = {
-    autoOptimiseStore = true;
+    settings.auto-optimise-store = true;
   };
 
 
