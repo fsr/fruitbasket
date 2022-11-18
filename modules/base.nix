@@ -42,6 +42,7 @@
       ../keys/ssh/jonasga
       ../keys/ssh/rouven
       ../keys/ssh/helene
+      ../keys/ssh/joachim
     ];
   };
 
