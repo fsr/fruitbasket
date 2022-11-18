@@ -7,6 +7,8 @@ keys:
   - &helene B43C3A8A92CA28486AC6C4E2F115100C787C1C19
   - &fugi BF37903AE6FD294C4C674EE24472A20091BFA792
   - &emmanuel E83F398E6423179FE4F63D4FF085CAD394DE329D
+  - &jonas A4F92BC7B792108A463995827C1F2DA2BC929412
+  - &joachim  B1A16011B86BACB56ADB713DB712039D23133661
   - &durian age18g49g3hv0lvck9k767qevnyuzzwc7fnzcvun4e453vruv5zmufjscwep3q
 
    # private key stored in repo, used for test VM
@@ -23,6 +25,8 @@ creation_rules:
         - *helene
         - *fugi
         - *emmanuel
+        - *joachim
+        - *jonas
         age:
         - *durian
   - path_regex: secrets/test\.yaml$
@@ -36,5 +40,7 @@ creation_rules:
         - *helene
         - *fugi
         - *emmanuel
+        - *joachim
+        - *jonas
         age:
         - *test
