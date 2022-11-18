@@ -30,11 +30,11 @@ in
 
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud25;
+      package = pkgs.nextcloud25; # Use current latest nextcloud package
       hostName = "${domain}";
-      https = true;
+      https = true; # Use https for all urls
       phpExtraExtensions = all: [
-        all.ldap
+        all.ldap # Enable ldap php extension
       ];
       config = {
         dbtype = "pgsql";
@@ -47,6 +47,7 @@ in
       };
     };
 
+    # Enable ACME and force SSL
     nginx = {
       recommendedProxySettings = true;
       virtualHosts = {
