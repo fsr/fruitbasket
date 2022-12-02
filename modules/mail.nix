@@ -1,27 +1,25 @@
 { config, pkgs, ... }:
     let hostname  = "mail.test.stramke.com";
     in {
-        networking.firewall.allowedTCPPorts = [ 25 587 143];
+        networking.firewall.allowedTCPPorts = [ 25 587 143 ];
         services = {
             postfix = {
                 enable = true; 
                 hostname = "${hostname}";
+                domain = "test.stramke.com";
+                relayHost = "";
+                origin = "test.stramke.com";
+                destination = ["mail.test.stramke.com" "test.stramke.com" "localhost"];
                 config = {
-                    myorigin = "mail.test.stramke.com";
-                    mydestination = "127.0.0.1";
+                    mynetworks = "168.119.135.69/32 10.0.0.0/24 0.0.0.0/0 127.0.0.1";
                     smtpd_recipient_restrictions = [
-                               "reject_unauth_destination"
-                               "permit_sasl_authenticated"
-
-                             ];
+                       "reject_unauth_destination"
+                       "permit_sasl_authenticated"
+                       "permit_mynetworks"
+                    ];
                     smtpd_sasl_auth_enable = true;
                     smtpd_sasl_path = "/var/lib/postfix/auth";
-                    smtpd_sasl_type = "dovecot";
-                    smtpd_relay_restrictions = [
-                               "reject_unauth_destination"
-                               # "relay_domains = "${hostname}"
-                               "permit_sasl_authenticated"
-                             ];
+                    # smtpd_sasl_type = "dovecot";
                 };
             };
             dovecot2 = {
@@ -47,9 +45,9 @@
                         };
                       };
                 extraConfig = ''
-                    mail_location = mbox:~/mail:INBOX=/var/mail/%u
-                    # auth_mechanisms = plain login
-                    # disable_plaintext_auth = no
+                    mail_location = maildir:/var/spool/mail/%u
+                    auth_mechanisms = plain login
+                    disable_plaintext_auth = no
                     userdb {
                         driver = passwd
                         args = blocking=no
@@ -60,7 +58,7 @@
                            mode = 0660
                            user = postfix
                         }
-                        user = dovecot2
+                        
                     }
                 '';
             };
