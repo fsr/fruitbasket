@@ -56,7 +56,6 @@ in
       enableACME = true;
       locations = {
         "/".proxyPass = "http://localhost:${toString config.services.portunus.port}";
-        "/dex".proxyPass = "http://localhost:${toString config.services.portunus.dex.port}";
       };
     };
   };
