@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-22.05;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-22.11;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     fsr-infoscreen.url = github:fsr/infoscreen;
@@ -59,6 +59,7 @@
             ./modules/options.nix
             ./modules/base.nix
             ./modules/sops.nix
+            ./modules/ldap.nix
             # ./modules/keycloak.nix replaced by portunus
             ./modules/nginx.nix
             ./modules/hedgedoc.nix
