@@ -3,7 +3,7 @@
 		{
 			"name": "admins",
 			"long-name": "Portunus Admins",
-			"members": [],
+			"members": ["admin"],
 			"permissions": {
 				"portunus": { "is-admin": true },
 				"ldap": { "can-read": true }
