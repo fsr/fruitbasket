@@ -1,9 +1,6 @@
 { config, ... }:
 let
-  # temporary url, zum testen auf laptop zuhause
-  tld = "de";
-  hostname = "ifsr";
-  domain = "auth.staging.${hostname}.${tld}";
+  domain = "auth.${config.fsr.domain}";
 
   portunusUser = "portunus";
   portunusGroup = "portunus";
@@ -45,7 +42,7 @@ in
     ldap = {
       user = "${ldapUser}";
       group = "${ldapGroup}";
-      suffix = "dc=${hostname},dc=${tld}";
+      suffix = "dc=ifsr,dc=de";
       tls = true;
     };
 
