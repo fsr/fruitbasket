@@ -1,18 +1,19 @@
 { config, pkgs, lib, ... }:
 let
-  domain = "staging.ifsr.de";
-  domainServer = "matrix.${domain}";
-  domainClient = "chat.${domain}";
+  domainServer = "matrix.${config.fsr.domain}";
+  domainClient = "chat.${config.fsr.domain}";
+
   clientConfig = {
     "m.homeserver" = {
       base_url = "https://${domainServer}:443";
       server_name = domainServer;
     };
-    "m.identity_server" = {};
+    "m.identity_server" = { };
   };
   serverConfig = {
     "m.server" = "${domainServer}:443";
   };
+
   mkWellKnown = data: ''
     add_header Content-Type application/json;
     add_header Access-Control-Allow-Origin *;
@@ -20,12 +21,12 @@ let
   '';
 in
 {
-  #sops.secrets = {
-  #  synapse_registration_secret = {
-  #    owner = "matrix-synapse";
-  #    group = "matrix-synapse";
-  #  };
-  #};
+  # sops.secrets = {
+  #   synapse_registration_secret = {
+  #     owner = "matrix-synapse";
+  #     group = "matrix-synapse";
+  #   };
+  # };
 
   services = {
     postgresql = {
@@ -92,13 +93,13 @@ in
         # TODO: ldap
         registration_shared_secret = "registration_shared_secret";
       };
-     # extraConfigFiles = [
-     #   (pkgs.writeTextFile {
-     #     name = "matrix-synapse-extra-config.yml";
-     #     text = ''
-     #     '';
-     #   })
-     # ];
+      # extraConfigFiles = [
+      #   (pkgs.writeTextFile {
+      #     name = "matrix-synapse-extra-config.yml";
+      #     text = ''
+      #     '';
+      #   })
+      # ];
     };
   };
 
