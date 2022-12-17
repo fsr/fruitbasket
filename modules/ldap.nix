@@ -46,7 +46,7 @@ in
       tls = true;
     };
 
-    seedPath = "../config/portunus_seeds.json";
+    seedPath = ../config/portunus_seeds.json;
   };
 
   services.nginx = {
