@@ -1,4 +1,5 @@
-{config, ...}: let
+{ config, ... }:
+let
   # temporary url, zum testen auf laptop zuhause
   tld = "moe";
   hostname = "eisvogel";
@@ -9,7 +10,8 @@
 
   ldapUser = "openldap";
   ldapGroup = "openldap";
-in {
+in
+{
   users.users."${portunusUser}" = {
     isSystemUser = true;
     group = "${portunusGroup}";
@@ -17,7 +19,7 @@ in {
 
   users.groups."${portunusGroup}" = {
     name = "${portunusGroup}";
-    members = ["${portunusUser}"];
+    members = [ "${portunusUser}" ];
   };
 
   users.users."${ldapUser}" = {
@@ -27,7 +29,7 @@ in {
 
   users.groups."${ldapGroup}" = {
     name = "${ldapGroup}";
-    members = ["${ldapUser}"];
+    members = [ "${ldapUser}" ];
   };
 
   # TODO: eigenes secrets.yaml für seedfile?
