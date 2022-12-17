@@ -39,6 +39,7 @@ in
     user = "${portunusUser}";
     group = "${portunusGroup}";
     domain = "${domain}";
+    port = 8081;
     ldap = {
       user = "${ldapUser}";
       group = "${ldapGroup}";
