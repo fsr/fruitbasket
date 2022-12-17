@@ -59,6 +59,7 @@
             ./modules/base.nix
             ./modules/sops.nix
             ./modules/keycloak.nix
+            ./modules/ldap.nix
             ./modules/nginx.nix
             ./modules/hedgedoc.nix
             ./modules/wiki.nix
