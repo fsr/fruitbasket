@@ -32,7 +32,6 @@ in
     members = [ "${ldapUser}" ];
   };
 
-  # TODO: eigenes secrets.yaml für seedfile?
   sops.secrets."portunus_admin" = {
     owner = "${portunusUser}";
     group = "${portunusGroup}";
