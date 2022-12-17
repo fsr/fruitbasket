@@ -1,9 +1,9 @@
 { config, ... }:
 let
   # temporary url, zum testen auf laptop zuhause
-  tld = "moe";
-  hostname = "eisvogel";
-  domain = "portunus.${hostname}.${tld}";
+  tld = "de";
+  hostname = "ifsr";
+  domain = "auth.staging.${hostname}.${tld}";
 
   portunusUser = "portunus";
   portunusGroup = "portunus";
@@ -51,13 +51,6 @@ in
     };
 
     seedPath = "../config/portunus_seeds.json";
-  };
-
-  users.ldap = {
-    enable = true;
-    server = "ldaps://${domain}";
-    base = "dc=${hostname},dc=${tld}";
-    # useTLS = true; # nicht nötig weil ldaps domain festgelegt. würde sonst starttls auf port 389 versuchen
   };
 
   services.nginx = {
