@@ -33,7 +33,7 @@ in
   };
 
   # TODO: eigenes secrets.yaml für seedfile?
-  sops.secrets.portunus_seedfile = {
+  sops.secrets."portunus_admin" = {
     owner = "${portunusUser}";
     group = "${portunusGroup}";
   };
