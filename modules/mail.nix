@@ -1,15 +1,17 @@
 { config, pkgs, ... }:
-    let hostname  = "mail.test.stramke.com";
+    let
+        hostname  = "mail.test.stramke.com";
+        domain = "test.stramke.com";
     in {
         networking.firewall.allowedTCPPorts = [ 25 587 143 ];
         services = {
             postfix = {
                 enable = true; 
                 hostname = "${hostname}";
-                domain = "test.stramke.com";
+                domain = "${domain}";
                 relayHost = "";
-                origin = "test.stramke.com";
-                destination = ["mail.test.stramke.com" "test.stramke.com" "localhost"];
+                origin = "${domain}";
+                destination = ["${hostname}" "${domain}" "localhost"];
                 config = {
                     mynetworks = "168.119.135.69/32 10.0.0.0/24 0.0.0.0/0 127.0.0.1";
                     smtpd_recipient_restrictions = [
@@ -61,6 +63,14 @@
                         
                     }
                 '';
+            };
+            rspamd = {
+                enable = true;
+            };
+            opendkim = {
+                enable = true;
+                selector = "mail";
+                domains = "csl:${domain}";
             };
         };
     }
