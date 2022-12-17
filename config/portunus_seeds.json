@@ -1,0 +1,39 @@
+{
+	"groups": [
+		{
+			"name": "admins",
+			"long-name": "Portunus Admins",
+			"members": ["admin"],
+			"permissions": {
+				"portunus": { "is-admin": true },
+				"ldap": { "can-read": true }
+			}
+		},
+		{
+			"name": "ifsr",
+			"long-name": "Mitglieder des ifsr",
+			"members": [],
+			"permissions": {
+				"portunus": { "is-admin": false },
+				"ldap": { "can-read": false }
+			}
+		},
+		{
+			"name": "strukturer",
+			"long-name": "Strukturer des ifsr",
+			"members": [],
+			"permissions": {
+				"portunus": { "is-admin": false },
+				"ldap": { "can-read": false }
+			}
+		}
+	],
+	"users": [
+		{
+			"login_name": "admin",
+			"given_name": "admin",
+			"family_name": "admin",
+			"password": { "from_command": ["/usr/bin/env", "cat", "/run/secrets/portunus_admin"] }
+		}
+	]
+}
