@@ -3,7 +3,8 @@
         hostname  = "mail.test.stramke.com";
         domain = "test.stramke.com";
     in {
-        networking.firewall.allowedTCPPorts = [ 25 587 143 ];
+        networking.firewall.allowedTCPPorts = [ 25 587 143 11334];
+        users.users.postfix.extraGroups = ["rspamd"]; # doesn't seem to work
         services = {
             postfix = {
                 enable = true; 
@@ -13,7 +14,6 @@
                 origin = "${domain}";
                 destination = ["${hostname}" "${domain}" "localhost"];
                 config = {
-                    mynetworks = "168.119.135.69/32 10.0.0.0/24 0.0.0.0/0 127.0.0.1";
                     smtpd_recipient_restrictions = [
                        "reject_unauth_destination"
                        "permit_sasl_authenticated"
@@ -21,7 +21,11 @@
                     ];
                     smtpd_sasl_auth_enable = true;
                     smtpd_sasl_path = "/var/lib/postfix/auth";
-                    # smtpd_sasl_type = "dovecot";
+
+                    # put in opendkim (port 8891) and rspamd (port 11334) as mail filter
+                    smtpd_milters = ["inet:localhost:8891" "/run/rspamd/rspamd.sock"];
+                    non_smtpd_milters = "$smtpd_milters";
+                    milter_default_action = "accept";
                 };
             };
             dovecot2 = {
@@ -69,8 +73,9 @@
             };
             opendkim = {
                 enable = true;
-                selector = "mail";
+                selector = "default";
                 domains = "csl:${domain}";
+                socket = "inet:8891";
             };
         };
     }
