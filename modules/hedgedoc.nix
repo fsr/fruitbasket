@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  domain = "pad.quitte.tassilo-tanneberger.de";
+  domain = "pad.${config.fsr.domain}";
 in
 {
   services = {
