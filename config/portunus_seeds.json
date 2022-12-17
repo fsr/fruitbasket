@@ -2,29 +2,29 @@
 	"groups": [
 		{
 			"name": "admins",
-			"long-name": "Portunus Admins",
+			"long_name": "Portunus Admins",
 			"members": ["admin"],
 			"permissions": {
-				"portunus": { "is-admin": true },
-				"ldap": { "can-read": true }
+				"portunus": { "is_admin": true },
+				"ldap": { "can_read": true }
 			}
 		},
 		{
 			"name": "ifsr",
-			"long-name": "Mitglieder des ifsr",
+			"long_name": "Mitglieder des ifsr",
 			"members": [],
 			"permissions": {
-				"portunus": { "is-admin": false },
-				"ldap": { "can-read": false }
+				"portunus": { "is_admin": false },
+				"ldap": { "can_read": false }
 			}
 		},
 		{
 			"name": "strukturer",
-			"long-name": "Strukturer des ifsr",
+			"long_name": "Strukturer des ifsr",
 			"members": [],
 			"permissions": {
-				"portunus": { "is-admin": false },
-				"ldap": { "can-read": false }
+				"portunus": { "is_admin": false },
+				"ldap": { "can_read": false }
 			}
 		}
 	],
