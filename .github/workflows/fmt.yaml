@@ -21,6 +21,7 @@ jobs:
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
-
+      - run: nix-channel --list
+      - run: nix-channel --add https://nixos.org/channels/nixos-22.11 nixos 
       - run: nix-channel --update
       - run: nix-shell -p nixpkgs-fmt --run 'nixpkgs-fmt . --check'
