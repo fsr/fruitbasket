@@ -10,7 +10,7 @@ on:
 
 jobs:
   check-flake:
-    name: Check Flake
+    name: Nixpkgs Formatting
     runs-on: ubuntu-latest
 
     steps:
@@ -21,8 +21,10 @@ jobs:
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
+
       - run: nix-channel --list
       - run: nix-channel --add https://nixos.org/channels/nixos-22.11 nixos 
       - run: nix-channel --update
       - run: nix-channel --list
+      - run: nix shell nixpkgs#nixpkgs-fmt -c nixpkgs-fmt . --check
       - run: nix-shell -p nixpkgs-fmt --run 'nixpkgs-fmt . --check'
