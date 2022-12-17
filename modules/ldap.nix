@@ -3,31 +3,53 @@
   tld = "moe";
   hostname = "eisvogel";
   domain = "portunus.${hostname}.${tld}";
+
+  portunusUser = "portunus";
+  portunusGroup = "portunus";
+
+  ldapUser = "openldap";
+  ldapGroup = "openldap";
 in {
-  # TODO: acme/letsencrypt oder andere lösung?
-  #
-  services.nginx = {
-    enable = true;
-    virtualHosts."${domain}" = {
-      forceSSL = true;
-      enableACME = true;
-      locations = {
-        "/".proxyPass = "http://localhost:${toString config.services.portunus.port}";
-        "/dex".proxyPass = "http://localhost:${toString config.services.portunus.dex.port}";
-      };
-    };
+  users.users."${portunusUser}" = {
+    isSystemUser = true;
+    group = "${portunusGroup}";
+  };
+
+  users.groups."${portunusGroup}" = {
+    name = "${portunusGroup}";
+    members = ["${portunusUser}"];
+  };
+
+  users.users."${ldapUser}" = {
+    isSystemUser = true;
+    group = "${ldapGroup}";
+  };
+
+  users.groups."${ldapGroup}" = {
+    name = "${ldapGroup}";
+    members = ["${ldapUser}"];
+  };
+
+  # TODO: eigenes secrets.yaml für seedfile?
+  sops.secrets.portunus_seedfile = {
+    owner = "${portunusUser}";
+    group = "${portunusGroup}";
   };
 
   services.portunus = {
     enable = true;
+    user = "${portunusUser}";
+    group = "${portunusGroup}";
     domain = "${domain}";
     ldap = {
+      user = "${ldapUser}";
+      group = "${ldapGroup}";
       suffix = "dc=${hostname},dc=${tld}";
       tls = true;
     };
 
-    # TODO: siehe unten sops, statische config
-    # seedPath = "";
+    # TODO: wohin seed file?
+    seedPath = "";
 
     # falls wir das brauchen
     # dex = {
@@ -41,7 +63,20 @@ in {
     enable = true;
     server = "ldaps://${domain}";
     base = "dc=${hostname},dc=${tld}";
-    # useTLS = true; # nicht noetig weil ldaps domain festgelegt. wuerde sonst starttls auf port 389 versuchen
+    # useTLS = true; # nicht nötig weil ldaps domain festgelegt. würde sonst starttls auf port 389 versuchen
+  };
+
+  # TODO: acme/letsencrypt oder andere lösung?
+  services.nginx = {
+    enable = true;
+    virtualHosts."${config.services.portunus.domain}" = {
+      forceSSL = true;
+      enableACME = true;
+      locations = {
+        "/".proxyPass = "http://localhost:${toString config.services.portunus.port}";
+        "/dex".proxyPass = "http://localhost:${toString config.services.portunus.dex.port}";
+      };
+    };
   };
 
   networking.firewall.allowedTCPPorts = [
@@ -49,5 +84,4 @@ in {
     443 # https
     636 # ldaps
   ];
-  # TODO: sops zeug, keine ahnung wie das (ordentlich) gemacht wird/gemacht werden soll
 }
