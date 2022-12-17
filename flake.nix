@@ -56,15 +56,18 @@
           modules = [
             inputs.sops-nix.nixosModules.sops
             ./hosts/quitte/configuration.nix
+            ./modules/options.nix
             ./modules/base.nix
             ./modules/sops.nix
-            ./modules/keycloak.nix
+            # ./modules/keycloak.nix replaced by portunus
             ./modules/nginx.nix
             ./modules/hedgedoc.nix
             ./modules/wiki.nix
             ./modules/stream.nix
             ./modules/nextcloud.nix
             {
+              fsr.enable_office_bloat = false;
+              fsr.domain = "staging.ifsr.de";
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
           ];
@@ -74,8 +77,9 @@
           modules = [
             inputs.sops-nix.nixosModules.sops
             ./hosts/quitte/configuration.nix
+            ./modules/options.nix
             ./modules/base.nix
-            ./modules/keycloak.nix
+            # ./modules/keycloak.nix replaced by portunus
             ./modules/nginx.nix
             ./modules/hedgedoc.nix
             ./modules/wiki.nix

@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  domain = "nc.quitte.fugi.dev";
+  domain = "nc.${config.fsr.domain}";
 in
 {
   sops.secrets = {
