@@ -1,0 +1,34 @@
+{
+	"groups": [
+		{
+			"name": "admins",
+			"long-name": "Portunus Admins",
+			"members": [],
+			"permissions": {
+				"portunus": { "is-admin": true },
+				"ldap": { "can-read": true }
+			}
+		},
+		{
+			"name": "ifsr",
+			"long-name": "Mitglieder des ifsr",
+			"members": [],
+			"permissions": {
+				"portunus": { "is-admin": false },
+				"ldap": { "can-read": false }
+			}
+		},
+		{
+			"name": "strukturer",
+			"long-name": "Strukturer des ifsr",
+			"members": [],
+			"permissions": {
+				"portunus": { "is-admin": false },
+				"ldap": { "can-read": false }
+			}
+		}
+	],
+	"users": [
+		{}
+	]
+}

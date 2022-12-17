@@ -50,15 +50,7 @@ in
       tls = true;
     };
 
-    # TODO: wohin seed file?
-    seedPath = "";
-
-    # falls wir das brauchen
-    # dex = {
-    #   enable = true;
-    #   ...
-    # };
-    # searchUserName = "xxx";
+    seedPath = "../config/portunus_seeds.json";
   };
 
   users.ldap = {
@@ -68,7 +60,6 @@ in
     # useTLS = true; # nicht nötig weil ldaps domain festgelegt. würde sonst starttls auf port 389 versuchen
   };
 
-  # TODO: acme/letsencrypt oder andere lösung?
   services.nginx = {
     enable = true;
     virtualHosts."${config.services.portunus.domain}" = {
