@@ -64,6 +64,7 @@
             ./modules/wiki.nix
             ./modules/stream.nix
             ./modules/nextcloud.nix
+            ./modules/matrix.nix
             {
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
