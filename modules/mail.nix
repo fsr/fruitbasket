@@ -1,10 +1,13 @@
 { config, pkgs, ... }:
 let
-  hostname = "mail.test.stramke.com";
-  domain = "test.stramke.com";
+  hostname = "mail.${config.fsr.domain}";
+  domain = config.fsr.domain;
 in
 {
-  networking.firewall.allowedTCPPorts = [ 25 587 143 ];
+  sops.secrets."rspamd-password".owner = config.users.user.rspamd.name;
+
+  networking.firewall.allowedTCPPorts = [ 25 465 993 ];
+
   services = {
     postfix = {
       enable = true;
@@ -13,6 +16,8 @@ in
       relayHost = "";
       origin = "${domain}";
       destination = [ "${hostname}" "${domain}" "localhost" ];
+      sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
+      sslKey = "/var/lib/acme/${hostname}/key.pem";
       config = {
         smtpd_recipient_restrictions = [
           "reject_unauth_destination"
@@ -21,17 +26,15 @@ in
         ];
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
-
-        # put in opendkim (port 8891) and rspamd (port 11333) as mail filter
-        smtpd_milters = [ "inet:localhost:8891" "inet:localhost:11333" ];
-        non_smtpd_milters = "$smtpd_milters";
-        milter_default_action = "accept";
+        virtual_mailbox_base = "/var/spool/mail";
       };
     };
     dovecot2 = {
       enable = true;
       enableImap = true;
       enableQuota = false;
+      sslServerCert = "/var/lib/acme/${hostname}/fullchain.pem";
+      sslServerKey = "/var/lib/acme/${hostname}/key.pem";
       mailboxes = {
         Spam = {
           auto = "create";
@@ -51,40 +54,35 @@ in
         };
       };
       extraConfig = ''
-        mail_location = maildir:/var/spool/mail/%u
+        mail_location = maildir:/var/mail/%u
         auth_mechanisms = plain login
         disable_plaintext_auth = no
         userdb {
-            driver = passwd
-            args = blocking=no
+          driver = passwd
+          args = blocking=no
         }
         service auth {
-             unix_listener /var/lib/postfix/auth {
+          unix_listener /var/lib/postfix/auth {
                group = postfix
                mode = 0660
                user = postfix
             }
-                        
         }
       '';
     };
     rspamd = {
       enable = true;
-      workers = {
-        normal = {
-          bindSockets = [ "*:11333" ]; # interface for the mailfilter
-        };
-        controller = {
-          bindSockets = [ "*:11334" ]; # webinterface
-        };
+      postfix.enable = true;
+      locals = {
+        "worker-controller.inc".source = config.sops.secrets."rspamd-password".path;
       };
     };
-    opendkim = {
+    nginx = {
       enable = true;
-      selector = "default";
-      domains = "csl:${domain}";
-      socket = "inet:8891";
+      virtualHosts."${hostname}" = {
+        forceSSL = true;
+        enableACME = true;
+      };
     };
   };
 }
-
