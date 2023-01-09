@@ -4,7 +4,7 @@ let
   domain = config.fsr.domain;
 in
 {
-  sops.secrets."rspamd-password".owner = config.users.user.rspamd.name;
+  sops.secrets."rspamd-password".owner = config.users.users.rspamd.name;
 
   networking.firewall.allowedTCPPorts = [ 25 465 993 ];
 
@@ -75,13 +75,41 @@ in
       postfix.enable = true;
       locals = {
         "worker-controller.inc".source = config.sops.secrets."rspamd-password".path;
+        "redis.conf".text = ''
+          read_servers = "127.0.0.1";
+          write_servers = "127.0.0.1";
+        '';
+      };
+    };
+    redis = {
+      vmOverCommit = true;
+      servers.rspamd = {
+        enable = true;
+        port = 6379;
       };
     };
     nginx = {
       enable = true;
+      recommendedGzipSettings = true;
+      recommendedOptimisation = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
+
       virtualHosts."${hostname}" = {
         forceSSL = true;
         enableACME = true;
+        locations = {
+          "/rspamd" = {
+            proxyWebsockets = true;
+
+            # maybe there is a more beautiful way for this
+            extraConfig = ''
+              if ($request_uri ~* "/rspamd/(.*)") {
+                proxy_pass http://127.0.0.1:11334/$1;
+              }
+            '';
+          };
+        };
       };
     };
   };
