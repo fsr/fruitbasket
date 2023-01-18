@@ -29,9 +29,15 @@ in
     members = [ "${ldapUser}" ];
   };
 
-  sops.secrets."portunus_admin" = {
-    owner = "${portunusUser}";
-    group = "${portunusGroup}";
+  sops.secrets = {
+    "portunus_admin" = {
+      owner = "${portunusUser}";
+      group = "${portunusGroup}";
+    };
+    "portunus_search" = {
+      owner = "${portunusUser}";
+      group = "${portunusGroup}";
+    };
   };
 
   services.portunus = {
@@ -40,10 +46,16 @@ in
     group = "${portunusGroup}";
     domain = "${domain}";
     port = 8081;
+
     ldap = {
       user = "${ldapUser}";
       group = "${ldapGroup}";
+
       suffix = "dc=ifsr,dc=de";
+      searchUserName = "search";
+
+      # disables port 389, use 636 with tls
+      # `portunus.domain` resolves to localhost
       tls = true;
     };
 
@@ -60,9 +72,4 @@ in
       };
     };
   };
-
-  networking.firewall.allowedTCPPorts = [
-    80 # http
-    443 # https
-  ];
 }

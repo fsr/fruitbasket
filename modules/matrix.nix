@@ -8,7 +8,6 @@ let
       base_url = "https://${domainServer}:443";
       server_name = domainServer;
     };
-    "m.identity_server" = { };
   };
   serverConfig = {
     "m.server" = "${domainServer}:443";
@@ -21,21 +20,17 @@ let
   '';
 in
 {
-  # sops.secrets = {
-  #   synapse_registration_secret = {
-  #     owner = "matrix-synapse";
-  #     group = "matrix-synapse";
-  #   };
-  # };
+  sops.secrets.matrix_ldap_search = {
+    key = "portunus_search";
+    owner = config.systemd.services.matrix-synapse.serviceConfig.User;
+  };
 
   services = {
     postgresql = {
       enable = true;
-      ensureUsers = [
-        {
-          name = "matrix-synapse";
-        }
-      ];
+      ensureUsers = [{
+        name = "matrix-synapse";
+      }];
     };
 
     nginx = {
@@ -66,6 +61,7 @@ in
           root = pkgs.element-web.override {
             conf = {
               default_server_config = clientConfig;
+              disable_3pid_login = true;
             };
           };
         };
@@ -74,6 +70,10 @@ in
 
     matrix-synapse = {
       enable = true;
+
+      plugins = with config.services.matrix-synapse.package.plugins; [
+        matrix-synapse-ldap3
+      ];
 
       settings = {
         server_name = domainServer;
@@ -89,17 +89,32 @@ in
             compress = false;
           }];
         }];
-
-        # TODO: ldap
-        registration_shared_secret = "registration_shared_secret";
       };
-      # extraConfigFiles = [
-      #   (pkgs.writeTextFile {
-      #     name = "matrix-synapse-extra-config.yml";
-      #     text = ''
-      #     '';
-      #   })
-      # ];
+
+      extraConfigFiles = [
+        (pkgs.writeTextFile {
+          name = "matrix-synapse-extra-config.yml";
+          text = ''
+            # `password_providers` is deprecated but `modules` is not supported yet.
+            password_providers:
+              - module: ldap_auth_provider.LdapAuthProvider
+                config:
+                  enabled: true
+                  # have to use fqdn here for tls (still connects to localhost)
+                  uri: ldaps://auth.nix.fugi.dev:636
+                  base: ou=users,dc=ifsr,dc=de
+                  # taken from kaki config
+                  attributes:
+                    uid: uid
+                    mail: uid
+                    name: cn
+                  bind_dn: uid=search,ou=users,dc=ifsr,dc=de
+                  # TODO: password file not yet supported - update matrix-synapse-ldap3 or use workaround
+                  bind_password: portunus_search
+                  # bind_password_file: ${config.sops.secrets.portunus_search.path}
+          '';
+        })
+      ];
     };
   };
 
@@ -113,7 +128,7 @@ in
 
     path = [ pkgs.sudo config.services.postgresql.package ];
 
-    # create database for synapse. will silently fail if already exists
+    # create database for synapse. will silently fail if it already exists
     script = ''
       sudo -u ${config.services.postgresql.superUser} psql <<SQL
         CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
