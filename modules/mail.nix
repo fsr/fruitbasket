@@ -79,7 +79,13 @@ in
           read_servers = "127.0.0.1";
           write_servers = "127.0.0.1";
         '';
-      };
+        "dkim_signing.conf".text = ''
+          path = "/var/lib/rspamd/dkim/$domain.$selector.key";
+          selector = "quitte";
+          sign_authenticated = true;
+          use_domain = "header";
+        '';
+     };
     };
     redis = {
       vmOverCommit = true;
