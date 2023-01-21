@@ -18,6 +18,10 @@ let
     add_header Access-Control-Allow-Origin *;
     return 200 '${builtins.toJSON data}';
   '';
+
+  # build ldap3 plugin from git because it's very outdated in nixpkgs
+  matrix-synapse-ldap3 = pkgs.python3.pkgs.callPackage ./pkgs/matrix-synapse-ldap3.nix { };
+  # matrix-synapse-ldap3 = config.services.matrix-synapse.package.plugins.matrix-synapse-ldap3;
 in
 {
   sops.secrets.matrix_ldap_search = {
@@ -71,9 +75,7 @@ in
     matrix-synapse = {
       enable = true;
 
-      plugins = with config.services.matrix-synapse.package.plugins; [
-        matrix-synapse-ldap3
-      ];
+      plugins = [ matrix-synapse-ldap3 ];
 
       settings = {
         server_name = domainServer;
@@ -94,24 +96,21 @@ in
       extraConfigFiles = [
         (pkgs.writeTextFile {
           name = "matrix-synapse-extra-config.yml";
-          text = ''
-            # `password_providers` is deprecated but `modules` is not supported yet.
-            password_providers:
-              - module: ldap_auth_provider.LdapAuthProvider
+          text = let portunus = config.services.portunus; in ''
+            modules:
+              - module: ldap_auth_provider.LdapAuthProviderModule
                 config:
                   enabled: true
                   # have to use fqdn here for tls (still connects to localhost)
-                  uri: ldaps://auth.nix.fugi.dev:636
-                  base: ou=users,dc=ifsr,dc=de
+                  uri: ldaps://${portunus.domain}:636
+                  base: ou=users,${portunus.ldap.suffix}
                   # taken from kaki config
                   attributes:
                     uid: uid
                     mail: uid
                     name: cn
-                  bind_dn: uid=search,ou=users,dc=ifsr,dc=de
-                  # TODO: password file not yet supported - update matrix-synapse-ldap3 or use workaround
-                  bind_password: portunus_search
-                  # bind_password_file: ${config.sops.secrets.portunus_search.path}
+                  bind_dn: uid=search,ou=users,${portunus.ldap.suffix}
+                  bind_password_file: ${config.sops.secrets.matrix_ldap_search.path}
           '';
         })
       ];
