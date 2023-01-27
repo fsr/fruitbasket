@@ -2,6 +2,21 @@
 let
   hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
+  ldap-aliases = pkgs.writeText "ldap-aliases.cf" ''
+    server_host = ldaps://auth.${config.fsr.domain}
+    search_base = dc=ifsr, dc=de
+  '';
+  dovecot-ldap-args = pkgs.writeText "ldap-args" ''
+    uris = auth.${config.fsr.domain}
+    dn = uid=search, ou=admins, dc=ifsr, dc=de
+
+    auth_bind = yes
+    ldap_version = 3
+    scope = subtree
+    base = ou=ifsr, dc=ifsr, dc=de
+    user_filter = (&(ou=mail)(uid=%n))
+    pass_filter = (&(ou=mail)(uid=%n))
+  '';
 in
 {
   sops.secrets."rspamd-password".owner = config.users.users.rspamd.name;
@@ -24,6 +39,7 @@ in
           "permit_sasl_authenticated"
           "permit_mynetworks"
         ];
+        alias_maps = [ "ldap:${ldap-aliases}" ];
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
         virtual_mailbox_base = "/var/spool/mail";
@@ -57,9 +73,13 @@ in
         mail_location = maildir:/var/mail/%u
         auth_mechanisms = plain login
         disable_plaintext_auth = no
+        passdb {
+          driver = ldap
+          args = ${dovecot-ldap-args}
+        }
         userdb {
-          driver = passwd
-          args = blocking=no
+          driver = ldap
+          args = ${dovecot-ldap-args}
         }
         service auth {
           unix_listener /var/lib/postfix/auth {
