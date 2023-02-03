@@ -133,7 +133,6 @@ in
           "/" = {
             proxyPass = "http://127.0.0.1:11334";
             proxyWebsockets = true;
-            '';
           };
         };
       };
