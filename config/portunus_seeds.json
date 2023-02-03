@@ -26,6 +26,15 @@
 				"portunus": { "is_admin": false },
 				"ldap": { "can_read": false }
 			}
+		},
+		{
+			"name": "search",
+			"long_name": "LDAP search group",
+			"members": ["search"],
+			"permissions": {
+				"portunus": { "is_admin": false },
+				"ldap": { "can_read": true }
+			}
 		}
 	],
 	"users": [
@@ -34,6 +43,12 @@
 			"given_name": "admin",
 			"family_name": "admin",
 			"password": { "from_command": ["/usr/bin/env", "cat", "/run/secrets/portunus_admin"] }
+		},
+		{
+			"login_name": "search",
+			"given_name": "search",
+			"family_name": "search",
+			"password": { "from_command": ["/usr/bin/env", "cat", "/run/secrets/portunus_search"] }
 		}
 	]
 }

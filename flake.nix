@@ -66,6 +66,7 @@
             ./modules/wiki.nix
             ./modules/stream.nix
             ./modules/nextcloud.nix
+            ./modules/matrix.nix
             {
               fsr.enable_office_bloat = false;
               fsr.domain = "staging.ifsr.de";
