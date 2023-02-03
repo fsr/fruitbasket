@@ -2,18 +2,20 @@
 let
   hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
-  ldap-aliases = pkgs.writeText "ldap-aliases.cf" ''
-    server_host = ldaps://auth.${config.fsr.domain}
-    search_base = dc=ifsr, dc=de
-  '';
+  # brauchen wir das überhaupt?
+  #ldap-aliases = pkgs.writeText "ldap-aliases.cf" ''
+    #server_host = ldap://localhost
+    #search_base = ou=mail, dc=ifsr, dc=de
+  #'';
   dovecot-ldap-args = pkgs.writeText "ldap-args" ''
-    uris = auth.${config.fsr.domain}
-    dn = uid=search, ou=admins, dc=ifsr, dc=de
-
+    uris = ldap://localhost
+    dn = uid=search, ou=users, dc=ifsr, dc=de
     auth_bind = yes
+    dnpass = $(${pkgs.coreutils}/bin/cat /run/secrets/portunus_search)
+
     ldap_version = 3
     scope = subtree
-    base = ou=ifsr, dc=ifsr, dc=de
+    base = dc=ifsr, dc=de
     user_filter = (&(ou=mail)(uid=%n))
     pass_filter = (&(ou=mail)(uid=%n))
   '';
@@ -39,7 +41,7 @@ in
           "permit_sasl_authenticated"
           "permit_mynetworks"
         ];
-        alias_maps = [ "ldap:${ldap-aliases}" ];
+        #alias_maps = [ "ldap:${ldap-aliases}" ];
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
         virtual_mailbox_base = "/var/spool/mail";
@@ -71,8 +73,6 @@ in
       };
       extraConfig = ''
         mail_location = maildir:/var/mail/%u
-        auth_mechanisms = plain login
-        disable_plaintext_auth = no
         passdb {
           driver = ldap
           args = ${dovecot-ldap-args}
