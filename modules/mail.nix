@@ -4,8 +4,8 @@ let
   domain = config.fsr.domain;
   # brauchen wir das überhaupt?
   #ldap-aliases = pkgs.writeText "ldap-aliases.cf" ''
-    #server_host = ldap://localhost
-    #search_base = ou=mail, dc=ifsr, dc=de
+  #server_host = ldap://localhost
+  #search_base = ou=mail, dc=ifsr, dc=de
   #'';
   dovecot-ldap-args = pkgs.writeText "ldap-args" ''
     uris = ldap://localhost
@@ -105,7 +105,7 @@ in
           sign_authenticated = true;
           use_domain = "header";
         '';
-     };
+      };
     };
     redis = {
       vmOverCommit = true;
