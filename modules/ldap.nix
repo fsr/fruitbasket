@@ -62,6 +62,12 @@ in
     seedPath = ../config/portunus_seeds.json;
   };
 
+  users.ldap = {
+    enable = true;
+    server = "ldap://localhost";
+    base = "${config.services.portunus.ldap.suffix}";
+  };
+
   services.nginx = {
     enable = true;
     virtualHosts."${config.services.portunus.domain}" = {
