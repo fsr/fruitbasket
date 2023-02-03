@@ -2,6 +2,7 @@
 let
   hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
+  rspamd-domain = "rspamd.${config.fsr.domain}";
   # brauchen wir das überhaupt?
   #ldap-aliases = pkgs.writeText "ldap-aliases.cf" ''
   #server_host = ldap://localhost
@@ -11,7 +12,7 @@ let
     uris = ldap://localhost
     dn = uid=search, ou=users, dc=ifsr, dc=de
     auth_bind = yes
-    dnpass = $(${pkgs.coreutils}/bin/cat /run/secrets/portunus_search)
+    dnpass = $(${pkgs.coreutils}/bin/cat ${config.sops.secrets."portunus_search".path})
 
     ldap_version = 3
     scope = subtree
@@ -44,7 +45,7 @@ in
         #alias_maps = [ "ldap:${ldap-aliases}" ];
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
-        virtual_mailbox_base = "/var/spool/mail";
+        virtual_mailbox_base = "/var/lib/mail";
       };
     };
     dovecot2 = {
@@ -72,7 +73,7 @@ in
         };
       };
       extraConfig = ''
-        mail_location = maildir:/var/mail/%u
+        mail_location = maildir:/var/lib/mail/%u
         passdb {
           driver = ldap
           args = ${dovecot-ldap-args}
@@ -124,15 +125,14 @@ in
       virtualHosts."${hostname}" = {
         forceSSL = true;
         enableACME = true;
+      };
+      virtualHosts."${rspamd-domain}" = {
+        forceSSL = true;
+        enableACME = true;
         locations = {
-          "/rspamd" = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:11334";
             proxyWebsockets = true;
-
-            # maybe there is a more beautiful way for this
-            extraConfig = ''
-              if ($request_uri ~* "/rspamd/(.*)") {
-                proxy_pass http://127.0.0.1:11334/$1;
-              }
             '';
           };
         };
@@ -140,3 +140,27 @@ in
     };
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
