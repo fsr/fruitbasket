@@ -4,6 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./network.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -12,20 +13,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/";
-  networking.hostId = "a41d87fc";
-
-  networking.interfaces.enp65s0f0np0 = {
-    useDHCP = false;
-    ipv4.addresses = [
-      {
-        address = "141.30.30.169";
-        prefixLength = 25;
-      }
-    ];
-  };
-
-  networking.defaultGateway = "141.30.30.129";
-  networking.nameservers = [ "141.30.1.1" ];
 
   networking.hostName = "quitte"; # Define your hostname.
 
