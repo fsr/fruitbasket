@@ -12,7 +12,7 @@ let
     uris = ldap://localhost
     dn = uid=search, ou=users, dc=ifsr, dc=de
     auth_bind = yes
-    dnpass = $(${pkgs.coreutils}/bin/cat ${config.sops.secrets."portunus_search".path})
+    dnpass = $(${pkgs.coreutils}/bin/cat ${config.sops.secrets."dovecot_ldap_search".path})
 
     ldap_version = 3
     scope = subtree
@@ -23,6 +23,10 @@ let
 in
 {
   sops.secrets."rspamd-password".owner = config.users.users.rspamd.name;
+  sops.secrets."dovecot_ldap_search" = {
+    key = "portunus_search";
+    owner = config.services.dovecot2.user;
+  };
 
   networking.firewall.allowedTCPPorts = [ 25 465 993 ];
 
