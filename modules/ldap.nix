@@ -9,6 +9,12 @@ let
   ldapGroup = "openldap";
 in
 {
+  sops.secrets.unix_ldap_search = {
+    key = "portunus_search";
+    owner = config.systemd.services.nslcd.serviceConfig.User;
+  };
+
+
   users.users."${portunusUser}" = {
     isSystemUser = true;
     group = "${portunusGroup}";
@@ -56,17 +62,31 @@ in
 
       # disables port 389, use 636 with tls
       # `portunus.domain` resolves to localhost
-      tls = true;
+      #tls = true;
     };
 
     seedPath = ../config/portunus_seeds.json;
   };
 
-  users.ldap = {
+  #users.ldap = {
+    #enable = true;
+    #server = "ldap://localhost";
+    #base = "${config.services.portunus.ldap.suffix}";
+  #};
+  users.ldap = let
+    portunus = config.services.portunus;
+    base = "ou=users,${portunus.ldap.suffix}";
+  in {
     enable = true;
     server = "ldap://localhost";
-    base = "${config.services.portunus.ldap.suffix}";
+    base = base;
+    bind = {
+      distinguishedName = "uid=${portunus.ldap.searchUserName},${base}";
+      passwordFile = config.sops.secrets.unix_ldap_search.path;
+    };
+    daemon.enable = true;
   };
+
 
   services.nginx = {
     enable = true;
