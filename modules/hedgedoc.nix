@@ -19,7 +19,7 @@ in
 
     hedgedoc = {
       enable = true;
-      configuration = {
+      settings = {
         port = 3002;
         domain = "${domain}";
         protocolUseSSL = true;
@@ -44,7 +44,7 @@ in
           enableACME = true;
           forceSSL = true;
           locations."/" = {
-            proxyPass = "http://127.0.0.1:${toString config.services.hedgedoc.configuration.port}";
+            proxyPass = "http://[::1]:${toString config.services.hedgedoc.settings.port}";
             proxyWebsockets = true;
           };
         };
