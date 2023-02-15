@@ -101,8 +101,7 @@ in
               - module: ldap_auth_provider.LdapAuthProviderModule
                 config:
                   enabled: true
-                  # have to use fqdn here for tls (still connects to localhost)
-                  uri: ldaps://${portunus.domain}:636
+                  uri: ldap://localhost
                   base: ou=users,${portunus.ldap.suffix}
                   # taken from kaki config
                   attributes:
