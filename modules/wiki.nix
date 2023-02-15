@@ -116,10 +116,6 @@
                 $wgPluggableAuth_EnableLocalLogin = true;
       '';
       extensions = {
-        #Cite = pkgs.fetchzip {
-        #  url = "https://web.archive.org/web/20220627203658/https://extdist.wmflabs.org/dist/extensions/Cite-REL1_38-d40993e.tar.gz";
-        #  sha256 = "sha256-dziMo6sH4yMPjnDtt0TXiGBxE5uGRJM+scwdeuer5sM=";
-        #};
         CiteThisPage = pkgs.fetchzip {
           url = "https://web.archive.org/web/20220627203556/https://extdist.wmflabs.org/dist/extensions/CiteThisPage-REL1_38-bb4881c.tar.gz";
           sha256 = "sha256-sTZMCLlOkQBEmLiFz2BQJpWRxSDbpS40EZQ+f/jFjxI=";
@@ -128,10 +124,6 @@
           url = "https://web.archive.org/web/20220627203619/https://extdist.wmflabs.org/dist/extensions/ConfirmEdit-REL1_38-50f4dfd.tar.gz";
           sha256 = "sha256-babZDzcQDE446TBuGW/olbt2xRbPjk+5o3o9DUFlCxk=";
         };
-        #DynamicPageList = pkgs.fetchzip {
-        #  url = "https://web.archive.org/web/20220627203129/https://extdist.wmflabs.org/dist/extensions/DynamicPageList-REL1_38-3b7a26d.tar.gz";
-        #  sha256 = "sha256-WjVLks0Q9hSN2poqbKzTJhvOXog7UHJqjY2WJ4Uc64o=";
-        #};
         Lockdown = pkgs.fetchzip {
           url = "https://web.archive.org/web/20220627203048/https://extdist.wmflabs.org/dist/extensions/Lockdown-REL1_38-1915db4.tar.gz";
           sha256 = "sha256-YCYsjh/3g2P8oT6IomP3UWjOoggH7jYjiiix7poOYnA=";
@@ -188,7 +180,7 @@
     nginx = {
       recommendedProxySettings = true;
       virtualHosts = {
-        "wiki.quitte.tassilo-tanneberger.de" = {
+        "wiki.${config.fsr.domain}" = {
           enableACME = true;
           forceSSL = true;
           locations."/" = {

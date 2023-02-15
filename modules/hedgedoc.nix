@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  domain = "pad.quitte.tassilo-tanneberger.de";
+  domain = "pad.${config.fsr.domain}";
 in
 {
   services = {
@@ -19,7 +19,7 @@ in
 
     hedgedoc = {
       enable = true;
-      settings = {
+      configuration = {
         port = 3002;
         domain = "${domain}";
         protocolUseSSL = true;
@@ -44,7 +44,7 @@ in
           enableACME = true;
           forceSSL = true;
           locations."/" = {
-            proxyPass = "http://127.0.0.1:${toString config.services.hedgedoc.settings.port}";
+            proxyPass = "http://127.0.0.1:${toString config.services.hedgedoc.configuration.port}";
             proxyWebsockets = true;
           };
         };

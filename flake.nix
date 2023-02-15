@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-22.05;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-22.11;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     fsr-infoscreen.url = github:fsr/infoscreen;
@@ -56,15 +56,21 @@
           modules = [
             inputs.sops-nix.nixosModules.sops
             ./hosts/quitte/configuration.nix
+            ./modules/options.nix
             ./modules/base.nix
             ./modules/sops.nix
-            ./modules/keycloak.nix
+            ./modules/ldap.nix
+            # ./modules/keycloak.nix replaced by portunus
+            ./modules/mail.nix
             ./modules/nginx.nix
-            #./modules/hedgedoc.nix
+            ./modules/hedgedoc.nix
             ./modules/wiki.nix
             ./modules/stream.nix
             ./modules/nextcloud.nix
+            ./modules/matrix.nix
             {
+              fsr.enable_office_bloat = false;
+              fsr.domain = "staging.ifsr.de";
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
           ];
@@ -74,10 +80,11 @@
           modules = [
             inputs.sops-nix.nixosModules.sops
             ./hosts/quitte/configuration.nix
+            ./modules/options.nix
             ./modules/base.nix
-            ./modules/keycloak.nix
+            # ./modules/keycloak.nix replaced by portunus
             ./modules/nginx.nix
-            #./modules/hedgedoc.nix
+            ./modules/hedgedoc.nix
             ./modules/wiki.nix
             ./modules/stream.nix
             ./modules/vm.nix

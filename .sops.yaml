@@ -44,3 +44,16 @@ creation_rules:
         - *jonas
         age:
         - *test
+  - path_regex: secrets/admin\.yaml$
+    key_groups:
+      - pgp:
+        - *bennofs
+        - *revol-xut
+        - *felix
+        - *simon
+        - *rouven
+        - *helene
+        - *fugi
+        - *emmanuel
+        - *joachim
+        - *jonas

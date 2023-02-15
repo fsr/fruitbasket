@@ -10,7 +10,7 @@ in
   services = {
     nginx = {
       virtualHosts = {
-        "stream.ifsr.de" = {
+        "stream.${config.fsr.domain}" = {
           enableACME = true;
           forceSSL = true;
           locations."/" =
