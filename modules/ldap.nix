@@ -69,23 +69,25 @@ in
   };
 
   #users.ldap = {
-    #enable = true;
-    #server = "ldap://localhost";
-    #base = "${config.services.portunus.ldap.suffix}";
+  #enable = true;
+  #server = "ldap://localhost";
+  #base = "${config.services.portunus.ldap.suffix}";
   #};
-  users.ldap = let
-    portunus = config.services.portunus;
-    base = "ou=users,${portunus.ldap.suffix}";
-  in {
-    enable = true;
-    server = "ldap://localhost";
-    base = base;
-    bind = {
-      distinguishedName = "uid=${portunus.ldap.searchUserName},${base}";
-      passwordFile = config.sops.secrets.unix_ldap_search.path;
+  users.ldap =
+    let
+      portunus = config.services.portunus;
+      base = "ou=users,${portunus.ldap.suffix}";
+    in
+    {
+      enable = true;
+      server = "ldap://localhost";
+      base = base;
+      bind = {
+        distinguishedName = "uid=${portunus.ldap.searchUserName},${base}";
+        passwordFile = config.sops.secrets.unix_ldap_search.path;
+      };
+      daemon.enable = true;
     };
-    daemon.enable = true;
-  };
 
 
   services.nginx = {
