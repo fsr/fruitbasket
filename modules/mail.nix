@@ -17,8 +17,8 @@ let
     ldap_version = 3
     scope = subtree
     base = dc=ifsr, dc=de
-    user_filter = (&(ou=mail)(uid=%n))
-    pass_filter = (&(ou=mail)(uid=%n))
+    user_filter = (&(objectClass=posixAccount)(uid=%n))
+    pass_filter = (&(objectClass=posixAccount)(uid=%n))
   '';
 in
 {
