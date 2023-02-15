@@ -41,9 +41,9 @@ in
 
       address = [ "141.30.30.169/25" ];
       routes = [
-          {
-            routeConfig.Gateway = "141.30.30.129";
-          }
+        {
+          routeConfig.Gateway = "141.30.30.129";
+        }
       ];
       networkConfig = {
         DNS = "141.30.1.1";
