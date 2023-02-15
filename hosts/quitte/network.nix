@@ -22,7 +22,7 @@ in
 
   services.resolved = {
     enable = true;
-    dnssec = "false";
+    #dnssec = "false";
     fallbackDns = [ "1.1.1.1" ];
   };
 
@@ -38,9 +38,14 @@ in
     # Interfaces on the machine
     networks."10-ether-bond" = {
       matchConfig.Name = "enp65s0f0np0";
+
+      address = [ "141.30.30.169/25" ];
+      routes = [
+          {
+            routeConfig.Gateway = "141.30.30.129";
+          }
+      ];
       networkConfig = {
-        Address = "141.30.30.169/25";
-        Gateway = "141.30.30.129";
         DNS = "141.30.1.1";
         #IPv6AcceptRA = true;
       };
