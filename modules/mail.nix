@@ -46,7 +46,7 @@ in
         #alias_maps = [ "ldap:${ldap-aliases}" ];
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
-        virtual_mailbox_base = "/var/lib/mail";
+        virtual_mailbox_base = "/var/mail";
       };
     };
     dovecot2 = {
@@ -74,7 +74,7 @@ in
         };
       };
       extraConfig = ''
-        mail_location = maildir:/var/lib/mail/%u
+        mail_location = maildir:/var/mail/%u
         passdb {
           driver = ldap
           args = ${dovecot-ldap-args}
