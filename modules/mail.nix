@@ -3,10 +3,13 @@ let
   hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
   rspamd-domain = "rspamd.${config.fsr.domain}";
+  dkim-selector = "quitte";
   # brauchen wir das überhaupt?
   #ldap-aliases = pkgs.writeText "ldap-aliases.cf" ''
   #server_host = ldap://localhost
-  #search_base = ou=mail, dc=ifsr, dc=de
+  #search_base = dc=ifsr, dc=de
+  #query_filter = (&(objectClass=posixAccount)(uid=%n))
+  #result_attribute=mail
   #'';
   dovecot-ldap-args = pkgs.writeText "ldap-args" ''
     uris = ldap://localhost
@@ -17,8 +20,8 @@ let
     ldap_version = 3
     scope = subtree
     base = dc=ifsr, dc=de
-    user_filter = (&(objectClass=posixAccount)(uid=%n))
-    pass_filter = (&(objectClass=posixAccount)(uid=%n))
+    user_filter = (&(objectClass=posixAccount)(mail=%u))
+    pass_filter = (&(objectClass=posixAccount)(mail=%u))
   '';
 in
 {
@@ -30,22 +33,30 @@ in
   services = {
     postfix = {
       enable = true;
+      enableSubmissions = true;
       hostname = "${hostname}";
       domain = "${domain}";
-      relayHost = "";
       origin = "${domain}";
       destination = [ "${hostname}" "${domain}" "localhost" ];
+      networks = [ "127.0.0.1" "141.30.30.169" ];
       sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslKey = "/var/lib/acme/${hostname}/key.pem";
       config = {
         smtpd_recipient_restrictions = [
-          "reject_unauth_destination"
           "permit_sasl_authenticated"
           "permit_mynetworks"
+          "reject_unauth_destination"
+        ];
+        smtpd_relay_restrictions = [
+          "permit_sasl_authenticated"
+          "permit_mynetworks"
+          "reject_unauth_destination"
         ];
         #alias_maps = [ "ldap:${ldap-aliases}" ];
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
+        smtpd_sasl_type = "dovecot";
+        #mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
         virtual_mailbox_base = "/var/mail";
       };
     };
@@ -53,6 +64,7 @@ in
       enable = true;
       enableImap = true;
       enableQuota = false;
+      #enableLmtp = true;
       sslServerCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslServerKey = "/var/lib/acme/${hostname}/key.pem";
       mailboxes = {
@@ -74,7 +86,7 @@ in
         };
       };
       extraConfig = ''
-        mail_location = maildir:/var/mail/%u
+        mail_location = maildir:/var/mail/%n
         passdb {
           driver = ldap
           args = ${dovecot-ldap-args}
@@ -90,6 +102,13 @@ in
                user = postfix
             }
         }
+        # service lmtp {
+        #   unix_listener dovecot-lmtp {
+        #     group = postfix
+        #     mode = 0660
+        #     user = postfix
+        #   }
+        # }
       '';
     };
     rspamd = {
@@ -102,8 +121,8 @@ in
           write_servers = "127.0.0.1";
         '';
         "dkim_signing.conf".text = ''
-          path = "/var/lib/rspamd/dkim/$domain.$selector.key";
-          selector = "quitte";
+          path = "/var/lib/rspamd/dkim/${domain}.${dkim-selector}.key";
+          selector = ${dkim-selector};
           sign_authenticated = true;
           use_domain = "header";
         '';
@@ -140,27 +159,3 @@ in
     };
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
