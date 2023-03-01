@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
