@@ -3,7 +3,6 @@ let
   hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
   rspamd-domain = "rspamd.${config.fsr.domain}";
-  dkim-selector = "quitte";
   # brauchen wir das überhaupt?
   #ldap-aliases = pkgs.writeText "ldap-aliases.cf" ''
   #server_host = ldap://localhost
@@ -29,6 +28,7 @@ in
   sops.secrets."dovecot_ldap_search".owner = config.services.dovecot2.user;
 
   networking.firewall.allowedTCPPorts = [ 25 465 993 ];
+  users.users.postfix.extraGroups = ["opendkim"];
 
   services = {
     postfix = {
@@ -53,10 +53,11 @@ in
           "reject_unauth_destination"
         ];
         #alias_maps = [ "ldap:${ldap-aliases}" ];
+        smtpd_milters     = [ "local:/run/opendkim/opendkim.sock" ];
+        non_smtpd_milters = [ "local:/var/run/opendkim/opendkim.sock" ];
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
         smtpd_sasl_type = "dovecot";
-        #mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
         virtual_mailbox_base = "/var/mail";
       };
     };
@@ -64,7 +65,6 @@ in
       enable = true;
       enableImap = true;
       enableQuota = false;
-      #enableLmtp = true;
       sslServerCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslServerKey = "/var/lib/acme/${hostname}/key.pem";
       mailboxes = {
@@ -102,13 +102,14 @@ in
                user = postfix
             }
         }
-        # service lmtp {
-        #   unix_listener dovecot-lmtp {
-        #     group = postfix
-        #     mode = 0660
-        #     user = postfix
-        #   }
-        # }
+      '';
+    };
+    opendkim = {
+      enable = true;
+      domains = "csl:${config.fsr.domain}";
+      selector = config.networking.hostName;
+      configFile = pkgs.writeText "opendkim-config" ''
+        UMask                   0117
       '';
     };
     rspamd = {
@@ -119,12 +120,6 @@ in
         "redis.conf".text = ''
           read_servers = "127.0.0.1";
           write_servers = "127.0.0.1";
-        '';
-        "dkim_signing.conf".text = ''
-          path = "/var/lib/rspamd/dkim/${domain}.${dkim-selector}.key";
-          selector = ${dkim-selector};
-          sign_authenticated = true;
-          use_domain = "header";
         '';
       };
     };
