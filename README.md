@@ -27,16 +27,3 @@ nixos-rebuild switch --flake .#<hostname>
   3. Change one letter in one of the yml entries to let sops know it has to regenerate the MAC
   4. Close the file. Open it again and revert the change you just did in step 3.
 </details>
-
-<details>
-  <summary>DKIM Key generation</summary>
-  
-  Commands to create the dkim key:
-  ```bash
-  cd /var/lib/rspamd/dkim
-  ```
-  ```bash
-  DOMAIN=ifsr.de;rspamadm dkim_keygen -d "$DOMAIN" -s quitte -k "$DOMAIN".quitte.key >> "$DOMAIN".quitte.pub
-  ```
-
-</details>
