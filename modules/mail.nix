@@ -28,7 +28,7 @@ in
   sops.secrets."dovecot_ldap_search".owner = config.services.dovecot2.user;
 
   networking.firewall.allowedTCPPorts = [ 25 465 993 ];
-  users.users.postfix.extraGroups = ["opendkim"];
+  users.users.postfix.extraGroups = [ "opendkim" ];
 
   services = {
     postfix = {
@@ -42,10 +42,29 @@ in
       sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslKey = "/var/lib/acme/${hostname}/key.pem";
       config = {
+        smtp_use_tls = true;
+        smtp_tls_security_level = "encrypt";
+        smtpd_use_tls = true;
+        smtpd_tls_security_level = lib.mkForce "encrypt";
+        smtpd_tls_auth_only = true;
+        smtpd_tls_protocols = [
+          "!SSLv2"
+          "!SSLv3"
+          "!TLSv1"
+          "!TLSv1.1"
+        ];
         smtpd_recipient_restrictions = [
           "permit_sasl_authenticated"
           "permit_mynetworks"
           "reject_unauth_destination"
+          "reject_non_fqdn_hostname"
+          "reject_non_fqdn_sender"
+          "reject_non_fqdn_recipient"
+          "reject_unknown_sender_domain"
+          "reject_unknown_recipient_domain"
+          "reject_unauth_destination"
+          "reject_unauth_pipelining"
+          "reject_invalid_hostname"
         ];
         smtpd_relay_restrictions = [
           "permit_sasl_authenticated"
@@ -53,7 +72,7 @@ in
           "reject_unauth_destination"
         ];
         #alias_maps = [ "ldap:${ldap-aliases}" ];
-        smtpd_milters     = [ "local:/run/opendkim/opendkim.sock" ];
+        smtpd_milters = [ "local:/run/opendkim/opendkim.sock" ];
         non_smtpd_milters = [ "local:/var/run/opendkim/opendkim.sock" ];
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
