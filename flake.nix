@@ -83,6 +83,7 @@
             ./hosts/quitte/configuration.nix
             ./modules/options.nix
             ./modules/base.nix
+            ./modules/ldap.nix
             # ./modules/keycloak.nix replaced by portunus
             ./modules/nginx.nix
             ./modules/hedgedoc.nix

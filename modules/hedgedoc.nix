@@ -25,7 +25,6 @@ in
         protocolUseSSL = true;
         dbURL = "postgres://hedgedoc:\${DB_PASSWORD}@localhost:5432/hedgedoc";
         sessionSecret = "\${SESSION_SECRET}";
-        allowAnonymousEdits = true;
         csp = {
           enable = true;
           directives = {
@@ -33,6 +32,26 @@ in
           };
           upgradeInsecureRequest = "auto";
           addDefaults = true;
+        };
+        allowGravatar = false;
+
+        ## authentication
+        # disable email
+        email = false;
+        allowEmailRegister = false;
+        # allow anonymous editing, but not creation of pads
+        allowAnonymous = false;
+        allowAnonymousEdits = true;
+        defaultPermission = "limited";
+        # ldap auth
+        ldap = rec {
+          url = "ldap://localhost";
+          searchBase = "ou=users,${config.services.portunus.ldap.suffix}";
+          searchFilter = "(uid={{username}})";
+          bindDn = "uid=${config.services.portunus.ldap.searchUserName},${searchBase}";
+          bindCredentials = "\${LDAP_CREDENTIALS}";
+          useridField = "uid";
+          providerName = "iFSR";
         };
       };
     };
@@ -52,12 +71,23 @@ in
     };
   };
 
-  sops.secrets.postgres_hedgedoc.owner = config.systemd.services.hedgedoc.serviceConfig.User;
-  sops.secrets.hedgedoc_session_secret.owner = config.systemd.services.hedgedoc.serviceConfig.User;
+  sops.secrets =
+    let
+      user = config.systemd.services.hedgedoc.serviceConfig.User;
+    in
+    {
+      postgres_hedgedoc.owner = user;
+      hedgedoc_session_secret.owner = user;
+      hedgedoc_ldap_search = {
+        key = "portunus_search";
+        owner = user;
+      };
+    };
 
   systemd.services.hedgedoc.preStart = lib.mkBefore ''
     export DB_PASSWORD="$(cat ${config.sops.secrets.postgres_hedgedoc.path})"
     export SESSION_SECRET="$(cat ${config.sops.secrets.hedgedoc_session_secret.path})"
+    export LDAP_CREDENTIALS="$(cat ${config.sops.secrets.hedgedoc_ldap_search.path})"
   '';
   systemd.services.hedgedoc.after = [ "hedgedoc-pgsetup.service" ];
 
