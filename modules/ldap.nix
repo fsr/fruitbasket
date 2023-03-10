@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   domain = "auth.${config.fsr.domain}";
 
@@ -89,6 +89,30 @@ in
       daemon.enable = true;
     };
 
+  security.pam.services.login.text = ''
+    # Account management.
+    account sufficient ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
+    account required pam_unix.so
+
+    # Authentication management.
+    auth sufficient pam_unix.so nullok  likeauth try_first_pass
+    auth sufficient ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so use_first_pass
+    auth required pam_deny.so
+
+    # Password management.
+    password sufficient pam_unix.so nullok sha512
+    password sufficient ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
+
+    # Session management.
+    session required pam_env.so conffile=/etc/pam/environment readenv=0
+    session required pam_unix.so
+    session required pam_loginuid.so
+    session required ${pkgs.linux-pam}/lib/security/pam_lastlog.so silent
+    session optional pam_mkhomedir.so
+    session optional ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
+    session optional ${pkgs.systemd}/lib/security/pam_systemd.so
+
+  '';
 
   services.nginx = {
     enable = true;
