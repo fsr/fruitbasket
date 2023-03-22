@@ -42,6 +42,7 @@ in
       sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslKey = "/var/lib/acme/${hostname}/key.pem";
       config = {
+        home_mailbox = "Maildir/";
         smtp_use_tls = true;
         smtp_tls_security_level = "encrypt";
         smtpd_use_tls = true;
@@ -105,7 +106,6 @@ in
         };
       };
       extraConfig = ''
-        mail_location = maildir:/var/mail/%n
         passdb {
           driver = ldap
           args = ${dovecot-ldap-args}
