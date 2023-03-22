@@ -50,7 +50,7 @@ in
         enableACME = true;
         locations = {
           "/" = {
-            proxyPass = "http://127.0.0.1:443";
+            proxyPass = "http://127.0.0.1:20000";
             proxyWebsockets = true;
           };
         };
