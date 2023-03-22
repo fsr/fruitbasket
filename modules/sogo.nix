@@ -33,6 +33,8 @@ in
 				OCSSessionsFolderURL = "postgresql://sogo:sogo@localhost:5432/sogo/sogo_sessions_folder";
 				
       ''; # Hier ist bindPassword noch nicht vollständig
+      vhostName = "${SOGo-hostname}";
+      timezone = "Europe/Berlin";
     };
     postgresql = {
       ensureUsers = [{
@@ -57,5 +59,5 @@ in
       };
 
     };
-  }
+  };
 }
