@@ -41,6 +41,27 @@ in
       networks = [ "127.0.0.1" "141.30.30.169" ];
       sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslKey = "/var/lib/acme/${hostname}/key.pem";
+      extraAliases = ''
+        # Taken from kaki, maybe we can throw out some at some point
+        # General redirections for pseudo accounts
+        bin:            root
+        daemon:         root
+        named:          root
+        nobody:         root
+        uucp:           root
+        www:            root
+        ftp-bugs:       root
+        postfix:        root
+
+        # Well-known aliases
+        manager:        root
+        dumper:         root
+        operator:       root
+        abuse:          postmaster
+
+        # trap decode to catch security attacks
+        decode:         root
+      '';
       config = {
         home_mailbox = "Maildir/";
         smtp_use_tls = true;
