@@ -78,13 +78,14 @@ in
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
         smtpd_sasl_type = "dovecot";
-        virtual_mailbox_base = "/var/mail";
+        # virtual_mailbox_base = "/var/mail";
       };
     };
     dovecot2 = {
       enable = true;
       enableImap = true;
       enableQuota = false;
+      mailLocation = "maildir:~/Maildir";
       sslServerCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslServerKey = "/var/lib/acme/${hostname}/key.pem";
       mailboxes = {
