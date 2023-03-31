@@ -14,23 +14,6 @@
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
 
       nixosConfigurations = {
-        birne = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/birne/configuration.nix
-
-            ./modules/base.nix
-            ./modules/autoupdate.nix
-            ./modules/desktop.nix
-            ./modules/printing.nix
-            ./modules/wifi.nix
-            ./modules/options.nix
-            {
-              fsr.enable_office_bloat = true;
-            }
-
-          ];
-        };
         sanddorn = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = [
@@ -42,8 +25,6 @@
             ./hosts/sanddorn/configuration.nix
             ./modules/infoscreen.nix
             ./modules/base.nix
-            ./modules/autoupdate.nix
-            ./modules/wifi.nix
             ./modules/desktop.nix
             ./modules/options.nix
             "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
