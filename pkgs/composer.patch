@@ -1,0 +1,82 @@
+diff --git a/composer.json b/composer.json
+index cf446dad6..fb38ca72a 100644
+--- a/composer.json
++++ b/composer.json
+@@ -61,7 +61,8 @@
+         "symfony/http-client": "^4.4",
+         "composer/semver": "^1.4",
+         "rhukster/dom-sanitizer": "^1.0",
+-        "multiavatar/multiavatar-php": "^1.0"
++        "multiavatar/multiavatar-php": "^1.0",
++        "stephank/composer-plugin-nixify": "^1.1"
+     },
+     "require-dev": {
+         "codeception/codeception": "^4.1",
+@@ -91,6 +92,9 @@
+         "apcu-autoloader": true,
+         "platform": {
+             "php": "7.3.6"
++        },
++        "allow-plugins": {
++            "stephank/composer-plugin-nixify": true
+         }
+     },
+     "autoload": {
+diff --git a/composer.lock b/composer.lock
+index 842d0731c..7a12c400b 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "3b106a4d1a271673896d67cbdc8623e1",
++    "content-hash": "62d2afce59081dbbc26cfbbcf2d3ef21",
+     "packages": [
+         {
+             "name": "composer/ca-bundle",
+@@ -2267,6 +2267,44 @@
+             },
+             "time": "2020-12-15T21:32:01+00:00"
+         },
++        {
++            "name": "stephank/composer-plugin-nixify",
++            "version": "v1.1.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/stephank/composer-plugin-nixify.git",
++                "reference": "d93c4348388d714d7d81b41e34ccb2ae9c2131c2"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/stephank/composer-plugin-nixify/zipball/d93c4348388d714d7d81b41e34ccb2ae9c2131c2",
++                "reference": "d93c4348388d714d7d81b41e34ccb2ae9c2131c2",
++                "shasum": ""
++            },
++            "require": {
++                "composer-plugin-api": "^1.1 || ^2.0"
++            },
++            "type": "composer-plugin",
++            "extra": {
++                "class": "Nixify\\Plugin"
++            },
++            "autoload": {
++                "psr-4": {
++                    "Nixify\\": "./src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "BSD-2-Clause"
++            ],
++            "description": "Composer plugin to help with Nix packaging",
++            "homepage": "https://github.com/stephank/composer-plugin-nixify",
++            "support": {
++                "issues": "https://github.com/stephank/composer-plugin-nixify/issues",
++                "source": "https://github.com/stephank/composer-plugin-nixify/tree/v1.1.0"
++            },
++            "time": "2021-09-05T14:46:45+00:00"
++        },
+         {
+             "name": "symfony/console",
+             "version": "v4.4.49",

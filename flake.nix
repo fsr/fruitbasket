@@ -11,26 +11,12 @@
       #packages."aarch64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
       packages."x86_64-linux".quitte = self.nixosConfigurations.quitte-vm.config.system.build.vm;
       packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;
+      packages."x86_64-linux".grav = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/grav.nix { };
+
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
 
+
       nixosConfigurations = {
-        birne = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/birne/configuration.nix
-
-            ./modules/base.nix
-            ./modules/autoupdate.nix
-            ./modules/desktop.nix
-            ./modules/printing.nix
-            ./modules/wifi.nix
-            ./modules/options.nix
-            {
-              fsr.enable_office_bloat = true;
-            }
-
-          ];
-        };
         sanddorn = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = [
@@ -42,8 +28,6 @@
             ./hosts/sanddorn/configuration.nix
             ./modules/infoscreen.nix
             ./modules/base.nix
-            ./modules/autoupdate.nix
-            ./modules/wifi.nix
             ./modules/desktop.nix
             ./modules/options.nix
             "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
@@ -69,6 +53,7 @@
             ./modules/stream.nix
             ./modules/nextcloud.nix
             ./modules/matrix.nix
+            ./modules/website.nix
             {
               fsr.enable_office_bloat = false;
               fsr.domain = "staging.ifsr.de";
@@ -89,6 +74,7 @@
             ./modules/hedgedoc.nix
             ./modules/wiki.nix
             ./modules/stream.nix
+            ./modules/website.nix
             ./modules/vm.nix
             "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
             {
