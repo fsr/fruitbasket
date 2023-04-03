@@ -15,23 +15,23 @@ in
       enable = true;
       language = "German";
       extraConfig = ''
-        WOWorkersCount = 10;
-        SOGoUserSources = ({
-          type = ldap;
-          CNFieldName = cn;
-          UIDFieldName = uid;
-          baseDN = "ou = users, dc=ifsr, dc=de";
-          bindDN = "uid=search, ou=users, dc=ifsr, dc=de";
-          bindPassword = ${config.sops.secrets.SOGo_ldap_search.path}; 
-          hostname = "ldap://localhost";
-          canAuthenticate = YES;
-          id = directory;
+                WOWorkersCount = 10;
+                SOGoUserSources = ({
+                  type = ldap;
+                  CNFieldName = cn;
+                  UIDFieldName = uid;
+                  baseDN = "ou = users, dc=ifsr, dc=de";
+                  bindDN = "uid=search, ou=users, dc=ifsr, dc=de";
+                  bindPassword = ${config.sops.secrets.SOGo_ldap_search.path}; 
+                  hostname = "ldap://localhost";
+                  canAuthenticate = YES;
+                  id = directory;
       
-        });
-        SOGoProfileURL = "postgresql://sogo:sogo@localhost:5432/sogo/sogo_user_profile";    
-				SOGoFolderInfoURL = "postgreql://sogo:sogo@localhost:5432/sogo/sogo_folder_info";
-				OCSSessionsFolderURL = "postgresql://sogo:sogo@localhost:5432/sogo/sogo_sessions_folder";
-				
+                });
+                SOGoProfileURL = "postgresql://sogo:sogo@localhost:5432/sogo/sogo_user_profile";    
+        				SOGoFolderInfoURL = "postgreql://sogo:sogo@localhost:5432/sogo/sogo_folder_info";
+        				OCSSessionsFolderURL = "postgresql://sogo:sogo@localhost:5432/sogo/sogo_sessions_folder";
+        				
       ''; # Hier ist bindPassword noch nicht vollständig
       vhostName = "${SOGo-hostname}";
       timezone = "Europe/Berlin";
