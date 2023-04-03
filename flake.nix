@@ -47,6 +47,7 @@
             ./modules/nginx.nix
             ./modules/hedgedoc.nix
             ./modules/wiki.nix
+            ./modules/ftp.nix
             ./modules/stream.nix
             ./modules/nextcloud.nix
             ./modules/matrix.nix
