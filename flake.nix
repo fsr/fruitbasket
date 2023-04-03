@@ -51,6 +51,7 @@
             ./modules/stream.nix
             ./modules/nextcloud.nix
             ./modules/matrix.nix
+            ./modules/sogo.nix
             {
               fsr.enable_office_bloat = false;
               fsr.domain = "staging.ifsr.de";
@@ -71,6 +72,7 @@
             ./modules/hedgedoc.nix
             ./modules/wiki.nix
             ./modules/stream.nix
+            ./modules/sogo.nix
             ./modules/vm.nix
             "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
             {

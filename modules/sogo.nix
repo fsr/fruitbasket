@@ -4,12 +4,10 @@ let
   domain = config.fsr.domain;
 in
 {
-  sops.secrets.sogo_ldap_search = {
-    key = "portunus_search";
-    # owner = config.systemd.services   keine Ahnung was hier hin soll
-
-
+  sops.secrets.ldap_search = {
+    owner = config.systemd.services.sogo.serviceConfig.User;
   };
+
   services = {
     sogo = {
       enable = true;
@@ -22,7 +20,7 @@ in
                   UIDFieldName = uid;
                   baseDN = "ou = users, dc=ifsr, dc=de";
                   bindDN = "uid=search, ou=users, dc=ifsr, dc=de";
-                  bindPassword = ${config.sops.secrets.SOGo_ldap_search.path}; 
+                  bindPassword = ${config.sops.secrets.ldap_search.path}; 
                   hostname = "ldap://localhost";
                   canAuthenticate = YES;
                   id = directory;
