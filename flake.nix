@@ -44,6 +44,7 @@
             ./modules/ldap.nix
             # ./modules/keycloak.nix replaced by portunus
             ./modules/mail.nix
+            ./modules/mailman.nix
             ./modules/nginx.nix
             ./modules/hedgedoc.nix
             ./modules/wiki.nix
