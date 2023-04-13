@@ -2,6 +2,7 @@
 let
   sogo-hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
+  pg-port = config.services.postgresql.port;
 in
 {
   sops.secrets.ldap_search = {
@@ -29,28 +30,29 @@ in
                   id = directory;
       
                 });
-                SOGoProfileURL = "postgresql://sogo:sogo@localhost:5432/sogo/sogo_user_profile";    
-        		SOGoFolderInfoURL = "postgreql://sogo:sogo@localhost:5432/sogo/sogo_folder_info";
-        		OCSSessionsFolderURL = "postgresql://sogo:sogo@localhost:5432/sogo/sogo_sessions_folder";
+                SOGoProfileURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_user_profile";    
+        		SOGoFolderInfoURL = "postgreql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_folder_info";
+                OCSSessionsFolderURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_sessions_folder";
       ''; # Hier ist bindPassword noch nicht vollständig
       configReplaces = {
-        LDAP_SEARCH = config.sops.secrets.ldap_search.path; 
+        LDAP_SEARCH = config.sops.secrets.ldap_search.path;
+        POSTGRES_PASSWORD = config.sops.secrets.postgres_sogo;
       };
       vhostName = "${sogo-hostname}";
       timezone = "Europe/Berlin";
     };
-      postgresql = {
-        enable = true;
-        ensureUsers = [
-          {
-            name = "sogo";
-            ensurePermissions = {
-              "DATABASE sogo" = "ALL PRIVILEGES";
-            };
-          }
-        ];
-        ensureDatabases = [ "sogo" ];
-      };
+    postgresql = {
+      enable = true;
+      ensureUsers = [
+        {
+          name = "sogo";
+          ensurePermissions = {
+            "DATABASE sogo" = "ALL PRIVILEGES";
+          };
+        }
+      ];
+      ensureDatabases = [ "sogo" ];
+    };
 
     nginx = {
       recommendedProxySettings = true;
