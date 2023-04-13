@@ -2,7 +2,7 @@
 let
   sogo-hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
-  pg-port = config.services.postgresql.port;
+  pg-port = toString config.services.postgresql.port;
 in
 {
   sops.secrets.ldap_search = {
@@ -35,8 +35,8 @@ in
                 OCSSessionsFolderURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_sessions_folder";
       ''; # Hier ist bindPassword noch nicht vollständig
       configReplaces = {
-        LDAP_SEARCH = config.sops.secrets.ldap_search.path;
-        POSTGRES_PASSWORD = config.sops.secrets.postgres_sogo;
+        "LDAP_SEARCH" = config.sops.secrets.ldap_search.path;
+        "POSTGRES_PASSWORD" = config.sops.secrets.postgres_sogo.path;
       };
       vhostName = "${sogo-hostname}";
       timezone = "Europe/Berlin";
