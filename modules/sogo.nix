@@ -22,7 +22,7 @@ in
                   type = ldap;
                   CNFieldName = cn;
                   UIDFieldName = uid;
-                  baseDN = "ou = users, dc=ifsr, dc=de";
+                  baseDN = "ou=users, dc=ifsr, dc=de";
                   bindDN = "uid=search, ou=users, dc=ifsr, dc=de";
                   bindPassword = LDAP_SEARCH;
                   hostname = "ldap://localhost";
