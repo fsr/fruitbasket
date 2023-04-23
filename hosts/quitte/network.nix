@@ -13,7 +13,7 @@ in
     hostId = "a71c81fc";
     enableIPv6 = true;
     useDHCP = true;
-    interfaces.enp65s0f0np0.useDHCP = true;
+    interfaces.ens18.useDHCP = true;
     useNetworkd = true;
 
     firewall.allowedUDPPorts = [ wireguard_port ];
@@ -37,7 +37,7 @@ in
 
     # Interfaces on the machine
     networks."10-ether-bond" = {
-      matchConfig.Name = "enp65s0f0np0";
+      matchConfig.Name = "ens18";
 
       address = [ "141.30.30.169/25" ];
       routes = [
