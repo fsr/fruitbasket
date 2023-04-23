@@ -5,54 +5,22 @@
 
 {
   imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
+    [ (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "megaraid_sas" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    {
-      device = "rpool/nixos/root";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
-
-  fileSystems."/home" =
-    {
-      device = "rpool/nixos/home";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
-
-  fileSystems."/var/lib" =
-    {
-      device = "rpool/nixos/var/lib";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
-
-  fileSystems."/var/log" =
-    {
-      device = "rpool/nixos/var/log";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
+    { device = "/dev/disk/by-uuid/599838c5-49cd-4769-aff1-2236300c097f";
+      fsType = "xfs";
     };
 
   fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/7FE6-F583";
+    { device = "/dev/disk/by-uuid/3F75-65A3";
       fsType = "vfat";
-    };
-
-  fileSystems."/nix" =
-    {
-      device = "rpool/nixos/nix";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
     };
 
   swapDevices = [ ];
@@ -62,10 +30,9 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.eno8303.useDHCP = lib.mkDefault true;
-  # networking.interfaces.eno8403.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp65s0f0np0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp65s0f1np1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.ens18.useDHCP = lib.mkDefault true;
 
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
+
