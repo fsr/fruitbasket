@@ -26,4 +26,8 @@
       };
     };
   };
+  services.nginx.virtualHosts."lists.${config.fsr.domain}" = {
+    enableACME = true;
+    forceSSL = true;
+  };
 }
