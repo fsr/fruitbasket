@@ -41,6 +41,8 @@ in
       networks = [ "127.0.0.1" "141.30.30.169" ];
       sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslKey = "/var/lib/acme/${hostname}/key.pem";
+      relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
+
       extraAliases = ''
         # Taken from kaki, maybe we can throw out some at some point
         # General redirections for pseudo accounts
@@ -99,7 +101,9 @@ in
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
         smtpd_sasl_type = "dovecot";
-        # virtual_mailbox_base = "/var/mail";
+        #mailman stuff
+        transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
+        local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
       };
     };
     dovecot2 = {
