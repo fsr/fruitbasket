@@ -51,6 +51,7 @@
             ./modules/stream.nix
             ./modules/nextcloud.nix
             ./modules/matrix.nix
+            ./modules/mautrix-telegram.nix
             ./modules/sogo.nix
             {
               fsr.enable_office_bloat = false;
