@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   domain = "auth.${config.fsr.domain}";
 
@@ -9,42 +9,22 @@ let
   ldapGroup = "openldap";
 in
 {
-  sops.secrets.unix_ldap_search = {
-    key = "portunus_search";
-    owner = config.systemd.services.nslcd.serviceConfig.User;
-  };
-
-
-  users.users."${portunusUser}" = {
-    isSystemUser = true;
-    group = "${portunusGroup}";
-  };
-
-  users.groups."${portunusGroup}" = {
-    name = "${portunusGroup}";
-    members = [ "${portunusUser}" ];
-  };
-
-  users.users."${ldapUser}" = {
-    isSystemUser = true;
-    group = "${ldapGroup}";
-  };
-
-  users.groups."${ldapGroup}" = {
-    name = "${ldapGroup}";
-    members = [ "${ldapUser}" ];
-  };
-
   sops.secrets = {
-    "portunus_admin" = {
+    "portunus/users/admin-password" = {
       owner = "${portunusUser}";
       group = "${portunusGroup}";
     };
-    "portunus_search" = {
+    "portunus/users/search-password" = {
       owner = "${portunusUser}";
       group = "${portunusGroup}";
+    };
+    "dex/environment" = {
+      owner = config.systemd.services.dex.serviceConfig.User;
+      group = "dex";
     };
   };
+
+  services.dex.settings.oauth2.skipApprovalScreen = true;
 
   services.portunus = {
     enable = true;
@@ -52,7 +32,10 @@ in
     group = "${portunusGroup}";
     domain = "${domain}";
     port = 8081;
-
+    userRegex = "[a-z_][a-z0-9_.-]*\$?";
+    dex = {
+      enable = true;
+    };
     ldap = {
       user = "${ldapUser}";
       group = "${ldapGroup}";
@@ -62,18 +45,47 @@ in
 
       # disables port 389, use 636 with tls
       # `portunus.domain` resolves to localhost
-      #tls = true;
+      tls = true;
     };
 
     seedPath = ../config/portunus_seeds.json;
   };
+  systemd.services.dex.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    EnvironmentFile = config.sops.secrets."dex/environment".path;
+    StateDirectory = "dex";
+    User = "dex";
+  };
 
-  #users.ldap = {
-  #enable = true;
-  #server = "ldap://localhost";
-  #base = "${config.services.portunus.ldap.suffix}";
-  #};
-  users.ldap =
+  users = {
+    groups = {
+      dex = {};
+
+      "${portunusGroup}" = {
+        name = "${portunusGroup}";
+        members = [ "${portunusUser}" ];
+      };
+      "${ldapGroup}" = {
+        name = "${ldapGroup}";
+        members = [ "${ldapUser}" ];
+      };
+    };
+    users = {
+      dex = {
+        group = "dex";
+        isSystemUser = true;
+      };
+      "${portunusUser}" = {
+        isSystemUser = true;
+        group = "${portunusGroup}";
+      };
+
+      "${ldapUser}" = {
+        isSystemUser = true;
+        group = "${ldapGroup}";
+      };
+    };
+    ldap =
     let
       portunus = config.services.portunus;
       base = "ou=users,${portunus.ldap.suffix}";
@@ -84,10 +96,11 @@ in
       base = base;
       bind = {
         distinguishedName = "uid=${portunus.ldap.searchUserName},${base}";
-        passwordFile = config.sops.secrets.unix_ldap_search.path;
+        passwordFile = config.sops.secrets."portunus/users/search-password".path;
       };
       daemon.enable = true;
     };
+  };
 
   security.pam.services.sshd.text = ''
     # Account management.
@@ -123,7 +136,6 @@ in
       };
     };
   };
-
   nixpkgs.overlays = [
     (self: super:
 {
@@ -131,10 +143,11 @@ in
     src = super.fetchFromGitHub {
       owner = "revol-xut";
       repo = "portunus";
-      rev = "4dc29febacb11c613785bc95352fa00e0ca9b14a";
-      sha256 = "sha256-6O2392aHXhgvgZf6ftDY5Bh6hG3OzzCnlriig/Vkkz8=";
+      rev = "8bad0661ecca9276991447f8e585c20c450ad57a";
+      sha256 = "sha256-59AvNWhnsvtrVmAJRcHeNOYOlHCx1ZZSqwFvyAM+Ye8=";
     };
   });
 })
 ];
+
 }
