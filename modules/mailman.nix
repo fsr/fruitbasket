@@ -10,7 +10,10 @@
     webHosts = [ "lists.${config.fsr.domain}" ];
     hyperkitty.enable = true;
     enablePostfix = true;
-    siteOwner = "root@${config.fsr.domain}";
+    siteOwner = "mailman@${config.fsr.domain}";
+    settings = {
+      mta.smtp_secure_mode = "SecureMode.SMTPS";
+    };
     ldap = {
       enable = true;
       serverUri = "ldap://localhost";

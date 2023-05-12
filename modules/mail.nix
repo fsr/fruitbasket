@@ -95,7 +95,7 @@ in
           "permit_mynetworks"
           "reject_unauth_destination"
         ];
-        #alias_maps = [ "ldap:${ldap-aliases}" ];
+        alias_maps = [ "hash:${../config/aliases}" ];
         smtpd_milters = [ "local:/run/opendkim/opendkim.sock" ];
         non_smtpd_milters = [ "local:/var/run/opendkim/opendkim.sock" ];
         smtpd_sasl_auth_enable = true;
