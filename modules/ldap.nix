@@ -63,7 +63,16 @@ in
 
       "${portunusGroup}" = {
         name = "${portunusGroup}";
-        members = [ "${portunusUser}" ];
+        members = [ 
+		"${portunusUser}" 
+		config.systemd.services."matrix-synapse".serviceConfig.User
+		config.systemd.services.sogo.serviceConfig.User
+		config.systemd.services.hedgedoc.serviceConfig.User
+		config.systemd.services.mailman.serviceConfig.User
+		config.systemd.services."mailman-web-setup".serviceConfig.User
+		config.systemd.services.hyperkitty.serviceConfig.User
+		config.systemd.services.nslcd.serviceConfig.User
+	];
       };
       "${ldapGroup}" = {
         name = "${ldapGroup}";

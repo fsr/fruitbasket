@@ -5,11 +5,14 @@ let
   pg-port = toString config.services.postgresql.port;
 in
 {
-  sops.secrets.ldap_search = {
-    owner = config.systemd.services.sogo.serviceConfig.User;
-  };
-  sops.secrets.postgres_sogo = {
-    owner = config.systemd.services.sogo.serviceConfig.User;
+  sops.secrets = {
+    postgres_sogo = {
+      owner = config.systemd.services.sogo.serviceConfig.User;
+    };
+    sogo_ldap_search = {
+      key = "portunus/users/search-password";
+      owner = config.systemd.services.sogo.serviceConfig.User;
+    };
   };
 
   services = {
@@ -35,7 +38,7 @@ in
                 OCSSessionsFolderURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_sessions_folder";
       ''; # Hier ist bindPassword noch nicht vollständig
       configReplaces = {
-        "LDAP_SEARCH" = config.sops.secrets.ldap_search.path;
+        "LDAP_SEARCH" = config.sops.secrets.sogo_ldap_search.path;
         "POSTGRES_PASSWORD" = config.sops.secrets.postgres_sogo.path;
       };
       vhostName = "${sogo-hostname}";
