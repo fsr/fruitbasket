@@ -124,17 +124,17 @@ in
     };
   };
 
-  nixpkgs.overlays = [
-    (self: super:
-{
-  portunus = super.portunus.overrideAttrs (old: {
-    src = super.fetchFromGitHub {
-      owner = "revol-xut";
-      repo = "portunus";
-      rev = "4dc29febacb11c613785bc95352fa00e0ca9b14a";
-      sha256 = "sha256-6O2392aHXhgvgZf6ftDY5Bh6hG3OzzCnlriig/Vkkz8=";
-    };
-  });
-})
-];
+  # nixpkgs.overlays = [
+  #   (self: super:
+  #     {
+  #       portunus = super.portunus.overrideAttrs (old: {
+  #         src = super.fetchFromGitHub {
+  #           owner = "revol-xut";
+  #           repo = "portunus";
+  #           rev = "4dc29febacb11c613785bc95352fa00e0ca9b14a";
+  #           sha256 = "sha256-6O2392aHXhgvgZf6ftDY5Bh6hG3OzzCnlriig/Vkkz8=";
+  #         };
+  #       });
+  #     })
+  # ];
 }
