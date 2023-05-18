@@ -31,7 +31,7 @@ in
     user = "${portunusUser}";
     group = "${portunusGroup}";
     domain = "${domain}";
-    port = 8081;
+    port = 8681;
     userRegex = "[a-z_][a-z0-9_.-]*\$?";
     dex = {
       enable = true;
@@ -45,11 +45,29 @@ in
 
       # disables port 389, use 636 with tls
       # `portunus.domain` resolves to localhost
-      tls = true;
+      # tls = true;
     };
 
     seedPath = ../config/portunus_seeds.json;
   };
+
+
+  services = {
+    dex.settings.oauth2.skipApprovalScreen = true;
+
+    nginx = {
+      enable = true;
+      virtualHosts."${config.services.portunus.domain}" = {
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/".proxyPass = "http://localhost:${toString config.services.portunus.port}";
+          "/dex".proxyPass = "http://localhost:${toString config.services.portunus.dex.port}";
+        };
+      };
+    };
+  };
+
   systemd.services.dex.serviceConfig = {
     DynamicUser = lib.mkForce false;
     EnvironmentFile = config.sops.secrets."dex/environment".path;
@@ -59,20 +77,20 @@ in
 
   users = {
     groups = {
-      dex = {};
+      dex = { };
 
       "${portunusGroup}" = {
         name = "${portunusGroup}";
-        members = [ 
-		"${portunusUser}" 
-        #config.systemd.services."matrix-synapse".serviceConfig.User
-		config.systemd.services.sogo.serviceConfig.User
-		config.systemd.services.hedgedoc.serviceConfig.User
-		config.systemd.services.mailman.serviceConfig.User
-		config.systemd.services."mailman-web-setup".serviceConfig.User
-		config.systemd.services.hyperkitty.serviceConfig.User
-		config.systemd.services.nslcd.serviceConfig.User
-	];
+        members = [
+          "${portunusUser}"
+          #config.systemd.services."matrix-synapse".serviceConfig.User
+          config.systemd.services.sogo.serviceConfig.User
+          config.systemd.services.hedgedoc.serviceConfig.User
+          config.systemd.services.mailman.serviceConfig.User
+          config.systemd.services."mailman-web-setup".serviceConfig.User
+          config.systemd.services.hyperkitty.serviceConfig.User
+          config.systemd.services.nslcd.serviceConfig.User
+        ];
       };
       "${ldapGroup}" = {
         name = "${ldapGroup}";
@@ -95,20 +113,20 @@ in
       };
     };
     ldap =
-    let
-      portunus = config.services.portunus;
-      base = "ou=users,${portunus.ldap.suffix}";
-    in
-    {
-      enable = true;
-      server = "ldap://localhost";
-      base = base;
-      bind = {
-        distinguishedName = "uid=${portunus.ldap.searchUserName},${base}";
-        passwordFile = config.sops.secrets."portunus/users/search-password".path;
+      let
+        portunus = config.services.portunus;
+        base = "ou=users,${portunus.ldap.suffix}";
+      in
+      {
+        enable = true;
+        server = "ldap://localhost";
+        base = base;
+        bind = {
+          distinguishedName = "uid=${portunus.ldap.searchUserName},${base}";
+          passwordFile = config.sops.secrets."portunus/users/search-password".path;
+        };
+        daemon.enable = true;
       };
-      daemon.enable = true;
-    };
   };
 
   security.pam.services.sshd.text = ''
@@ -135,28 +153,18 @@ in
 
   '';
 
-  services.nginx = {
-    enable = true;
-    virtualHosts."${config.services.portunus.domain}" = {
-      forceSSL = true;
-      enableACME = true;
-      locations = {
-        "/".proxyPass = "http://localhost:${toString config.services.portunus.port}";
-      };
-    };
-  };
   nixpkgs.overlays = [
     (self: super:
-{
-  portunus = super.portunus.overrideAttrs (old: {
-    src = super.fetchFromGitHub {
-      owner = "revol-xut";
-      repo = "portunus";
-      rev = "c95528e21782b3477203bc29fc85515f2cb8c8cb";
-      sha256 = "";
-    };
-  });
-})
-];
+      {
+        portunus = super.portunus.overrideAttrs (old: {
+          src = super.fetchFromGitHub {
+            owner = "revol-xut";
+            repo = "portunus";
+            rev = "c95528e21782b3477203bc29fc85515f2cb8c8cb";
+            sha256 = "sha256-CmH0HKr+pNDnw0qfDucQrCixFg7Yh8r7Rt7v9+6pNXc=";
+          };
+        });
+      })
+  ];
 
 }
