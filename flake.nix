@@ -3,9 +3,8 @@
     nixpkgs.url = github:revol-xut/nixpkgs/master;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    fsr-infoscreen.url = github:fsr/infoscreen;
   };
-  outputs = { self, nixpkgs, sops-nix, fsr-infoscreen, ... }@inputs:
+  outputs = { self, nixpkgs, sops-nix, ... }@inputs:
     let
     in {
       #packages."aarch64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
@@ -14,7 +13,7 @@
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
 
       nixosConfigurations = {
-        sanddorn = nixpkgs.lib.nixosSystem {
+        /*sanddorn = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = [
             {
@@ -32,7 +31,7 @@
               fsr.enable_office_bloat = false;
             }
           ];
-        };
+        };*/
         quitte = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
