@@ -152,7 +152,7 @@ in
     src = super.fetchFromGitHub {
       owner = "revol-xut";
       repo = "portunus";
-      rev = "d6fa00e2d2e9c11d9fef2a896f9e4675f932cd08";
+      rev = "c95528e21782b3477203bc29fc85515f2cb8c8cb";
       sha256 = "";
     };
   });
