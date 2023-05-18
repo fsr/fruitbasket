@@ -65,7 +65,7 @@ in
         name = "${portunusGroup}";
         members = [ 
 		"${portunusUser}" 
-		config.systemd.services."matrix-synapse".serviceConfig.User
+        #config.systemd.services."matrix-synapse".serviceConfig.User
 		config.systemd.services.sogo.serviceConfig.User
 		config.systemd.services.hedgedoc.serviceConfig.User
 		config.systemd.services.mailman.serviceConfig.User
@@ -152,8 +152,8 @@ in
     src = super.fetchFromGitHub {
       owner = "revol-xut";
       repo = "portunus";
-      rev = "8bad0661ecca9276991447f8e585c20c450ad57a";
-      sha256 = "sha256-59AvNWhnsvtrVmAJRcHeNOYOlHCx1ZZSqwFvyAM+Ye8=";
+      rev = "d6fa00e2d2e9c11d9fef2a896f9e4675f932cd08";
+      sha256 = "";
     };
   });
 })
