@@ -2,16 +2,16 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1684432464,
-        "narHash": "sha256-AIDPtqkmhAON1T141TGpBLq/RBkc2NcOSKpiv1rPzuo=",
+        "lastModified": 1684588578,
+        "narHash": "sha256-0KgeM/MV/OHR4AdgAomMZXAhNxGztVAqSAwygUYtISU=",
         "owner": "revol-xut",
         "repo": "nixpkgs",
-        "rev": "c0687204c83f132b28a537c74470dd2af0c00416",
+        "rev": "64c9ea63174e215b8a36cf5c34bd087d65e0e4f7",
         "type": "github"
       },
       "original": {
         "owner": "revol-xut",
-        "ref": "master",
+        "ref": "regex-opt",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -46,11 +46,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1684032930,
-        "narHash": "sha256-ueeSYDii2e5bkKrsSdP12JhkW9sqgYrUghLC8aDfYGQ=",
+        "lastModified": 1684571352,
+        "narHash": "sha256-342PCrDSZ70qVX5hwz1M0cYNBdEcIBVzxyjrU/Um3RU=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "a376127bb5277cd2c337a9458744f370aaf2e08d",
+        "rev": "df8b52249e78a0ac33680c9e0b7a029ec22cd8f5",
         "type": "github"
       },
       "original": {

@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = github:revol-xut/nixpkgs/master;
+    nixpkgs.url = github:/revol-xut/nixpkgs/regex-opt;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -53,6 +53,9 @@
             ./modules/matrix.nix
             ./modules/sogo.nix
             {
+              nixpkgs.config.permittedInsecurePackages = [
+                "nodejs-16.20.0"
+              ];
               fsr.enable_office_bloat = false;
               fsr.domain = "staging.ifsr.de";
               sops.defaultSopsFile = ./secrets/quitte.yaml;

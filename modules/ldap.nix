@@ -24,8 +24,6 @@ in
     };
   };
 
-  services.dex.settings.oauth2.skipApprovalScreen = true;
-
   services.portunus = {
     enable = true;
     user = "${portunusUser}";
@@ -37,15 +35,15 @@ in
       enable = true;
     };
     ldap = {
-      user = "${ldapUser}";
-      group = "${ldapGroup}";
+      #user = "${ldapUser}";
+      #group = "${ldapGroup}";
 
       suffix = "dc=ifsr,dc=de";
       searchUserName = "search";
 
       # disables port 389, use 636 with tls
       # `portunus.domain` resolves to localhost
-      # tls = true;
+      tls = false;
     };
 
     seedPath = ../config/portunus_seeds.json;
