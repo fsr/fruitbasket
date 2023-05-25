@@ -30,7 +30,8 @@ in
 
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud25; # Use current latest nextcloud package
+      package = pkgs.nextcloud26; # Use current latest nextcloud package
+      enableBrokenCiphersForSSE = false; # disable the openssl warning
       hostName = "${domain}";
       https = true; # Use https for all urls
       phpExtraExtensions = all: [
