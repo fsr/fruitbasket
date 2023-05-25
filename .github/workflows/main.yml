@@ -27,6 +27,7 @@ jobs:
           name: fruitbasket
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           extraPullNames: nix-community
+          installCommand: "nix-env --quiet -j8 -iA cachix -f https://cachix.org/api/v1/install"
 
       - run: nix build
 
