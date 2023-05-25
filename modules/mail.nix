@@ -198,4 +198,10 @@ in
       };
     };
   };
+  security.acme.certs."${domain}" = {
+    reloadServices = [
+      "postfix.service"
+      "dovecot2.service"
+    ];
+  };
 }
