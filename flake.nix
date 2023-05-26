@@ -17,12 +17,12 @@
           system = "aarch64-linux";
           modules = [
             {
-              nixpkgs.overlays = [ fsr-infoscreen.overlay."aarch64-linux" ];
+              # nixpkgs.overlays = [ fsr-infoscreen.overlay."aarch64-linux" ];
               nixpkgs.config.allowBroken = true;
               sdImage.compressImage = false;
             }
             ./hosts/sanddorn/configuration.nix
-            ./modules/infoscreen.nix
+            # ./modules/infoscreen.nix
             ./modules/base.nix
             ./modules/desktop.nix
             ./modules/options.nix
