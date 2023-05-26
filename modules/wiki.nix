@@ -27,6 +27,7 @@
         host = "localhost";
         port = 5432;
         passwordFile = config.sops.secrets."mediawiki/postgres".path;
+        createLocally = false;
       };
 
       #      virtualHost = {
@@ -36,14 +37,14 @@
       #        enableACME = true;
       #      };
 
-      virtualHost = {
-        hostName = "wiki.quitte.tassilo-tanneberger.de";
+      httpd.virtualHost = {
+        hostName = "wiki.${config.fsr.domain}";
         adminAddr = "root@ifsr.de";
         #forceSSL = true;
         #enableACME = true;
       };
 
-      virtualHost.listen = [
+      httpd.virtualHost.listen = [
         {
           ip = "127.0.0.1";
           port = 8080;

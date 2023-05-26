@@ -11,7 +11,7 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
     # No ZFS on latest kernel:
-    tmpOnTmpfs = true;
+    tmp.useTmpfs = true;
   };
 
   nix = {
