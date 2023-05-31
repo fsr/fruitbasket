@@ -2,6 +2,10 @@
 {
   services.nginx = {
     enable = true;
+    virtualHosts."${config.fsr.domain}" = {
+      enableACME = true;
+      forceSSL = true;
+    };
     appendHttpConfig = ''
       map $remote_addr $remote_addr_anon {
                ~(?P<ip>\d+\.\d+\.\d+)\.    $ip.0;
