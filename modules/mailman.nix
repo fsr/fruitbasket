@@ -12,7 +12,7 @@
     enablePostfix = true;
     siteOwner = "mailman@${config.fsr.domain}";
     settings = {
-      mta.smtp_secure_mode = "SecureMode.SMTPS";
+      mta.smtp_secure_mode = "SecureMode.STARTTLS";
     };
     ldap = {
       enable = true;

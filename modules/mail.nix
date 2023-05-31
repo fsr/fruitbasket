@@ -27,12 +27,13 @@ in
   sops.secrets."rspamd-password".owner = config.users.users.rspamd.name;
   sops.secrets."dovecot_ldap_search".owner = config.services.dovecot2.user;
 
-  networking.firewall.allowedTCPPorts = [ 25 465 993 ];
+  networking.firewall.allowedTCPPorts = [ 25 465 587 993 ];
   users.users.postfix.extraGroups = [ "opendkim" ];
 
   services = {
     postfix = {
       enable = true;
+      enableSubmission = true;
       enableSubmissions = true;
       hostname = "${hostname}";
       domain = "${domain}";
