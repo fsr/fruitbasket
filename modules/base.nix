@@ -34,9 +34,9 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJ7qUGZUjiDhQ6Se+aXr9DbgRTG2tx69owqVMkd2bna simon@mayushii"
     ];
     keyFiles = [
-      ../keys/ssh/marcus-sapphire
-      ../keys/ssh/schrader
-      ../keys/ssh/jannusch
+      #../keys/ssh/marcus-sapphire
+      #../keys/ssh/schrader
+      #../keys/ssh/jannusch
       ../keys/ssh/jannusch-arch
       ../keys/ssh/tassilo
       ../keys/ssh/jonasga
