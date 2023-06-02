@@ -20,7 +20,6 @@
       name = "FSR Wiki";
       passwordFile = config.sops.secrets."mediawiki/initial_admin".path;
       database = {
-        createLocally = false;
         type = "postgres";
         user = "mediawiki";
         name = "mediawiki";
