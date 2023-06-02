@@ -17,12 +17,18 @@ in
     "portunus/users/search-password" = {
       owner = "${portunusUser}";
       group = "${portunusGroup}";
+      mode = "0440";
     };
     "dex/environment" = {
       owner = config.systemd.services.dex.serviceConfig.User;
       group = "dex";
     };
+    "matrix_ldap_search" = {
+      key = "portunus/users/search-password";
+      owner = config.systemd.services.nslcd.serviceConfig.User;
+    };
   };
+  
 
   services.portunus = {
     enable = true;
