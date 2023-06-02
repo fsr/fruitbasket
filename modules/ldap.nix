@@ -87,7 +87,7 @@ in
         name = "${portunusGroup}";
         members = [
           "${portunusUser}"
-          #config.systemd.services."matrix-synapse".serviceConfig.User
+          config.systemd.services."matrix-synapse".serviceConfig.User
           config.systemd.services.sogo.serviceConfig.User
           config.systemd.services.hedgedoc.serviceConfig.User
           config.systemd.services.mailman.serviceConfig.User
