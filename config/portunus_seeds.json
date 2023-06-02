@@ -42,7 +42,7 @@
 			"login_name": "admin",
 			"given_name": "admin",
 			"family_name": "admin",
-			"password": { "from_command": ["/usr/bin/env", "cat", "/run/secrets/portunus/users/search-password"] }
+			"password": { "from_command": ["/usr/bin/env", "cat", "/run/secrets/portunus/users/admin-password"] }
 		},
 		{
 			"login_name": "search",
