@@ -37,7 +37,6 @@ in
       phpExtraExtensions = all: [
         all.ldap # Enable ldap php extension
       ];
-      enableBrokenCiphersForSSE = false;
       config = {
         dbtype = "pgsql";
         dbuser = "nextcloud";
