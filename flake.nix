@@ -6,8 +6,12 @@
     kpp.url = "github:fsr/kpp";
     kpp.inputs.nixpkgs.follows = "nixpkgs";
     # fsr-infoscreen.url = github:fsr/infoscreen; # some anonymous strukturer accidentally removed the flake.nix
+    course-management = {
+      url = "github:fsr/course-management";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, sops-nix, kpp, ... }@inputs:
+  outputs = { self, nixpkgs, sops-nix, kpp, course-management, ... }@inputs:
     {
       packages."x86_64-linux".quitte = self.nixosConfigurations.quitte-vm.config.system.build.vm;
       packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;
@@ -19,6 +23,7 @@
           modules = [
             inputs.sops-nix.nixosModules.sops
             inputs.kpp.nixosModules.default
+            course-management.nixosModules.default
             ./hosts/quitte/configuration.nix
             ./modules/options.nix
             ./modules/base.nix
@@ -38,6 +43,7 @@
             ./modules/matrix.nix
             ./modules/mautrix-telegram.nix
             ./modules/sogo.nix
+            ./modules/course-management.nix
             {
               fsr.enable_office_bloat = false;
               fsr.domain = "staging.ifsr.de";
