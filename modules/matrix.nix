@@ -24,10 +24,10 @@ let
   # matrix-synapse-ldap3 = config.services.matrix-synapse.package.plugins.matrix-synapse-ldap3;
 in
 {
-  #sops.secrets.matrix_ldap_search = {
-  #  key = "portunus/users/search-password";
-  #  owner = config.systemd.services.matrix-synapse.serviceConfig.User;
-  #};
+  sops.secrets.matrix_ldap_search = {
+    key = "portunus/users/search-password";
+    owner = config.systemd.services.matrix-synapse.serviceConfig.User;
+  };
 
   services = {
     postgresql = {
@@ -109,7 +109,7 @@ in
                     mail: uid
                     name: cn
                   bind_dn: uid=search,ou=users,${portunus.ldap.suffix}
-                  bind_password_file: ${config.sops.secrets."portunus/users/search-password".path}
+                  bind_password_file: ${config.sops.secrets.matrix_ldap_search.path}
           '';
         })
       ];

@@ -5,8 +5,7 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = { self, nixpkgs, sops-nix, ... }@inputs:
-    let
-    in {
+    {
       #packages."aarch64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
       packages."x86_64-linux".quitte = self.nixosConfigurations.quitte-vm.config.system.build.vm;
       packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;

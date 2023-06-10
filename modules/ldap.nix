@@ -1,62 +1,39 @@
 { config, lib, pkgs, ... }:
 let
   domain = "auth.${config.fsr.domain}";
-
-  portunusUser = "portunus";
-  portunusGroup = "portunus";
-
-  ldapUser = "openldap";
-  ldapGroup = "openldap";
 in
 {
   sops.secrets = {
-    "portunus/users/admin-password" = {
-      owner = "${portunusUser}";
-      group = "${portunusGroup}";
-    };
-    "portunus/users/search-password" = {
-      owner = "${portunusUser}";
-      group = "${portunusGroup}";
-      mode = "0440";
-    };
-    "dex/environment" = {
-      owner = config.systemd.services.dex.serviceConfig.User;
-      group = "dex";
-    };
-    "matrix_ldap_search" = {
+    "portunus/users/admin-password".owner = config.services.portunus.user;
+    "portunus/users/search-password".owner = config.services.portunus.user;
+    "dex/environment".owner = config.systemd.services.dex.serviceConfig.User;
+    nslcd_ldap_search = {
       key = "portunus/users/search-password";
       owner = config.systemd.services.nslcd.serviceConfig.User;
     };
   };
-  
-
-  services.portunus = {
-    enable = true;
-    user = "${portunusUser}";
-    group = "${portunusGroup}";
-    domain = "${domain}";
-    port = 8681;
-    userRegex = "[a-z_][a-z0-9_.-]*\$?";
-    dex = {
-      enable = true;
-    };
-    ldap = {
-      #user = "${ldapUser}";
-      #group = "${ldapGroup}";
-
-      suffix = "dc=ifsr,dc=de";
-      searchUserName = "search";
-
-      # disables port 389, use 636 with tls
-      # `portunus.domain` resolves to localhost
-      tls = false;
-    };
-
-    seedPath = ../config/portunus_seeds.json;
-  };
-
 
   services = {
+    portunus = {
+      enable = true;
+      domain = "${domain}";
+      port = 8681;
+      userRegex = "[a-z_][a-z0-9_.-]*\$?";
+      dex = {
+        enable = true;
+      };
+      ldap = {
+        suffix = "dc=ifsr,dc=de";
+        searchUserName = "search";
+
+        # disables port 389, use 636 with tls
+        # `portunus.domain` resolves to localhost
+        tls = false;
+      };
+
+      seedPath = ../config/portunus_seeds.json;
+    };
+
     dex.settings.oauth2.skipApprovalScreen = true;
 
     nginx = {
@@ -80,54 +57,22 @@ in
   };
 
   users = {
-    groups = {
-      dex = { };
+    groups.dex = { };
 
-      "${portunusGroup}" = {
-        name = "${portunusGroup}";
-        members = [
-          "${portunusUser}"
-          config.systemd.services."matrix-synapse".serviceConfig.User
-          config.systemd.services.sogo.serviceConfig.User
-          config.systemd.services.hedgedoc.serviceConfig.User
-          config.systemd.services.mailman.serviceConfig.User
-          config.systemd.services."mailman-web-setup".serviceConfig.User
-          config.systemd.services.hyperkitty.serviceConfig.User
-          config.systemd.services.nslcd.serviceConfig.User
-        ];
-      };
-      "${ldapGroup}" = {
-        name = "${ldapGroup}";
-        members = [ "${ldapUser}" ];
-      };
+    users.dex = {
+      group = "dex";
+      isSystemUser = true;
     };
-    users = {
-      dex = {
-        group = "dex";
-        isSystemUser = true;
-      };
-      "${portunusUser}" = {
-        isSystemUser = true;
-        group = "${portunusGroup}";
-      };
 
-      "${ldapUser}" = {
-        isSystemUser = true;
-        group = "${ldapGroup}";
-      };
-    };
     ldap =
-      let
-        portunus = config.services.portunus;
-        base = "ou=users,${portunus.ldap.suffix}";
-      in
-      {
+      let portunus = config.services.portunus;
+      in rec {
         enable = true;
         server = "ldap://localhost";
-        base = base;
+        base = "ou=users,${portunus.ldap.suffix}";
         bind = {
           distinguishedName = "uid=${portunus.ldap.searchUserName},${base}";
-          passwordFile = config.sops.secrets."portunus/users/search-password".path;
+          passwordFile = config.sops.secrets.nslcd_ldap_search.path;
         };
         daemon.enable = true;
       };
@@ -154,7 +99,6 @@ in
     session optional pam_mkhomedir.so
     session optional ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
     session optional ${pkgs.systemd}/lib/security/pam_systemd.so
-
   '';
 
   nixpkgs.overlays = [
