@@ -1,6 +1,51 @@
 { config, lib, pkgs, ... }:
 let
   domain = "auth.${config.fsr.domain}";
+  seed = {
+    groups = [
+      {
+        name = "admins";
+        long_name = "Portunus Admin";
+        members = [ "admin" ];
+        permissions = {
+          portunus.is_admin = true;
+          ldap.can_read = true;
+        };
+      }
+      {
+        name = "search";
+        long_name = "LDAP search group";
+        members = [ "search" ];
+        permissions = {
+          ldap.can_read = true;
+        };
+      }
+      {
+        name = "fsr";
+        long_name = "Mitglieder des iFSR";
+      }
+    ];
+    users = [
+      {
+        login_name = "admin";
+        given_name = "admin";
+        family_name = "admin";
+        password.from_command = [
+          "${pkgs.coreutils}/bin/cat"
+          config.sops.secrets."portunus/users/admin-password".path
+        ];
+      }
+      {
+        login_name = "search";
+        given_name = "search";
+        family_name = "search";
+        password.from_command = [
+          "${pkgs.coreutils}/bin/cat"
+          config.sops.secrets."portunus/users/search-password".path
+        ];
+      }
+    ];
+  };
 in
 {
   sops.secrets = {
@@ -31,7 +76,7 @@ in
         tls = false;
       };
 
-      seedPath = ../config/portunus_seeds.json;
+      seedPath = pkgs.writeText "portunus-seed.json" (builtins.toJSON seed);
     };
 
     dex.settings.oauth2.skipApprovalScreen = true;
