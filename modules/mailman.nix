@@ -13,7 +13,7 @@
     siteOwner = "root@${config.fsr.domain}";
     ldap = {
       enable = true;
-      serverUri = "ldap://localhost";
+      serverUri = "ldaps://${config.services.portunus.domain}";
       bindDn = "uid=search, ou=users, dc=ifsr, dc=de";
       bindPasswordFile = config.sops.secrets.mailman_ldap_search.path;
       userSearch = {

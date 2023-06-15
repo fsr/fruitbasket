@@ -7,18 +7,13 @@ let
         name = "admins";
         long_name = "Portunus Admin";
         members = [ "admin" ];
-        permissions = {
-          portunus.is_admin = true;
-          ldap.can_read = true;
-        };
+        permissions.portunus.is_admin = true;
       }
       {
         name = "search";
         long_name = "LDAP search group";
         members = [ "search" ];
-        permissions = {
-          ldap.can_read = true;
-        };
+        permissions.ldap.can_read = true;
       }
       {
         name = "fsr";
@@ -73,7 +68,7 @@ in
 
         # disables port 389, use 636 with tls
         # `portunus.domain` resolves to localhost
-        tls = false;
+        tls = true;
       };
 
       seedPath = pkgs.writeText "portunus-seed.json" (builtins.toJSON seed);
@@ -113,7 +108,7 @@ in
       let portunus = config.services.portunus;
       in rec {
         enable = true;
-        server = "ldap://localhost";
+        server = "ldaps://${portunus.domain}";
         base = "ou=users,${portunus.ldap.suffix}";
         bind = {
           distinguishedName = "uid=${portunus.ldap.searchUserName},${base}";

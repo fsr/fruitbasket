@@ -101,7 +101,7 @@ in
               - module: ldap_auth_provider.LdapAuthProviderModule
                 config:
                   enabled: true
-                  uri: ldap://localhost
+                  uri: ldaps://${portunus.domain}
                   base: ou=users,${portunus.ldap.suffix}
                   # taken from kaki config
                   attributes:

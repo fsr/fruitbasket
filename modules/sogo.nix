@@ -28,7 +28,7 @@ in
                   baseDN = "ou=users, dc=ifsr, dc=de";
                   bindDN = "uid=search, ou=users, dc=ifsr, dc=de";
                   bindPassword = LDAP_SEARCH;
-                  hostname = "ldap://localhost";
+                  hostname = "ldaps://${config.services.portunus.domain}";
                   canAuthenticate = YES;
                   id = directory;
       

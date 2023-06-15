@@ -11,7 +11,7 @@ let
   #result_attribute=mail
   #'';
   dovecot-ldap-args = pkgs.writeText "ldap-args" ''
-    uris = ldap://localhost
+    uris = ldaps://${config.services.portunus.domain}
     dn = uid=search, ou=users, dc=ifsr, dc=de
     auth_bind = yes
     !include ${config.sops.secrets."dovecot_ldap_search".path}

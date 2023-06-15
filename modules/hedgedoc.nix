@@ -44,15 +44,17 @@ in
         allowAnonymousEdits = true;
         defaultPermission = "limited";
         # ldap auth
-        ldap = rec {
-          url = "ldap://localhost";
-          searchBase = "ou=users,${config.services.portunus.ldap.suffix}";
-          searchFilter = "(uid={{username}})";
-          bindDn = "uid=${config.services.portunus.ldap.searchUserName},${searchBase}";
-          bindCredentials = "\${LDAP_CREDENTIALS}";
-          useridField = "uid";
-          providerName = "iFSR";
-        };
+        ldap =
+          let portunus = config.services.portunus;
+          in rec {
+            url = "ldaps://${portunus.domain}";
+            searchBase = "ou=users,${portunus.ldap.suffix}";
+            searchFilter = "(uid={{username}})";
+            bindDn = "uid=${portunus.ldap.searchUserName},${searchBase}";
+            bindCredentials = "\${LDAP_CREDENTIALS}";
+            useridField = "uid";
+            providerName = "iFSR";
+          };
       };
     };
 
