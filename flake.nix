@@ -46,6 +46,7 @@
             ./modules/vaultwarden.nix
             ./modules/zsh.nix
             ./modules/course-management.nix
+            ./modules/gitea.nix
             {
               fsr.enable_office_bloat = false;
               fsr.domain = "staging.ifsr.de";
