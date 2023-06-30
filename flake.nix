@@ -45,6 +45,7 @@
             ./modules/mail.nix
             ./modules/mailman.nix
             ./modules/nginx.nix
+            ./modules/userdir.nix
             ./modules/hedgedoc.nix
             ./modules/wiki.nix
             ./modules/ftp.nix
