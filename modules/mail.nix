@@ -3,13 +3,6 @@ let
   hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
   rspamd-domain = "rspamd.${config.fsr.domain}";
-  # brauchen wir das überhaupt?
-  #ldap-aliases = pkgs.writeText "ldap-aliases.cf" ''
-  #server_host = ldap://localhost
-  #search_base = dc=ifsr, dc=de
-  #query_filter = (&(objectClass=posixAccount)(uid=%n))
-  #result_attribute=mail
-  #'';
   dovecot-ldap-args = pkgs.writeText "ldap-args" ''
     uris = ldap://localhost
     dn = uid=search, ou=users, dc=ifsr, dc=de
@@ -26,8 +19,14 @@ in
 {
   sops.secrets."rspamd-password".owner = config.users.users.rspamd.name;
   sops.secrets."dovecot_ldap_search".owner = config.services.dovecot2.user;
+  sops.secrets."postfix_ldap_aliases".owner = config.services.postfix.user;
 
-  networking.firewall.allowedTCPPorts = [ 25 465 587 993 ];
+  networking.firewall.allowedTCPPorts = [
+    25 # insecure SMTP
+    465
+    587 # SMTP
+    993 # IMAP
+  ];
   users.users.postfix.extraGroups = [ "opendkim" ];
 
   services = {
@@ -68,21 +67,21 @@ in
       config = {
         home_mailbox = "Maildir/";
         smtp_use_tls = true;
-        smtp_tls_security_level = "encrypt";
+        # smtp_tls_security_level = "encrypt";
         smtpd_use_tls = true;
-        smtpd_tls_security_level = lib.mkForce "encrypt";
-        smtpd_tls_auth_only = true;
+        # smtpd_tls_security_level = lib.mkForce "encrypt";
+        # smtpd_tls_auth_only = true;
         smtpd_tls_protocols = [
           "!SSLv2"
           "!SSLv3"
           "!TLSv1"
           "!TLSv1.1"
         ];
+        # "reject_non_fqdn_hostname"
         smtpd_recipient_restrictions = [
           "permit_sasl_authenticated"
           "permit_mynetworks"
           "reject_unauth_destination"
-          "reject_non_fqdn_hostname"
           "reject_non_fqdn_sender"
           "reject_non_fqdn_recipient"
           "reject_unknown_sender_domain"
@@ -96,7 +95,9 @@ in
           "permit_mynetworks"
           "reject_unauth_destination"
         ];
-        alias_maps = [ "hash:${../config/aliases}" ];
+        # smtpd_sender_login_maps = [ "ldap:${ldap-senders}" ];
+        alias_maps = [ "hash:/etc/aliases" ];
+        # alias_maps = [ "hash:/etc/aliases" "ldap:${ldap-aliases}" ];
         smtpd_milters = [ "local:/run/opendkim/opendkim.sock" ];
         non_smtpd_milters = [ "local:/var/run/opendkim/opendkim.sock" ];
         smtpd_sasl_auth_enable = true;
@@ -104,7 +105,7 @@ in
         smtpd_sasl_type = "dovecot";
         #mailman stuff
         transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
-        local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
+        local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" "ldap:${config.sops.secrets."postfix_ldap_aliases".path}" ];
       };
     };
     dovecot2 = {
