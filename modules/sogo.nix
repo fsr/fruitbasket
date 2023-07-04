@@ -36,6 +36,10 @@ in
         SOGoProfileURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_user_profile";    
         OCSSessionsFolderURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_sessions_folder";
         OCSFolderInfoURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_folder_info";
+        SOGoSieveServer = sieve://127.0.0.1:4190;
+        SOGoSieveScriptsEnabled = YES;
+        SOGoVacationEnabled = YES;
+        SOGoForwardEnabled = YES;
       '';
       configReplaces = {
         "LDAP_SEARCH" = config.sops.secrets.ldap_search.path;

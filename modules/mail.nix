@@ -26,6 +26,7 @@ in
     465
     587 # SMTP
     993 # IMAP
+    4190 # sieve
   ];
   users.users.postfix.extraGroups = [ "opendkim" ];
 
@@ -104,6 +105,8 @@ in
         smtpd_sasl_path = "/var/lib/postfix/auth";
         smtpd_sasl_type = "dovecot";
         #mailman stuff
+        local_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
+
         transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
         local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" "ldap:${config.sops.secrets."postfix_ldap_aliases".path}" ];
       };
@@ -112,9 +115,21 @@ in
       enable = true;
       enableImap = true;
       enableQuota = false;
+      enableLmtp = true;
       mailLocation = "maildir:~/Maildir";
       sslServerCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslServerKey = "/var/lib/acme/${hostname}/key.pem";
+      protocols = [ "imap" "sieve" ];
+      mailPlugins = {
+        perProtocol = {
+          imap = {
+            enable = [ ];
+          };
+          lmtp = {
+            enable = [ "sieve" ];
+          };
+        };
+      };
       mailboxes = {
         Spam = {
           auto = "create";
@@ -133,22 +148,41 @@ in
           specialUse = "Trash";
         };
       };
+      modules = [
+        pkgs.dovecot_pigeonhole
+      ];
       extraConfig = ''
-        passdb {
-          driver = ldap
-          args = ${dovecot-ldap-args}
-        }
-        userdb {
-          driver = ldap
-          args = ${dovecot-ldap-args}
-        }
-        service auth {
-          unix_listener /var/lib/postfix/auth {
-               group = postfix
-               mode = 0660
-               user = postfix
-            }
-        }
+          auth_username_format = %Ln
+          passdb {
+            driver = ldap
+            args = ${dovecot-ldap-args}
+          }
+          userdb {
+            driver = ldap
+            args = ${dovecot-ldap-args}
+          }
+          service auth {
+            unix_listener /var/lib/postfix/auth {
+                 group = postfix
+                 mode = 0660
+                 user = postfix
+              }
+          }
+        	service managesieve-login {
+        	  inet_listener sieve {
+        	    port = 4190
+        	  }
+        	
+        	  service_count = 1
+        	}
+        	service lmtp {
+        	 unix_listener dovecot-lmtp {
+        	   group = postfix
+        	   mode = 0600
+        	   user = postfix
+        	  }
+        	  client_limit = 1
+        	}
       '';
     };
     opendkim = {
