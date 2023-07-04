@@ -10,7 +10,7 @@
     webHosts = [ "lists.${config.fsr.domain}" ];
     hyperkitty.enable = true;
     enablePostfix = true;
-    siteOwner = "root@${config.fsr.domain}";
+    siteOwner = "mailman@${config.fsr.domain}";
     ldap = {
       enable = true;
       serverUri = "ldap://localhost";
@@ -23,7 +23,9 @@
       groupSearch = {
         ou = "ou=groups, dc=ifsr, dc=de";
         query = "(objectClass=groupOfNames)";
+        type = "groupOfNames";
       };
+      superUserGroup = "cn=admins,ou=groups,dc=ifsr,dc=de";
     };
   };
   services.nginx.virtualHosts."lists.${config.fsr.domain}" = {
