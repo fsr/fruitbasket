@@ -48,6 +48,9 @@ in
 
   services.portunus = {
     enable = true;
+    package = pkgs.portunus.overrideAttrs (old: {
+      patches = [ ./0001-update-user-validation-regex.patch ];
+    });
     user = "${portunusUser}";
     group = "${portunusGroup}";
     domain = "${domain}";
@@ -123,13 +126,4 @@ in
       };
     };
   };
-
-  nixpkgs.overlays = [
-    (self: super:
-      {
-        portunus = super.portunus.overrideAttrs (old: {
-          patches = [ ./0001-update-user-validation-regex.patch ];
-        });
-      })
-  ];
 }
