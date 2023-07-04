@@ -39,7 +39,6 @@ in
         SOGoSieveServer = sieve://127.0.0.1:4190;
         SOGoSieveScriptsEnabled = YES;
         SOGoVacationEnabled = YES;
-        SOGoForwardEnabled = YES;
       '';
       configReplaces = {
         "LDAP_SEARCH" = config.sops.secrets.ldap_search.path;
