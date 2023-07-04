@@ -1,0 +1,25 @@
+From a3fb0c82f09db0b5655c949d5e4dbea55279ff10 Mon Sep 17 00:00:00 2001
+From: Rouven Seifert <rouven@rfive.de>
+Date: Tue, 4 Jul 2023 15:02:02 +0200
+Subject: [PATCH] update user validation regex
+
+---
+ internal/core/validation.go | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/internal/core/validation.go b/internal/core/validation.go
+index 3be9dfa..b1368a7 100644
+--- a/internal/core/validation.go
++++ b/internal/core/validation.go
+@@ -30,7 +30,7 @@ import (
+ )
+ 
+ // this regexp copied from useradd(8) manpage
+-const posixAccountNamePattern = `[a-z_][a-z0-9_-]*\$?`
++const posixAccountNamePattern = `[a-z_][a-z0-9._-]*\$?`
+ 
+ var (
+ 	errIsMissing      = errors.New("is missing")
+-- 
+2.41.0
+
