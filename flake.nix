@@ -3,9 +3,11 @@
     nixpkgs.url = github:nixos/nixpkgs/nixos-23.05;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    kpp.url = "github:fsr/kpp";
+    kpp.inputs.nixpkgs.follows = "nixpkgs";
     # fsr-infoscreen.url = github:fsr/infoscreen; # some anonymous strukturer accidentally removed the flake.nix
   };
-  outputs = { self, nixpkgs, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, sops-nix, kpp, ... }@inputs:
     {
       #packages."aarch64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
       packages."x86_64-linux".quitte = self.nixosConfigurations.quitte-vm.config.system.build.vm;
@@ -36,11 +38,13 @@
           system = "x86_64-linux";
           modules = [
             inputs.sops-nix.nixosModules.sops
+            inputs.kpp.nixosModules.default
             ./hosts/quitte/configuration.nix
             ./modules/options.nix
             ./modules/base.nix
             ./modules/sops.nix
             ./modules/ldap.nix
+            ./modules/kpp.nix
             # ./modules/keycloak.nix replaced by portunus
             ./modules/mail.nix
             ./modules/mailman.nix
