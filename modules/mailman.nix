@@ -23,7 +23,9 @@
       groupSearch = {
         ou = "ou=groups, dc=ifsr, dc=de";
         query = "(objectClass=groupOfNames)";
+        type = "groupOfNames";
       };
+      superUserGroup = "cn=admins,ou=groups,dc=ifsr,dc=de";
     };
   };
   services.nginx.virtualHosts."lists.${config.fsr.domain}" = {
