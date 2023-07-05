@@ -39,7 +39,7 @@ in
       domain = "${domain}";
       origin = "${domain}";
       destination = [ "${hostname}" "${domain}" "localhost" ];
-      networks = [ "127.0.0.1" "141.30.30.169" ];
+      networksStyle = "host"; # localhost and own public IP
       sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslKey = "/var/lib/acme/${hostname}/key.pem";
       relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
@@ -47,7 +47,6 @@ in
       extraAliases = ''
         # Taken from kaki, maybe we can throw out some at some point
         # General redirections for pseudo accounts
-        postmaster:     root
         bin:            root
         daemon:         root
         named:          root
@@ -62,9 +61,13 @@ in
         dumper:         root
         operator:       root
         abuse:          postmaster
+        postmaster:     root
 
         # trap decode to catch security attacks
         decode:         root
+
+        # yeet into the void
+        noreply:        /dev/null
       '';
       config = {
         home_mailbox = "Maildir/";
@@ -153,37 +156,36 @@ in
         pkgs.dovecot_pigeonhole
       ];
       extraConfig = ''
-          auth_username_format = %Ln
-          passdb {
-            driver = ldap
-            args = ${dovecot-ldap-args}
+        auth_username_format = %Ln
+        passdb {
+          driver = ldap
+          args = ${dovecot-ldap-args}
+        }
+        userdb {
+          driver = ldap
+          args = ${dovecot-ldap-args}
+        }
+        service auth {
+          unix_listener /var/lib/postfix/auth {
+            group = postfix
+            mode = 0660
+            user = postfix
           }
-          userdb {
-            driver = ldap
-            args = ${dovecot-ldap-args}
+        }
+        service managesieve-login {
+          inet_listener sieve {
+            port = 4190
           }
-          service auth {
-            unix_listener /var/lib/postfix/auth {
-                 group = postfix
-                 mode = 0660
-                 user = postfix
-              }
+          service_count = 1
+        }
+        service lmtp {
+          unix_listener dovecot-lmtp {
+            group = postfix
+            mode = 0600
+            user = postfix
           }
-        	service managesieve-login {
-        	  inet_listener sieve {
-        	    port = 4190
-        	  }
-        	
-        	  service_count = 1
-        	}
-        	service lmtp {
-        	 unix_listener dovecot-lmtp {
-        	   group = postfix
-        	   mode = 0600
-        	   user = postfix
-        	  }
-        	  client_limit = 1
-        	}
+          client_limit = 1
+        }
       '';
     };
     opendkim = {
@@ -191,7 +193,7 @@ in
       domains = "csl:${config.fsr.domain}";
       selector = config.networking.hostName;
       configFile = pkgs.writeText "opendkim-config" ''
-        UMask                   0117
+        UMask 0117
       '';
     };
     rspamd = {
