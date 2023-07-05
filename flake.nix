@@ -3,35 +3,14 @@
     nixpkgs.url = github:nixos/nixpkgs/nixos-23.05;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    # fsr-infoscreen.url = github:fsr/infoscreen; # some anonymous strukturer accidentally removed the flake.nix
   };
   outputs = { self, nixpkgs, sops-nix, ... }@inputs:
     {
-      #packages."aarch64-linux".sanddorn = self.nixosConfigurations.sanddorn.config.system.build.sdImage;
       packages."x86_64-linux".quitte = self.nixosConfigurations.quitte-vm.config.system.build.vm;
       packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
 
       nixosConfigurations = {
-        sanddorn = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          modules = [
-            {
-              # nixpkgs.overlays = [ fsr-infoscreen.overlay."aarch64-linux" ];
-              nixpkgs.config.allowBroken = true;
-              sdImage.compressImage = false;
-            }
-            ./hosts/sanddorn/configuration.nix
-            # ./modules/infoscreen.nix
-            ./modules/base.nix
-            ./modules/desktop.nix
-            ./modules/options.nix
-            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-            {
-              fsr.enable_office_bloat = false;
-            }
-          ];
-        };
         quitte = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
@@ -68,7 +47,6 @@
             ./modules/options.nix
             ./modules/base.nix
             ./modules/ldap
-            # ./modules/keycloak.nix replaced by portunus
             ./modules/nginx.nix
             ./modules/mail.nix
             ./modules/mailman.nix
