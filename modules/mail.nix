@@ -47,6 +47,7 @@ in
       extraAliases = ''
         # Taken from kaki, maybe we can throw out some at some point
         # General redirections for pseudo accounts
+        postmaster:     root
         bin:            root
         daemon:         root
         named:          root
