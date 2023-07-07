@@ -43,8 +43,8 @@
             ./modules/options.nix
             ./modules/base.nix
             ./modules/sops.nix
-            ./modules/ldap.nix
             ./modules/kpp.nix
+            ./modules/ldap
             # ./modules/keycloak.nix replaced by portunus
             ./modules/mail.nix
             ./modules/mailman.nix
@@ -71,7 +71,7 @@
             ./hosts/quitte/configuration.nix
             ./modules/options.nix
             ./modules/base.nix
-            ./modules/ldap.nix
+            ./modules/ldap
             # ./modules/keycloak.nix replaced by portunus
             ./modules/nginx.nix
             ./modules/mail.nix
