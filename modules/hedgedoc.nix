@@ -79,7 +79,7 @@ in
       postgres_hedgedoc.owner = user;
       hedgedoc_session_secret.owner = user;
       hedgedoc_ldap_search = {
-        key = "portunus_search";
+        key = "portunus/search-password";
         owner = user;
       };
     };

@@ -42,13 +42,13 @@
 			"login_name": "admin",
 			"given_name": "admin",
 			"family_name": "admin",
-			"password": { "from_command": ["/usr/bin/env", "cat", "/run/secrets/portunus_admin"] }
+			"password": { "from_command": ["/usr/bin/env", "cat", "/run/secrets/portunus/admin-password"] }
 		},
 		{
 			"login_name": "search",
 			"given_name": "search",
 			"family_name": "search",
-			"password": { "from_command": ["/usr/bin/env", "cat", "/run/secrets/portunus_search"] }
+			"password": { "from_command": ["/usr/bin/env", "cat", "/run/secrets/portunus/search-password"] }
 		}
 	]
 }

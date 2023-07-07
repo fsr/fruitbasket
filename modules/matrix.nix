@@ -25,7 +25,7 @@ let
 in
 {
   sops.secrets.matrix_ldap_search = {
-    key = "portunus_search";
+    key = "portunus/search-password";
     owner = config.systemd.services.matrix-synapse.serviceConfig.User;
   };
 
