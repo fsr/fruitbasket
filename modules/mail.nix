@@ -102,6 +102,7 @@ in
         ];
         # smtpd_sender_login_maps = [ "ldap:${ldap-senders}" ];
         alias_maps = [ "hash:/etc/aliases" ];
+        alias_database = [ "hash:/etc/aliases" ];
         # alias_maps = [ "hash:/etc/aliases" "ldap:${ldap-aliases}" ];
         smtpd_milters = [ "local:/run/opendkim/opendkim.sock" ];
         non_smtpd_milters = [ "local:/var/run/opendkim/opendkim.sock" ];
@@ -109,7 +110,7 @@ in
         smtpd_sasl_path = "/var/lib/postfix/auth";
         smtpd_sasl_type = "dovecot";
         #mailman stuff
-        local_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
+        mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
 
         transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
         local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" "ldap:${config.sops.secrets."postfix_ldap_aliases".path}" ];
