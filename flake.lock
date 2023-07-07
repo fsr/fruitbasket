@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "kpp": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1688479784,
+        "narHash": "sha256-xCI0Q8pQK5JRHYwieQApHmLseuXLiHnsYVlxUVKLCQA=",
+        "owner": "fsr",
+        "repo": "kpp",
+        "rev": "bf78c8481cbd1a43a122da90a63bbd0ed257b244",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fsr",
+        "repo": "kpp",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1685004253,
@@ -34,6 +54,7 @@
     },
     "root": {
       "inputs": {
+        "kpp": "kpp",
         "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix"
       }
