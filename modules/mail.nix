@@ -113,7 +113,7 @@ in
         mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
 
         transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
-        local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" "ldap:${config.sops.secrets."postfix_ldap_aliases".path}" ];
+        local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" "ldap:${config.sops.secrets."postfix_ldap_aliases".path}" "$alias_maps" ];
       };
     };
     dovecot2 = {
