@@ -1,6 +1,46 @@
 { config, lib, pkgs, ... }:
 let
   domain = "auth.${config.fsr.domain}";
+  seed = {
+    groups = [
+      {
+        name = "admins";
+        long_name = "Portunus Admin";
+        members = [ "admin" ];
+        permissions.portunus.is_admin = true;
+      }
+      {
+        name = "search";
+        long_name = "LDAP search group";
+        members = [ "search" ];
+        permissions.ldap.can_read = true;
+      }
+      {
+        name = "fsr";
+        long_name = "Mitglieder des iFSR";
+      }
+    ];
+    users = [
+      {
+        login_name = "admin";
+        given_name = "admin";
+        family_name = "admin";
+        password.from_command = [
+          "${pkgs.coreutils}/bin/cat"
+          config.sops.secrets."portunus/admin-password".path
+        ];
+      }
+      {
+        login_name = "search";
+        given_name = "search";
+        family_name = "search";
+        password.from_command = [
+          "${pkgs.coreutils}/bin/cat"
+          config.sops.secrets."portunus/search-password".path
+        ];
+      }
+    ];
+  };
 in
 {
   sops.secrets = {
@@ -22,7 +62,7 @@ in
     inherit domain;
     port = 8681;
     dex.enable = true;
-    seedPath = ../config/portunus_seeds.json;
+    seedPath = pkgs.writeText "portunus-seed.json" (builtins.toJSON seed);
 
     ldap = {
       suffix = "dc=ifsr,dc=de";
