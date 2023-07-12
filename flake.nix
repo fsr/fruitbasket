@@ -43,6 +43,7 @@
             ./modules/matrix.nix
             ./modules/mautrix-telegram.nix
             ./modules/sogo.nix
+            ./modules/vaultwarden.nix
             ./modules/course-management.nix
             {
               fsr.enable_office_bloat = false;
