@@ -48,6 +48,9 @@ in
 
   services.portunus = {
     enable = true;
+    package = pkgs.portunus.overrideAttrs (old: {
+      patches = [ ./0001-update-user-validation-regex.patch ];
+    });
     user = "${portunusUser}";
     group = "${portunusGroup}";
     domain = "${domain}";
@@ -65,7 +68,7 @@ in
       #tls = true;
     };
 
-    seedPath = ../config/portunus_seeds.json;
+    seedPath = ../../config/portunus_seeds.json;
   };
 
   #users.ldap = {
@@ -123,18 +126,4 @@ in
       };
     };
   };
-
-  # nixpkgs.overlays = [
-  #   (self: super:
-  #     {
-  #       portunus = super.portunus.overrideAttrs (old: {
-  #         src = super.fetchFromGitHub {
-  #           owner = "revol-xut";
-  #           repo = "portunus";
-  #           rev = "4dc29febacb11c613785bc95352fa00e0ca9b14a";
-  #           sha256 = "sha256-6O2392aHXhgvgZf6ftDY5Bh6hG3OzzCnlriig/Vkkz8=";
-  #         };
-  #       });
-  #     })
-  # ];
 }
