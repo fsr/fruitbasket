@@ -14,6 +14,11 @@ in
       # somehow this works
       databaseUrl = "postgresql://vaultwarden@%2Frun%2Fpostgresql/vaultwarden";
       rocketPort = 8000;
+      smtpHost = "127.0.0.1";
+      smtpPort = 25;
+      smtpSSL = false;
+      smtpFrom = "noreply@${config.fsr.domain}";
+      smtpFromName = "iFSR Vaultwarden";
     };
   };
   services.postgresql = {
