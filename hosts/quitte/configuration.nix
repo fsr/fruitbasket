@@ -16,6 +16,7 @@
   #boot.zfs.devNodes = "/dev/";
 
   networking.hostName = "quitte"; # Define your hostname.
+  services.qemuGuest.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
