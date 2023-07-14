@@ -94,6 +94,7 @@ in
           "reject_unauth_destination"
           "reject_unauth_pipelining"
           "reject_invalid_hostname"
+          "check_policy_service inet:localhost:12340"
         ];
         smtpd_relay_restrictions = [
           "permit_sasl_authenticated"
@@ -119,7 +120,8 @@ in
     dovecot2 = {
       enable = true;
       enableImap = true;
-      enableQuota = false;
+      enableQuota = true;
+      quotaGlobalPerUser = "10G";
       enableLmtp = true;
       mailLocation = "maildir:~/Maildir";
       sslServerCert = "/var/lib/acme/${hostname}/fullchain.pem";
