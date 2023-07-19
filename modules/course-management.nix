@@ -5,7 +5,8 @@ in
 {
   sops.secrets =
     let inherit (config.services.course-management) user;
-    in {
+    in
+    {
       "course-management/secret-key".owner = user;
       "course-management/adminpass".owner = user;
     };
@@ -33,7 +34,7 @@ in
   };
 
   services.postgresql = {
-    enable = true;
+    enable = lib.mkForce true; # upstream bacula config wants to disable it, so we need to force
     ensureUsers = [{
       name = "course-management";
       ensurePermissions = {
