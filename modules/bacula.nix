@@ -5,6 +5,8 @@
     "bacula/keypair".owner = "bacula";
     "bacula/masterkey".owner = "bacula";
   };
+  networking.firewall.allowedTCPPorts = [ config.services.bacula-fd.port ];
+  networking.firewall.allowedUDPPorts = [ config.services.bacula-fd.port ];
   services.bacula-fd = {
     enable = true;
     name = "ifsr-quitte";
