@@ -3,9 +3,7 @@
 This repository contains the NixOS configuration files for FSR machines.
 
 
-## Machines configures by this repository:
-- `birne` (the printer notebook)
-- `tomate` (backup endpoint and office computer)
+## Machines configured by this repository:
 - `quitte` (new server predestined to run all important services)
 
 ## Setup
