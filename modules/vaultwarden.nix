@@ -11,7 +11,6 @@ in
     config = {
       domain = "https://${domain}";
       signupsAllowed = false;
-      # somehow this works
       databaseUrl = "postgresql://vaultwarden@%2Frun%2Fpostgresql/vaultwarden";
       rocketPort = 8000;
       smtpHost = "127.0.0.1";

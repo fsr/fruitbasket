@@ -2,13 +2,9 @@
 let
   sogo-hostname = "mail.${config.fsr.domain}";
   domain = config.fsr.domain;
-  pg-port = toString config.services.postgresql.port;
 in
 {
   sops.secrets = {
-    postgres_sogo = {
-      owner = config.systemd.services.sogo.serviceConfig.User;
-    };
     sogo_ldap_search = {
       key = "portunus/search-password";
       owner = config.systemd.services.sogo.serviceConfig.User;
@@ -36,9 +32,9 @@ in
           id = directory;
       
         });
-        SOGoProfileURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_user_profile";    
-        OCSSessionsFolderURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_sessions_folder";
-        OCSFolderInfoURL = "postgresql://sogo:POSTGRES_PASSWORD@localhost:${pg-port}/sogo/sogo_folder_info";
+        SOGoProfileURL = "postgresql://sogo@%2frun%2Fpostgresql/sogo/sogo_user_profile";    
+        OCSSessionsFolderURL = "postgresql://sogo@%2frun%2Fpostgresql/sogo/sogo_sessions_folder";
+        OCSFolderInfoURL = "postgresql://sogo:POSTGRES_PASSWORD@%2frun%2Fpostgresql/sogo/sogo_folder_info";
         SOGoSieveServer = sieve://127.0.0.1:4190;
         SOGoSieveScriptsEnabled = YES;
         SOGoVacationEnabled = YES;
@@ -106,8 +102,6 @@ in
     };
   };
 
-  systemd.services.sogo.after = [ "sogo-pgsetup.service" ];
-
   # one of these prevents access to sendmail, don't know which one
   systemd.services.sogo.serviceConfig = {
     LockPersonality = lib.mkForce false;
@@ -129,17 +123,4 @@ in
     ReadWriteDirectories = "/var/lib/postfix/queue/maildrop";
 
   };
-
-  systemd.services.sogo-pgsetup = {
-    description = "Prepare Sogo postgres database";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "networking.target" "postgresql.service" ];
-    serviceConfig.Type = "oneshot";
-
-    path = [ pkgs.sudo config.services.postgresql.package ];
-    script = ''
-      sudo -u ${config.services.postgresql.superUser} psql -c "ALTER ROLE sogo WITH PASSWORD '$(cat ${config.sops.secrets.postgres_sogo.path})'"
-    '';
-  };
-
 }
