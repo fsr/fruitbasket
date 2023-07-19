@@ -41,7 +41,6 @@ in
       '';
       configReplaces = {
         "LDAP_SEARCH" = config.sops.secrets.sogo_ldap_search.path;
-        "POSTGRES_PASSWORD" = config.sops.secrets.postgres_sogo.path;
       };
       vhostName = "${sogo-hostname}";
       timezone = "Europe/Berlin";
