@@ -25,6 +25,7 @@
             inputs.kpp.nixosModules.default
             course-management.nixosModules.default
             ./hosts/quitte/configuration.nix
+            ./modules/bacula.nix
             ./modules/options.nix
             ./modules/base.nix
             ./modules/sops.nix
