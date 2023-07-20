@@ -23,7 +23,10 @@ in
         port = 3002;
         domain = "${domain}";
         protocolUseSSL = true;
-        dbURL = "postgres://hedgedoc@%2Frun%2Fpostgresql/hedgedoc";
+        db = {
+          dialect = "postgres";
+          host = "/run/postgresql/";
+        };
         sessionSecret = "\${SESSION_SECRET}";
         csp = {
           enable = true;
