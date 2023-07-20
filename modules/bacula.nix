@@ -27,6 +27,14 @@ let
       ${fd_cfg.extraMessagesConfig}
     }
   '';
+  # AGDSN is running an outdated version that we have to comply to
+  bacula_package = (pkgs.bacula.overrideAttrs (old: rec {
+    version = "9.6.7";
+    src = pkgs.fetchurl {
+      url = "mirror://sourceforge/bacula/${old.pname}-${version}.tar.gz";
+      sha256 = "sha256-3w+FJezbo4DnS1N8pxrfO3WWWT8CGJtZqw6//IXMyN4=";
+    };
+  }));
 in
 {
   sops.secrets = {
@@ -64,5 +72,5 @@ in
       Password = @${config.sops.secrets."bacula/password".path}
     }
   '';
-  systemd.services.bacula-fd.serviceConfig.ExecStart = lib.mkForce "${pkgs.bacula}/sbin/bacula-fd -f -u root -g bacula -c ${fd_conf}";
+  systemd.services.bacula-fd.serviceConfig.ExecStart = lib.mkForce "${bacula_package}/sbin/bacula-fd -f -u root -g bacula -c ${fd_conf}";
 }
