@@ -57,8 +57,8 @@ in
     '';
     extraMessagesConfig = ''
       director = abel-dir = all, !skipped, !restored
-      mailcommand = ${bacula_package}/bin/bsmtp -f "Bacula <bacula@${config.fsr.domain}>\" -s \"Bacula: %t %e of %c %l\" %r"
-      mail = root+backup@${config.fsr.domain} = all, !skipped
+      mailcommand = "${bacula_package}/bin/bsmtp -f \"Bacula <bacula@${config.fsr.domain}>\" -s \"Bacula: %t %e of %c %l\" %r"
+      mail = root+backup = all, !skipped
     '';
     director."abel-dir".password = "@${config.sops.secrets."bacula/password".path}";
   };
