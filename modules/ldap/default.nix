@@ -56,7 +56,10 @@ in
   services.portunus = {
     enable = true;
     package = pkgs.portunus.overrideAttrs (old: {
-      patches = [ ./0001-update-user-validation-regex.patch ];
+      patches = [
+        ./0001-update-user-validation-regex.patch
+        ./0002-both-ldap-and-ldaps.patch
+      ];
     });
 
     inherit domain;
@@ -68,9 +71,9 @@ in
       suffix = "dc=ifsr,dc=de";
       searchUserName = "search";
 
-      # disables port 389, use 636 with tls
+      # normally disables port 389 (but not with our patch), use 636 with tls
       # `portunus.domain` resolves to localhost
-      #tls = true;
+      tls = true;
     };
   };
 
