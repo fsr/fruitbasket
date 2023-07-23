@@ -75,6 +75,10 @@ in
           url = "https://web.archive.org/web/20230615113527/https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_39-42e4d75.tar.gz";
           hash = "sha256-VN0G0Crjlx0DTLeDvaSFtMmYsfB7VzgYkSNDS+nkIyQ=";
         };
+        VisualEditor = pkgs.fetchzip {
+          url = "https://web.archive.org/web/20230723212424/https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_39-b1204c9.tar.gz";
+          hash = "sha256-g/ATW3xkecHynwbwLbmYgawNW+LCVTth0ZlhY7A3N5U=";
+        };
       };
     };
 
