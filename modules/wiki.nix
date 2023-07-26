@@ -9,6 +9,7 @@ in
     "mediawiki/oidc_secret".owner = config.users.users.mediawiki.name;
   };
 
+  systemd.services.mediawiki-init.after = [ "postgresql.service" ];
   services = {
     mediawiki = {
       enable = true;
