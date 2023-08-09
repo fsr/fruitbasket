@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  domain = "vault.${config.fsr.domain}";
+  domain = "vault.ifsr.de";
 in
 {
   sops.secrets."vaultwarden_env".owner = "vaultwarden";
