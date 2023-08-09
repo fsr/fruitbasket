@@ -24,6 +24,9 @@ in
           port = listenPort;
           ssl = false;
         }];
+        # Short url support (e.g. https://wiki.ifsr.de/Page instead of .../index.php?title=Page)
+        # Recommended config taken from https://www.mediawiki.org/wiki/Manual:Short_URL/Apache
+        # See paragraph "If you are using a root url ..."
         extraConfig = ''
           RewriteEngine On
           RewriteCond %{REQUEST_URI} !^/rest\.php
@@ -56,6 +59,8 @@ in
         //TODO what about $wgUpgradeKey ?
 
         # Auth
+        # https://www.mediawiki.org/wiki/Extension:PluggableAuth
+        # https://www.mediawiki.org/wiki/Extension:OpenID_Connect
         $wgPluggableAuth_EnableLocalLogin = true;
         $wgPluggableAuth_Config["iFSR Login"] = [
           "plugin" => "OpenIDConnect",
