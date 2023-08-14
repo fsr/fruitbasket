@@ -20,11 +20,8 @@ creation_rules:
         - *bennofs
         - *revol-xut
         - *felix
-        - *simon
         - *rouven
-        - *helene
         - *fugi
-        - *emmanuel
         - *joachim
         - *jonas
         age:
@@ -35,11 +32,8 @@ creation_rules:
         - *bennofs
         - *revol-xut
         - *felix
-        - *simon
         - *rouven
-        - *helene
         - *fugi
-        - *emmanuel
         - *joachim
         - *jonas
         age:
@@ -50,10 +44,7 @@ creation_rules:
         - *bennofs
         - *revol-xut
         - *felix
-        - *simon
         - *rouven
-        - *helene
         - *fugi
-        - *emmanuel
         - *joachim
         - *jonas
