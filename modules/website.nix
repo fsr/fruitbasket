@@ -30,12 +30,12 @@ in
   };
 
   services.nginx = {
-    
+
     virtualHosts."www.${config.fsr.domain}" = {
       enableACME = true;
       forceSSL = true;
       locations."/".return = "301 $scheme://ifsr.de$request_uri";
-    
+
     };
     virtualHosts."${config.fsr.domain}" = {
       enableACME = true;

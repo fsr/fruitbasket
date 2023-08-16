@@ -11,8 +11,6 @@ keys:
   - &joachim  B1A16011B86BACB56ADB713DB712039D23133661
   - &quitte age1wvdnprpnq2rcc4se3zpx2p267n0apxg2jucvlm93e3pfj439ephqh2506t
 
-   # private key stored in repo, used for test VM
-  - &test age1925katzy5gws3f9hnvnlwspu6trxf488arwt6ayw3urg2mgumqhszxnmqh 
 creation_rules:
   - path_regex: secrets/quitte\.yaml$
     key_groups:
@@ -26,18 +24,6 @@ creation_rules:
         - *jonas
         age:
         - *quitte
-  - path_regex: secrets/test\.yaml$
-    key_groups:
-      - pgp:
-        - *bennofs
-        - *revol-xut
-        - *felix
-        - *rouven
-        - *fugi
-        - *joachim
-        - *jonas
-        age:
-        - *test
   - path_regex: secrets/admin\.yaml$
     key_groups:
       - pgp:
