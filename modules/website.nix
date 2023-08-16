@@ -41,6 +41,10 @@ in
       enableACME = true;
       forceSSL = true;
       root = "/srv/web/ifsrde";
+      extraConfig = ''
+        index index.html index.php;
+      '';
+     
       locations = {
         "/" = {
           tryFiles = "$uri $uri/ /index.php?$query_string";
