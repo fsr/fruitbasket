@@ -45,6 +45,7 @@
             ./modules/mautrix-telegram.nix
             ./modules/sogo.nix
             ./modules/vaultwarden.nix
+            ./modules/website.nix
             ./modules/zsh.nix
             ./modules/course-management.nix
             ./modules/gitea.nix
