@@ -72,6 +72,7 @@
             ./modules/stream.nix
             ./modules/sogo.nix
             ./modules/vm.nix
+            ./modules/website.nix
             "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
             {
               _module.args.buildVM = true;

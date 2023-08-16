@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
 let
-  www-domain = "www.${config.fsr.domain}";
   user = "fsr-web";
   group = "fsr-web";
 in
@@ -30,29 +29,36 @@ in
     phpEnv."PATH" = lib.makeBinPath [ pkgs.php ];
   };
 
-  services.nginx = rec {
-    virtualHosts.${www-domain} = {
+  services.nginx = {
+    virtualHosts."${config.fsr.domain}" = {
       enableACME = true;
       forceSSL = true;
       root = "/srv/web/ifsrde";
       locations = {
-        "= /" = {
-          extraConfig = ''
-            rewrite ^ /index.php;
-          '';
+        "/" = {
+          tryFiles = "$uri $uri/ /index.php?$query_string;";
         };
         "~ \.php$" = {
           extraConfig = ''
             try_files $uri =404;
             fastcgi_pass unix:${config.services.phpfpm.pools.ifsrde.socket};
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
             fastcgi_index index.php;
             include ${pkgs.nginx}/conf/fastcgi_params;
             include ${pkgs.nginx}/conf/fastcgi.conf;
+            fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
           '';
         };
+        # security
+        "~* /(\.git|cache|bin|logs|backup|tests)/.*$".return = "403";
+        # deny running scripts inside core system folders
+        "~* /(system|vendor)/.*\.(txt|xml|md|html|json|yaml|yml|php|pl|py|cgi|twig|sh|bat)$".return = "403";
+        # deny running scripts inside user folder
+        "~* /user/.*\.(txt|md|json|yaml|yml|php|pl|py|cgi|twig|sh|bat)$".return = "403";
+        # deny access to specific files in the root folder
+        "~ /(LICENSE\.txt|composer\.lock|composer\.json|nginx\.conf|web\.config|htaccess\.txt|\.htaccess)".return = "403";
+        ## End - Security
       };
     };
-    # ifsr.de without www
-    virtualHosts.${config.fsr.domain} = virtualHosts.${www-domain};
   };
 }
