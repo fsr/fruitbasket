@@ -1,0 +1,13 @@
+diff --git a/cmd/orchestrator/ldap.go b/cmd/orchestrator/ldap.go
+index ed0d466..a672046 100644
+--- a/cmd/orchestrator/ldap.go
++++ b/cmd/orchestrator/ldap.go
+@@ -130,7 +130,7 @@ func runLDAPServer(environment map[string]string) {
+ 
+ 	bindURL := "ldap:///"
+ 	if environment["PORTUNUS_SLAPD_TLS_CERTIFICATE"] != "" {
+-		bindURL = "ldaps:///"
++		bindURL = "ldap:/// ldaps:///"
+ 	}
+ 
+ 	logg.Info("starting LDAP server")
