@@ -32,6 +32,8 @@ in
 
   services.nginx = rec {
     virtualHosts.${www-domain} = {
+      enableACME = true;
+      forceSSL = true;
       root = "/srv/web/ifsrde";
       locations = {
         "= /" = {
