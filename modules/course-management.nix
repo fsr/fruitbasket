@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
-  hostName = "kurse.${config.fsr.domain}";
+  # hostName = "kurse.${config.fsr.domain}";
+  hostName = "kurse.ifsr.de";
 in
 {
   sops.secrets =
