@@ -1,16 +1,10 @@
-{ pkgs, lib, config, ... }:
-let
-  website = pkgs.fetchgit {
-    url = "ssh+git://git@github.com:fsr/fruitbasket.git";
-    rev = "1b380f3bfd48aae2a17aefbbdd0538f09b7d3bcf";
-    sha256 = "";
-  };
-in
+{ pkgs, config, ... }:
 {
   services = {
     nginx = {
       virtualHosts = {
-        "stream.${config.fsr.domain}" = {
+        # "stream.${config.fsr.domain}" = {
+        "stream.ifsr.de" = {
           enableACME = true;
           forceSSL = true;
           locations."/" =
