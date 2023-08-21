@@ -35,6 +35,7 @@
             ./modules/nginx.nix
             ./modules/userdir.nix
             ./modules/hedgedoc.nix
+            ./modules/postgres.nix
             ./modules/wiki.nix
             ./modules/ftp.nix
             ./modules/stream.nix
