@@ -12,6 +12,7 @@ in
       "course-management/adminpass".owner = user;
     };
 
+  systemd.services.course-management.after = [ "postgresql.service" ];
   services.course-management = {
     inherit hostName;
     enable = true;
