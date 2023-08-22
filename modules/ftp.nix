@@ -3,12 +3,14 @@ let
   domain = "ftp.ifsr.de";
 in
 {
+  services.nginx.additionalModules = [pkgs.nginxModules.fancyindex];
   services.nginx.virtualHosts."${domain}" = {
     enableACME = true;
     forceSSL = true;
     root = "/srv/ftp";
     extraConfig = ''
-      autoindex on;
+      fancyindex on;
+      fancyindex_exact_size off;
     '';
     locations."~/(klausuren|uebungen|skripte|abschlussarbeiten)".extraConfig = ''
       allow 141.30.0.0/16;
