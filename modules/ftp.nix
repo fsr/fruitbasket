@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  domain = "ftp.${config.fsr.domain}";
+  domain = "ftp.ifsr.de";
 in
 {
   services.nginx.virtualHosts."${domain}" = {
