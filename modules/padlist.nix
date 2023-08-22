@@ -27,6 +27,10 @@ in
       root = pkgs.callPackage ../pkgs/padlist { };
       enableACME = true;
       forceSSL = true;
+      extraConfig = ''
+        auth_pam "LDAP Authentication Required";
+        auth_pam_service_name "nginx";
+      '';
       locations = {
         "= /" = {
           extraConfig = ''

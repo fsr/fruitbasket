@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 {
   services.nginx = {
+
+    additionalModules = [ pkgs.nginxModules.pam ];
     enable = true;
     recommendedProxySettings = true;
     recommendedGzipSettings = true;
@@ -30,4 +32,8 @@
       email = "root@ifsr.de";
     };
   };
+  security.pam.services.nginx.text = ''
+    auth required ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
+    account required ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
+  '';
 }
