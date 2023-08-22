@@ -94,8 +94,8 @@ in
     groups.dex = { };
 
     ldap =
-      let portunus = config.services.portunus;
-      in rec {
+      let portunus = config.services.portunus; in
+      rec {
         enable = true;
         server = "ldap://localhost";
         base = "ou=users,${portunus.ldap.suffix}";
@@ -107,28 +107,7 @@ in
       };
   };
 
-  security.pam.services.sshd.text = ''
-    # Account management.
-    account sufficient ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
-    account required pam_unix.so
-
-    # Authentication management.
-    auth sufficient pam_unix.so  likeauth try_first_pass
-    auth sufficient ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so use_first_pass
-    auth required pam_deny.so
-
-    # Password management.
-    password sufficient pam_unix.so nullok sha512
-    password sufficient ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
-
-    # Session management.
-    session required pam_env.so conffile=/etc/pam/environment readenv=0
-    session required pam_unix.so
-    session required pam_loginuid.so
-    session optional pam_mkhomedir.so
-    session optional ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
-    session optional ${pkgs.systemd}/lib/security/pam_systemd.so
-  '';
+  security.pam.services.sshd.makeHomeDir = true;
 
   services.nginx = {
     enable = true;
