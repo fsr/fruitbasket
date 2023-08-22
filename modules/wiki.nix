@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  domain = "wiki.${config.fsr.domain}";
+  domain = "wiki.ifsr.de";
   listenPort = 8080;
 in
 {
