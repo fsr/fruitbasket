@@ -38,40 +38,40 @@ in
       };
 
       extraConfig = ''
-        $wgSitename = "FSR Wiki";
-        $wgArticlePath = '/$1';
+                $wgSitename = "FSR Wiki";
+                $wgArticlePath = '/$1';
 
-        // $wgLogo =  "https://www.c3d2.de/images/ck.png";
-        $wgLanguageCode = "de";
+                // $wgLogo =  "https://www.c3d2.de/images/ck.png";
+                $wgLanguageCode = "de";
 
-        $wgGroupPermissions['*']['read'] = false;
-        $wgGroupPermissions['*']['edit'] = false;
-        $wgGroupPermissions['*']['createaccount'] = false;
-        $wgGroupPermissions['*']['autocreateaccount'] = true;
-        $wgGroupPermissions['sysop']['userrights'] = true;
-        $wgGroupPermissions['sysop']['deletelogentry'] = true;
-        $wgGroupPermissions['sysop']['deleterevision'] = true;
+                $wgGroupPermissions['*']['read'] = false;
+                $wgGroupPermissions['*']['edit'] = false;
+                $wgGroupPermissions['*']['createaccount'] = false;
+                $wgGroupPermissions['*']['autocreateaccount'] = true;
+                $wgGroupPermissions['sysop']['userrights'] = true;
+                $wgGroupPermissions['sysop']['deletelogentry'] = true;
+                $wgGroupPermissions['sysop']['deleterevision'] = true;
 
-        $wgEnableAPI = true;
-        $wgAllowUserCss = true;
-        $wgUseAjax = true;
-        $wgEnableMWSuggest = true;
-	$wgDefaultSkin = 'timeless';
+                $wgEnableAPI = true;
+                $wgAllowUserCss = true;
+                $wgUseAjax = true;
+                $wgEnableMWSuggest = true;
+        	$wgDefaultSkin = 'timeless';
 
-        //TODO what about $wgUpgradeKey ?
+                //TODO what about $wgUpgradeKey ?
 
-        # Auth
-        # https://www.mediawiki.org/wiki/Extension:PluggableAuth
-        # https://www.mediawiki.org/wiki/Extension:OpenID_Connect
-        $wgPluggableAuth_EnableLocalLogin = true;
-        $wgPluggableAuth_Config["iFSR Login"] = [
-          "plugin" => "OpenIDConnect",
-          "data" => [
-            "providerURL" => "${config.services.portunus.domain}/dex",
-            "clientID" => "wiki",
-            "clientsecret" => file_get_contents('${config.sops.secrets."mediawiki/oidc_secret".path}'),
-          ],
-        ];
+                # Auth
+                # https://www.mediawiki.org/wiki/Extension:PluggableAuth
+                # https://www.mediawiki.org/wiki/Extension:OpenID_Connect
+                $wgPluggableAuth_EnableLocalLogin = true;
+                $wgPluggableAuth_Config["iFSR Login"] = [
+                  "plugin" => "OpenIDConnect",
+                  "data" => [
+                    "providerURL" => "${config.services.portunus.domain}/dex",
+                    "clientID" => "wiki",
+                    "clientsecret" => file_get_contents('${config.sops.secrets."mediawiki/oidc_secret".path}'),
+                  ],
+                ];
       '';
 
       extensions = {

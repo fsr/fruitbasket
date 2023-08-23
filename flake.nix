@@ -15,6 +15,7 @@
       packages."x86_64-linux".quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
       packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      hydraJobs."x86-64-linux".quitte = self.packages."x86_64-linux".quitte;
 
       nixosConfigurations = {
         quitte = nixpkgs.lib.nixosSystem {
@@ -33,6 +34,7 @@
             ./modules/mail.nix
             ./modules/mailman.nix
             ./modules/nginx.nix
+            ./modules/hydra.nix
             ./modules/userdir.nix
             ./modules/hedgedoc.nix
             ./modules/padlist.nix
