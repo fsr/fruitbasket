@@ -12,17 +12,6 @@ in
   };
 
   services = {
-    postgresql = {
-      enable = true;
-      ensureUsers = [{
-        name = "nextcloud";
-        ensurePermissions = {
-          "DATABASE nextcloud" = "ALL PRIVILEGES";
-        };
-      }];
-      ensureDatabases = [ "nextcloud" ];
-    };
-
     nextcloud = {
       enable = true;
       package = pkgs.nextcloud26; # Use current latest nextcloud package
@@ -34,12 +23,10 @@ in
       ];
       config = {
         dbtype = "pgsql";
-        dbuser = "nextcloud";
-        dbhost = "/run/postgresql";
-        dbname = "nextcloud";
         adminpassFile = config.sops.secrets.nextcloud_adminpass.path;
         adminuser = "root";
       };
+      database.createLocally = true;
     };
 
     # Enable ACME and force SSL
@@ -77,9 +64,7 @@ in
         ldapUserFilter = "(|(objectclass=inetOrgPerson))";
         ldapLoginFilter = "(&(|(objectclass=inetOrgPerson))(uid=%uid))";
       };
-    in
-    {
-      preStart = ''
+      preStart = pkgs.writeScript "nextcloud-preStart" ''
         # enable included LDAP app
         ${occ} app:enable user_ldap
 
@@ -92,5 +77,9 @@ in
         ${lib.concatLines (lib.mapAttrsToList (name: value: "${occ} ldap:set-config s01 '${name}' '${value}'") ldapConfig)}
         ${occ} ldap:set-config s01 'ldapAgentPassword' $(cat ${config.sops.secrets.nextcloud_ldap_search.path})
       '';
+    in
+    {
+      # run the whole preStart as nextcloud user, so that the log won't be cluttered by lots of sudo calls
+      serviceConfig.ExecStartPre = "/run/wrappers/bin/sudo -u nextcloud --preserve-env=NEXTCLOUD_CONFIG_DIR --preserve-env=OC_PASS ${preStart}";
     };
 }
