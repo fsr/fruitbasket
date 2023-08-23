@@ -3,7 +3,7 @@ let
   domain = "hydra.ifsr.de";
 in
 {
-  sops.secrets."hydra_ldap_search".owner = "hydra";
+  sops.secrets."hydra_ldap_search" = { owner = "hydra"; group = "hydra"; mode = "440"; };
   services.hydra = {
     enable = true;
     port = 4000;
@@ -12,7 +12,7 @@ in
     buildMachinesFiles = [ ];
     useSubstitutes = true;
     extraConfig = ''
-            ldap>
+      <ldap>
         <config>
           <credential>
             class = Password
@@ -25,16 +25,16 @@ in
             <ldap_server_options>
               timeout = 30
             </ldap_server_options>
-            binddn = "cn=search,dc=ifsr,dc=de"
+            binddn = "uid=search,ou=users,dc=ifsr,dc=de"
             include ${config.sops.secrets.hydra_ldap_search.path}
             start_tls = 0
             <start_tls_options>
               verify = none
             </start_tls_options>
             user_basedn = "ou=users,dc=ifsr,dc=de"
-            user_filter = "(&(objectClass=posixAccount)(cn=%s))"
+            user_filter = "(&(objectClass=posixAccount)(uid=%s))"
             user_scope = one
-            user_field = cn
+            user_field = uid
             <user_search_options>
               deref = always
             </user_search_options>
@@ -48,6 +48,7 @@ in
             <role_search_options>
               deref = always
             </role_search_options>
+          </store>
         </config>
         <role_mapping>
           # Make all users in the hydra_admin group Hydra admins
