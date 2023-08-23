@@ -55,6 +55,7 @@ in
         $wgAllowUserCss = true;
         $wgUseAjax = true;
         $wgEnableMWSuggest = true;
+	$wgDefaultSkin = 'timeless';
 
         //TODO what about $wgUpgradeKey ?
 
