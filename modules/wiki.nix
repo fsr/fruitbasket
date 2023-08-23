@@ -30,6 +30,7 @@ in
         extraConfig = ''
           RewriteEngine On
           RewriteCond %{REQUEST_URI} !^/rest\.php
+          RewriteCond %{REQUEST_URI} !^/images
           RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
           RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
           RewriteRule ^(.*)$ %{DOCUMENT_ROOT}/index.php [L]
