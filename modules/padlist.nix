@@ -1,7 +1,7 @@
 # php pad lister tool written by jonas
 { pkgs, config, lib, ... }:
 let
-  domain = "list.pad.${config.fsr.domain}";
+  domain = "list.pad.ifsr.de";
 in
 {
   services.phpfpm.pools.padlist = {
