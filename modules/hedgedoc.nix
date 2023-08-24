@@ -1,6 +1,11 @@
 { config, pkgs, lib, ... }:
 let
   domain = "pad.ifsr.de";
+  template = pkgs.writeText "hedgedoc-template.md" ''
+    ---
+    tags: listed
+    ---
+  '';
 in
 {
   services = {
@@ -47,6 +52,7 @@ in
         allowAnonymous = false;
         allowAnonymousEdits = true;
         defaultPermission = "limited";
+        defaultNotePath = builtins.toString template;
         # ldap auth
         ldap = rec {
           url = "ldap://localhost";
@@ -92,3 +98,4 @@ in
     export LDAP_CREDENTIALS="$(cat ${config.sops.secrets.hedgedoc_ldap_search.path})"
   '';
 }
+
