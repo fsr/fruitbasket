@@ -58,7 +58,7 @@ function formatDateString($stringDate)
             ?>
                 <tr>
                     <td>
-                        <a href="https://pad.staging.ifsr.de/<?= $row['shortid'] ?>"><?= $row['title'] ?></a>
+                        <a href="https://pad.ifsr.de/<?= $row['shortid'] ?>"><?= $row['title'] ?></a>
                     </td>
                     <td>
                         <?= json_decode($row['profile'])->username ?>
