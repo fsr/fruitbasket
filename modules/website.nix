@@ -60,7 +60,7 @@ in
             fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
           '';
         };
-        "~ ^/cmd/([^\\n|\\r]*)$".return = "301 https://pad.ifsr.de/$1";
+        "~ ^/cmd(/?[^\\n|\\r]*)$".return = "301 https://pad.ifsr.de$1";
         # security
         "~* /(\.git|cache|bin|logs|backup|tests)/.*$".return = "403";
         # deny running scripts inside core system folders

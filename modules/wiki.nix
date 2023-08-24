@@ -104,8 +104,8 @@ in
           proxyPass = "http://127.0.0.1:${toString listenPort}";
           proxyWebsockets = true;
         };
-        locations."~ ^/ese/([^\\n|\\r]*)$".return = "301 https://wiki.ese.ifsr.de/$1";
-        locations."~ ^/fsr/([^\\n|\\r]*)$".return = "301 https://wiki.ifsr.de/$1";
+        locations."~ ^/ese(/?[^\\n|\\r]*)$".return = "301 https://wiki.ese.ifsr.de$1";
+        locations."~ ^/fsr(/?[^\\n|\\r]*)$".return = "301 https://wiki.ifsr.de$1";
       };
     };
   };
