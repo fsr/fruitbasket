@@ -14,7 +14,7 @@ try {
     die();
 }
 
-$query = 'SELECT "Notes".title, "Notes"."updatedAt", "Notes"."shortid", "Users".profile  FROM "Notes" JOIN "Users" ON "Notes"."ownerId" = "Users".id WHERE permission = \'freely\' OR permission = \'editable\' OR permission = \'limited\' ORDER BY "Notes"."updatedAt"  DESC';
+$query = 'SELECT "Notes".title, "Notes"."updatedAt", "Notes"."shortid", "Users".profile  FROM "Notes" JOIN "Users" ON "Notes"."ownerId" = "Users".id WHERE (permission = \'freely\' OR permission = \'editable\' OR permission = \'limited\') AND strpos(content, \'tags: listed\')>0 ORDER BY "Notes"."updatedAt"  DESC';
 try {
     $stmt = $dbh->query($query);
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
