@@ -20,6 +20,7 @@ in
     hedgedoc = {
       enable = true;
       settings = {
+        allowFreeURL = true;
         port = 3002;
         domain = "${domain}";
         protocolUseSSL = true;
