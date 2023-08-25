@@ -98,9 +98,9 @@ in
       rec {
         enable = true;
         server = "ldap://localhost";
-        base = "ou=users,${portunus.ldap.suffix}";
+        base = "${portunus.ldap.suffix}";
         bind = {
-          distinguishedName = "uid=${portunus.ldap.searchUserName},${base}";
+          distinguishedName = "uid=${portunus.ldap.searchUserName},ou=users,${base}";
           passwordFile = config.sops.secrets.nslcd_ldap_search.path;
         };
         daemon.enable = true;
