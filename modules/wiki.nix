@@ -41,7 +41,7 @@ in
         $wgSitename = "FSR Wiki";
         $wgArticlePath = '/$1';
 
-        // $wgLogo =  "https://www.c3d2.de/images/ck.png";
+        $wgLogo =  "/images/3/3b/LogoiFSR.png";
         $wgLanguageCode = "de";
 
         $wgGroupPermissions['*']['read'] = false;
