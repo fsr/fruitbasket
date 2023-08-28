@@ -61,6 +61,7 @@ in
           '';
         };
         "~ ^/cmd(/?[^\\n|\\r]*)$".return = "301 https://pad.ifsr.de$1";
+        "/bbb".return = "301 https://bbb.tu-dresden.de/b/fsr-58o-tmf-yy6";
         # security
         "~* /(\.git|cache|bin|logs|backup|tests)/.*$".return = "403";
         # deny running scripts inside core system folders
