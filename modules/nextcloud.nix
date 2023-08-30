@@ -14,7 +14,7 @@ in
   services = {
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud26; # Use current latest nextcloud package
+      package = pkgs.nextcloud25;
       enableBrokenCiphersForSSE = false; # disable the openssl warning
       hostName = domain;
       https = true; # Use https for all urls
@@ -26,6 +26,7 @@ in
         adminpassFile = config.sops.secrets.nextcloud_adminpass.path;
         adminuser = "root";
       };
+      # postgres database is configured automatically
       database.createLocally = true;
     };
 
