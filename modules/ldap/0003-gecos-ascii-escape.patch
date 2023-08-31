@@ -1,0 +1,24 @@
+diff --git a/internal/core/user.go b/internal/core/user.go
+index e74ccfe..291c75b 100644
+--- a/internal/core/user.go
++++ b/internal/core/user.go
+@@ -8,6 +8,7 @@ package core
+ 
+ import (
+ 	"fmt"
++	"strconv"
+ )
+ 
+ // User represents a single user account.
+@@ -86,9 +87,9 @@ func (u User) RenderToLDAP(suffix string, allGroups map[string]Group) LDAPObject
+ 			obj.Attributes["loginShell"] = []string{u.POSIX.LoginShell}
+ 		}
+ 		if u.POSIX.GECOS == "" {
+-			obj.Attributes["gecos"] = []string{u.FullName()}
++			obj.Attributes["gecos"] = []string{strconv.QuoteToASCII(u.FullName())}
+ 		} else {
+-			obj.Attributes["gecos"] = []string{u.POSIX.GECOS}
++			obj.Attributes["gecos"] = []string{strconv.QuoteToASCII(u.POSIX.GECOS)}
+ 		}
+ 		obj.Attributes["objectClass"] = append(obj.Attributes["objectClass"], "posixAccount")
+ 	}
