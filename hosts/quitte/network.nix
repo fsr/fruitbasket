@@ -11,6 +11,7 @@ in
 
   networking = {
     hostId = "a71c81fc";
+    rdns = "x8d1e1ea9.agdsn.tu-dresden.de";
     enableIPv6 = true;
     useDHCP = true;
     interfaces.ens18.useDHCP = true;

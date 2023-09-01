@@ -11,4 +11,9 @@
       description = "under which top level domain the services should run";
     };
   };
+  options.networking.rdns = mkOption {
+    type = types.str;
+    default = networking.fqdn;
+    description = "The reverse dns record known to be set for this host.";
+  };
 }
