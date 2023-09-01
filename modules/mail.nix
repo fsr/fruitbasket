@@ -15,6 +15,15 @@ let
     user_filter = (&(objectClass=posixAccount)(uid=%n))
     pass_filter = (&(objectClass=posixAccount)(uid=%n))
   '';
+  # see https://www.kuketz-blog.de/e-mail-anbieter-ip-stripping-aus-datenschutzgruenden/
+  header_cleanup = pkgs.writeText "header_cleanup_outgoing" ''
+    /^\s*(Received: from)[^\n]*(.*)/ REPLACE $1 127.0.0.1 (localhost [127.0.0.1])$2
+    /^\s*User-Agent/ IGNORE
+    /^\s*X-Enigmail/ IGNORE
+    /^\s*X-Mailer/ IGNORE
+    /^\s*X-Originating-IP/ IGNORE
+    /^\s*Mime-Version/ IGNORE
+  '';
 in
 {
   sops.secrets."rspamd-password".owner = config.users.users.rspamd.name;
@@ -104,6 +113,7 @@ in
           "permit_mynetworks"
           "reject_unauth_destination"
         ];
+        smtp_header_checks = "pcre:${header_cleanup}";
         # smtpd_sender_login_maps = [ "ldap:${ldap-senders}" ];
         alias_maps = [ "hash:/etc/aliases" ];
         alias_database = [ "hash:/etc/aliases" ];
