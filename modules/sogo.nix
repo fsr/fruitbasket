@@ -38,6 +38,8 @@ in
         SOGoSieveServer = sieve://127.0.0.1:4190;
         SOGoSieveScriptsEnabled = YES;
         SOGoVacationEnabled = YES;
+        SOGoJunkFolderName = Spam;
+
       '';
       configReplaces = {
         "LDAP_SEARCH" = config.sops.secrets.sogo_ldap_search.path;
