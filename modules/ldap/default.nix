@@ -59,6 +59,7 @@ in
       patches = [
         ./0001-update-user-validation-regex.patch
         ./0002-both-ldap-and-ldaps.patch
+        ./0003-gecos-ascii-escape.patch
       ];
     });
 
