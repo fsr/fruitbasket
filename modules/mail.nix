@@ -38,6 +38,22 @@ in
     4190 # sieve
   ];
   users.users.postfix.extraGroups = [ "opendkim" ];
+  environment.etc = {
+    "dovecot/sieve-pipe/sa-learn-spam.sh" = {
+      text = ''
+        #!/bin/sh
+        ${pkgs.rspamd}/bin/rspamc learn_spam
+      '';
+      mode = "0555";
+    };
+    "dovecot/sieve-pipe/sa-learn-ham.sh" = {
+      text = ''
+        #!/bin/sh
+        ${pkgs.rspamd}/bin/rspamc learn_ham
+      '';
+      mode = "0555";
+    };
+  };
 
   services = {
     postfix = {
@@ -143,7 +159,7 @@ in
       mailPlugins = {
         perProtocol = {
           imap = {
-            enable = [ ];
+            enable = [ "imap_sieve" ];
           };
           lmtp = {
             enable = [ "sieve" ];
@@ -201,6 +217,24 @@ in
             user = postfix
           }
           client_limit = 1
+        }
+
+
+        plugin {
+          sieve_plugins = sieve_imapsieve sieve_extprograms
+          sieve_global_extensions = +vnd.dovecot.pipe
+          sieve_pipe_bin_dir = /etc/dovecot/sieve-pipe
+
+          # Spam: From elsewhere to Spam folder or flag changed in Spam folder
+          imapsieve_mailbox1_name = Spam
+          imapsieve_mailbox1_causes = COPY APPEND FLAG
+          imapsieve_mailbox1_before = file:/var/lib/dovecot/imap_sieve/report-spam.sieve
+
+          # Ham: From Spam folder to elsewhere
+          imapsieve_mailbox2_name = *
+          imapsieve_mailbox2_from = Spam
+          imapsieve_mailbox2_causes = COPY
+          imapsieve_mailbox1_before = file:/var/lib/dovecot/imap_sieve/report-ham.sieve
         }
       '';
     };
