@@ -168,19 +168,20 @@ in
       };
       mailboxes = {
         Spam = {
-          auto = "create";
+          auto = "subscribe";
           specialUse = "Junk";
+          autoexpunge = "60d";
         };
         Sent = {
-          auto = "create";
+          auto = "subscribe";
           specialUse = "Sent";
         };
         Drafts = {
-          auto = "create";
+          auto = "subscribe";
           specialUse = "Drafts";
         };
         Trash = {
-          auto = "create";
+          auto = "subscribe";
           specialUse = "Trash";
         };
       };
