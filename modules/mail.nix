@@ -221,6 +221,9 @@ in
           read_servers = "127.0.0.1";
           write_servers = "127.0.0.1";
         '';
+        "milter_headers.conf".text = ''
+          use = ["x-spam-level", "x-spam-status"];
+	'';
       };
     };
     redis = {
