@@ -221,9 +221,13 @@ in
           read_servers = "127.0.0.1";
           write_servers = "127.0.0.1";
         '';
+        # headers in spamassasin style to not break old sieve scripts
+        "worker-proxy.inc".text = ''
+          spam_header = "X-Spam-Flag";
+        '';
         "milter_headers.conf".text = ''
           use = ["x-spam-level", "x-spam-status"];
-	'';
+        '';
       };
     };
     redis = {
