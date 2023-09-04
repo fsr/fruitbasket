@@ -31,7 +31,7 @@
             ./modules/sops.nix
             ./modules/kpp.nix
             ./modules/ldap
-            ./modules/mail.nix
+            ./modules/mail
             ./modules/mailman.nix
             ./modules/nginx.nix
             ./modules/hydra.nix
