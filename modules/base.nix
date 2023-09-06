@@ -39,6 +39,8 @@
       # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICBtP2ltExnQL5llOvfSKp6OCZKbPWsa2s6P0i00XyrH helene_emilia.hausmann@mailbox.tu-dresden.de"
       # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEXMHwy4AZ9B4pMRBa/P/rb7N3SCas9e7Lp89plTHdFS halcyon@eisvogel.moe"
       # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJ7qUGZUjiDhQ6Se+aXr9DbgRTG2tx69owqVMkd2bna simon@mayushii"
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLlITzcTVnSi8EpEW3leSuqYCDhbnJyoGCjFOtIJ0Dl5uRNm0UNXS7AbQtLLylEeI1+/qinQDEWAJ6cBDAaPfNw= rouven@thinkpad"
+
     ];
     keyFiles = [
       ../keys/ssh/marcus-sapphire
