@@ -11,6 +11,18 @@
     hyperkitty.enable = true;
     enablePostfix = true;
     siteOwner = "mailman@${config.fsr.domain}";
+    settings = {
+      database = {
+        class = "mailman.database.postgresql.PostgreSQLDatabase";
+        url = "postgresql://mailman@/mailman?host=/run/postgresql";
+      };
+    };
+    webSettings = {
+      DATABASES.default = {
+        ENGINE = "django.db.backends.postgresql";
+        NAME = "mailmanweb";
+      };
+    };
     ldap = {
       enable = true;
       serverUri = "ldap://localhost";
@@ -27,6 +39,24 @@
       };
       superUserGroup = "cn=admins,ou=groups,dc=ifsr,dc=de";
     };
+  };
+  services.postgresql = {
+    enable = true;
+    ensureUsers = [
+      {
+        name = "mailman";
+        ensurePermissions = {
+          "DATABASE mailman" = "ALL PRIVILEGES";
+        };
+      }
+      {
+        name = "mailman-web";
+        ensurePermissions = {
+          "DATABASE mailmanweb" = "ALL PRIVILEGES";
+        };
+      }
+    ];
+    ensureDatabases = [ "mailman" "mailmanweb" ];
   };
   services.nginx.virtualHosts."lists.${config.fsr.domain}" = {
     enableACME = true;
