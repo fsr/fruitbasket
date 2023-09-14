@@ -15,6 +15,8 @@
       "postgres"
       "sogo"
       "vaultwarden"
+      "mailman"
+      "mailmanweb"
     ];
   };
 }
