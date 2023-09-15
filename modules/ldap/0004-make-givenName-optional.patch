@@ -1,0 +1,34 @@
+From 8856035c40104c6d0b9183d3ff1d209a805b5a45 Mon Sep 17 00:00:00 2001
+From: Rouven Seifert <rouven@rfive.de>
+Date: Fri, 15 Sep 2023 13:24:25 +0200
+Subject: [PATCH] make givenName optional
+
+---
+ internal/core/user.go | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/internal/core/user.go b/internal/core/user.go
+index c70f9c8..c4b08d7 100644
+--- a/internal/core/user.go
++++ b/internal/core/user.go
+@@ -76,7 +76,6 @@ func (u User) RenderToLDAP(suffix string, allGroups map[string]Group) LDAPObject
+ 			"uid":          {u.LoginName},
+ 			"cn":           {u.FullName()},
+ 			"sn":           {u.FamilyName},
+-			"givenName":    {u.GivenName},
+ 			"userPassword": {u.PasswordHash},
+ 			"isMemberOf":   memberOfGroupDNames,
+ 			"objectClass":  {"portunusPerson", "inetOrgPerson", "organizationalPerson", "person", "top"},
+@@ -86,6 +85,9 @@ func (u User) RenderToLDAP(suffix string, allGroups map[string]Group) LDAPObject
+ 	if u.EMailAddress != "" {
+ 		obj.Attributes["mail"] = []string{u.EMailAddress}
+ 	}
++	if u.GivenName != "" {
++		obj.Attributes["givenName"] = []string{u.GivenName}
++	}
+ 	if len(u.SSHPublicKeys) > 0 {
+ 		obj.Attributes["sshPublicKey"] = u.SSHPublicKeys
+ 	}
+-- 
+2.41.0
+
