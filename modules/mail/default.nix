@@ -80,32 +80,6 @@ in
       sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslKey = "/var/lib/acme/${hostname}/key.pem";
       relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
-
-      extraAliases = ''
-        # Taken from kaki, maybe we can throw out some at some point
-        # General redirections for pseudo accounts
-        bin:            root
-        daemon:         root
-        named:          root
-        nobody:         root
-        uucp:           root
-        www:            root
-        ftp-bugs:       root
-        postfix:        root
-
-        # Well-known aliases
-        manager:        root
-        dumper:         root
-        operator:       root
-        abuse:          postmaster
-        postmaster:     root
-
-        # trap decode to catch security attacks
-        decode:         root
-
-        # yeet into the void
-        noreply:        /dev/null
-      '';
       config = {
         home_mailbox = "Maildir/";
         # hostname used in helo command. It is recommended to have this match the reverse dns entry
