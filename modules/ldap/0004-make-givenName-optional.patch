@@ -1,17 +1,8 @@
-From 8856035c40104c6d0b9183d3ff1d209a805b5a45 Mon Sep 17 00:00:00 2001
-From: Rouven Seifert <rouven@rfive.de>
-Date: Fri, 15 Sep 2023 13:24:25 +0200
-Subject: [PATCH] make givenName optional
-
----
- internal/core/user.go | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
 diff --git a/internal/core/user.go b/internal/core/user.go
-index c70f9c8..c4b08d7 100644
+index e74ccfe..ce03eeb 100644
 --- a/internal/core/user.go
 +++ b/internal/core/user.go
-@@ -76,7 +76,6 @@ func (u User) RenderToLDAP(suffix string, allGroups map[string]Group) LDAPObject
+@@ -64,7 +64,6 @@ func (u User) RenderToLDAP(suffix string, allGroups map[string]Group) LDAPObject
  			"uid":          {u.LoginName},
  			"cn":           {u.FullName()},
  			"sn":           {u.FamilyName},
@@ -19,7 +10,7 @@ index c70f9c8..c4b08d7 100644
  			"userPassword": {u.PasswordHash},
  			"isMemberOf":   memberOfGroupDNames,
  			"objectClass":  {"portunusPerson", "inetOrgPerson", "organizationalPerson", "person", "top"},
-@@ -86,6 +85,9 @@ func (u User) RenderToLDAP(suffix string, allGroups map[string]Group) LDAPObject
+@@ -74,6 +73,9 @@ func (u User) RenderToLDAP(suffix string, allGroups map[string]Group) LDAPObject
  	if u.EMailAddress != "" {
  		obj.Attributes["mail"] = []string{u.EMailAddress}
  	}
@@ -29,6 +20,15 @@ index c70f9c8..c4b08d7 100644
  	if len(u.SSHPublicKeys) > 0 {
  		obj.Attributes["sshPublicKey"] = u.SSHPublicKeys
  	}
--- 
-2.41.0
-
+diff --git a/internal/frontend/users.go b/internal/frontend/users.go
+index 225c5b3..1a961ca 100644
+--- a/internal/frontend/users.go
++++ b/internal/frontend/users.go
+@@ -168,7 +168,6 @@ func buildUserMasterdataFieldset(e core.Engine, u *core.User, state *h.FormState
+ 			Name:      "given_name",
+ 			Label:     "Given name",
+ 			Rules: []h.ValidationRule{
+-				core.MustNotBeEmpty,
+ 				core.MustNotHaveSurroundingSpaces,
+ 			},
+ 		},
