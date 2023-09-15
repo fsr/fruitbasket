@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  domain = "nc.${config.fsr.domain}";
+  domain = "nc.staging.ifsr.de";
   legacy_domain = "oc.ifsr.de";
 in
 {

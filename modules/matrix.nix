@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
-  domainServer = "matrix.${config.fsr.domain}";
-  domainClient = "chat.${config.fsr.domain}";
+  domainServer = "matrix.staging.ifsr.de";
+  domainClient = "chat.staging.ifsr.de";
 
   clientConfig = {
     "m.homeserver" = {
@@ -96,21 +96,22 @@ in
       extraConfigFiles = [
         (pkgs.writeTextFile {
           name = "matrix-synapse-extra-config.yml";
-          text = let portunus = config.services.portunus; in ''
-            modules:
-              - module: ldap_auth_provider.LdapAuthProviderModule
-                config:
-                  enabled: true
-                  uri: ldap://localhost
-                  base: ou=users,${portunus.ldap.suffix}
-                  # taken from kaki config
-                  attributes:
-                    uid: uid
-                    mail: uid
-                    name: cn
-                  bind_dn: uid=search,ou=users,${portunus.ldap.suffix}
-                  bind_password_file: ${config.sops.secrets.matrix_ldap_search.path}
-          '';
+          text = let portunus = config.services.portunus; in
+            ''
+              modules:
+                - module: ldap_auth_provider.LdapAuthProviderModule
+                  config:
+                    enabled: true
+                    uri: ldap://localhost
+                    base: ou=users,${portunus.ldap.suffix}
+                    # taken from kaki config
+                    attributes:
+                      uid: uid
+                      mail: uid
+                      name: cn
+                    bind_dn: uid=search,ou=users,${portunus.ldap.suffix}
+                    bind_password_file: ${config.sops.secrets.matrix_ldap_search.path}
+            '';
         })
       ];
     };
