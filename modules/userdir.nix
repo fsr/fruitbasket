@@ -29,7 +29,7 @@ in
     virtualHosts.${domain} = {
       enableUserDir = true;
       extraConfig = ''
-        <Directory "/home/*/public_html">
+        <Directory "/home/users/*/public_html">
           Options -Indexes
           DirectoryIndex index.php index.html
           AllowOverride FileInfo AuthConfig Limit Indexes Options=Indexes
