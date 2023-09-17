@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  # hostName = "kurse.${config.fsr.domain}";
-  hostName = "kurse.ifsr.de";
+  hostName = "kurse.${config.networking.domain}";
 in
 {
   sops.secrets =
@@ -22,15 +21,15 @@ in
       adminPassFile = config.sops.secrets."course-management/adminpass".path;
       admins = [{
         name = "Root iFSR";
-        email = "root@${config.fsr.domain}";
+        email = "root@${config.networking.domain}";
       }];
       database = {
         ENGINE = "django.db.backends.postgresql";
         NAME = "course-management";
       };
       email = lib.mkDefault {
-        fromEmail = "noreply@${config.fsr.domain}";
-        serverEmail = "root@${config.fsr.domain}";
+        fromEmail = "noreply@${config.networking.domain}";
+        serverEmail = "root@${config.networking.domain}";
       };
     };
   };

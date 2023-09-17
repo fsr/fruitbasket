@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
-  domain = "nc.staging.ifsr.de";
-  legacy_domain = "oc.ifsr.de";
+  domain = "nc.staging.${config.networking.domain}";
+  legacy_domain = "oc.${config.networking.domain}";
 in
 {
   sops.secrets = {

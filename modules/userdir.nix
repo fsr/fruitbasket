@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  domain = "users.${config.fsr.domain}";
+  domain = "users.${config.networking.domain}";
   port = 8083;
   apacheUser = config.services.httpd.user;
 in

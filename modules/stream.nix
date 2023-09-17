@@ -3,8 +3,7 @@
   services = {
     nginx = {
       virtualHosts = {
-        # "stream.${config.fsr.domain}" = {
-        "stream.ifsr.de" = {
+        "stream.${config.networking.domain}" = {
           enableACME = true;
           forceSSL = true;
           locations."/" =
@@ -17,13 +16,6 @@
             };
         };
       };
-      #streamConfig = ''
-      #  server {
-      #  listen            1935;
-      #  proxy_pass        [::1]:1935;
-      #  proxy_buffer_size 32k;
-      #}
-      #'';
     };
     owncast = {
       enable = true;

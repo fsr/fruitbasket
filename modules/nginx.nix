@@ -29,7 +29,7 @@
     acceptTerms = true;
     defaults = {
       #server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      email = "root@ifsr.de";
+      email = "root@${config.networking.domain}";
     };
   };
   security.pam.services.nginx.text = ''

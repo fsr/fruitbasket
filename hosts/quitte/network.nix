@@ -11,7 +11,9 @@ in
 
   networking = {
     hostId = "a71c81fc";
-    rdns = "quitte.ifsr.de";
+    domain = "ifsr.de";
+    hostName = "quitte";
+    rDNS = config.networking.fqdn;
     enableIPv6 = true;
     useDHCP = true;
     interfaces.ens18.useDHCP = true;

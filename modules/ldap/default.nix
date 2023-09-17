@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  domain = "auth.${config.fsr.domain}";
+  domain = "auth.${config.networking.domain}";
   seed = {
     groups = [
       {

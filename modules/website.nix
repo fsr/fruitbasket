@@ -31,13 +31,13 @@ in
 
   services.nginx = {
 
-    virtualHosts."www.${config.fsr.domain}" = {
+    virtualHosts."www.${config.networking.domain}" = {
       enableACME = true;
       forceSSL = true;
       locations."/".return = "301 $scheme://ifsr.de$request_uri";
 
     };
-    virtualHosts."${config.fsr.domain}" = {
+    virtualHosts."${config.networking.domain}" = {
       enableACME = true;
       forceSSL = true;
       root = "/srv/web/ifsrde";
