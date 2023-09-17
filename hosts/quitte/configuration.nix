@@ -17,6 +17,12 @@
 
   services.qemuGuest.enable = true;
 
+  # don't freeze the whole system while building something
+  nix.settings.cores = 16;
+
+  # allows everyone in the nix-trusted group to perform builds
+  nix.settings.trusted-users = [ "@nix-trusted" ];
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
