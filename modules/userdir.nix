@@ -29,10 +29,17 @@ in
     virtualHosts.${domain} = {
       enableUserDir = true;
       extraConfig = ''
+        UserDir /home/users/*/public_html
         <Directory "/home/users/*/public_html">
-          Options -Indexes
+          Options -Indexes +MultiViews +SymLinksIfOwnerMatch +IncludesNoExec
           DirectoryIndex index.php index.html
           AllowOverride FileInfo AuthConfig Limit Indexes Options=Indexes
+          <Limit GET POST OPTIONS>
+            Require all granted
+          </Limit>
+          <LimitExcept GET POST OPTIONS>
+            Require all denied
+          </LimitExcept>
         </Directory>
       '';
       listen = [{
