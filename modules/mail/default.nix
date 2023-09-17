@@ -215,6 +215,7 @@ in
                 }
 
 
+                mail_plugins = $mail_plugins listescape
                 plugin {
                   sieve_plugins = sieve_imapsieve sieve_extprograms
                   sieve_global_extensions = +vnd.dovecot.pipe
@@ -230,6 +231,9 @@ in
                   imapsieve_mailbox2_from = Spam
                   imapsieve_mailbox2_causes = COPY
                   imapsieve_mailbox2_before = file:/etc/dovecot/sieve/report-ham.sieve
+
+                  # https://doc.dovecot.org/configuration_manual/plugins/listescape_plugin/
+                  listescape_char = "\\"
                 }
       '';
     };
