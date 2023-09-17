@@ -177,64 +177,64 @@ in
         pkgs.dovecot_pigeonhole
       ];
       extraConfig = ''
-                auth_username_format = %Ln
-                passdb {
-                  driver = ldap
-                  args = ${dovecot-ldap-args}
-                }
-                userdb {
-                  driver = ldap
-                  args = ${dovecot-ldap-args}
-                }
-                service auth {
-                  unix_listener /var/lib/postfix/auth {
-                    group = postfix
-                    mode = 0660
-                    user = postfix
-                  }
-                }
-                service managesieve-login {
-                  inet_listener sieve {
-                    port = 4190
-                  }
-                  service_count = 1
-                }
+        auth_username_format = %Ln
+        passdb {
+          driver = ldap
+          args = ${dovecot-ldap-args}
+        }
+        userdb {
+          driver = ldap
+          args = ${dovecot-ldap-args}
+        }
+        service auth {
+          unix_listener /var/lib/postfix/auth {
+            group = postfix
+            mode = 0660
+            user = postfix
+          }
+        }
+        service managesieve-login {
+          inet_listener sieve {
+            port = 4190
+          }
+          service_count = 1
+        }
 
-        	namespace inbox {
-        	  separator = /
-        	  inbox = yes
-        	}
+        namespace inbox {
+          separator = /
+          inbox = yes
+        }
 
-                service lmtp {
-                  unix_listener dovecot-lmtp {
-                    group = postfix
-                    mode = 0600
-                    user = postfix
-                  }
-                  client_limit = 1
-                }
+        service lmtp {
+          unix_listener dovecot-lmtp {
+            group = postfix
+            mode = 0600
+            user = postfix
+          }
+          client_limit = 1
+        }
 
 
-                mail_plugins = $mail_plugins listescape
-                plugin {
-                  sieve_plugins = sieve_imapsieve sieve_extprograms
-                  sieve_global_extensions = +vnd.dovecot.pipe
-                  sieve_pipe_bin_dir = /etc/dovecot/sieve-pipe
+        mail_plugins = $mail_plugins listescape
+        plugin {
+          sieve_plugins = sieve_imapsieve sieve_extprograms
+          sieve_global_extensions = +vnd.dovecot.pipe
+          sieve_pipe_bin_dir = /etc/dovecot/sieve-pipe
 
-                  # Spam: From elsewhere to Spam folder or flag changed in Spam folder
-                  imapsieve_mailbox1_name = Spam
-                  imapsieve_mailbox1_causes = COPY APPEND FLAG
-                  imapsieve_mailbox1_before = file:/etc/dovecot/sieve/report-spam.sieve
+          # Spam: From elsewhere to Spam folder or flag changed in Spam folder
+          imapsieve_mailbox1_name = Spam
+          imapsieve_mailbox1_causes = COPY APPEND FLAG
+          imapsieve_mailbox1_before = file:/etc/dovecot/sieve/report-spam.sieve
 
-                  # Ham: From Spam folder to elsewhere
-                  imapsieve_mailbox2_name = *
-                  imapsieve_mailbox2_from = Spam
-                  imapsieve_mailbox2_causes = COPY
-                  imapsieve_mailbox2_before = file:/etc/dovecot/sieve/report-ham.sieve
+          # Ham: From Spam folder to elsewhere
+          imapsieve_mailbox2_name = *
+          imapsieve_mailbox2_from = Spam
+          imapsieve_mailbox2_causes = COPY
+          imapsieve_mailbox2_before = file:/etc/dovecot/sieve/report-ham.sieve
 
-                  # https://doc.dovecot.org/configuration_manual/plugins/listescape_plugin/
-                  listescape_char = "\\"
-                }
+          # https://doc.dovecot.org/configuration_manual/plugins/listescape_plugin/
+          listescape_char = "\\"
+        }
       '';
     };
     opendkim = {
