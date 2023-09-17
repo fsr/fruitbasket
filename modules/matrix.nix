@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
   domainServer = "matrix.staging.${config.networking.domain}";
   domainClient = "chat.staging.${config.networking.domain}";

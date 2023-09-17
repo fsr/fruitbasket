@@ -55,7 +55,7 @@ in
 
   services.portunus = {
     enable = true;
-    package = pkgs.portunus.overrideAttrs (old: {
+    package = pkgs.portunus.overrideAttrs (_old: {
       patches = [
         ./0001-update-user-validation-regex.patch
         ./0002-both-ldap-and-ldaps.patch

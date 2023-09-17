@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ config, ... }:
 let
   wireguard_port = 51820;
 in

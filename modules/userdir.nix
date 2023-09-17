@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 let
   domain = "users.${config.networking.domain}";
   port = 8083;

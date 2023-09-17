@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
   hostname = "mail.${config.networking.domain}";
   domain = config.networking.domain;

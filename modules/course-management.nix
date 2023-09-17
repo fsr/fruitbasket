@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   hostName = "kurse.${config.networking.domain}";
 in
