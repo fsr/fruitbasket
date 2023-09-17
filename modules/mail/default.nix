@@ -32,6 +32,7 @@ in
 
   networking.firewall.allowedTCPPorts = [
     25 # insecure SMTP
+    143
     465
     587 # SMTP
     993 # IMAP
@@ -129,6 +130,7 @@ in
         mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
 
         transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
+        virtual_alias_maps = [ "hash:/var/lib/mailman/data/postfix_vmap" ];
         local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" "ldap:${config.sops.secrets."postfix_ldap_aliases".path}" "$alias_maps" ];
       };
     };
@@ -197,6 +199,12 @@ in
           }
           service_count = 1
         }
+
+	namespace inbox {
+	  separator = /
+	  inbox = yes
+	}
+
         service lmtp {
           unix_listener dovecot-lmtp {
             group = postfix

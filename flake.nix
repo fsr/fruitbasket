@@ -52,7 +52,7 @@
             ./modules/course-management.nix
             ./modules/gitea.nix
             {
-              fsr.domain = "staging.ifsr.de";
+              fsr.domain = "ifsr.de";
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
           ];
