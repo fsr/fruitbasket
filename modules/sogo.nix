@@ -1,7 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 let
-  sogo-hostname = "mail.${config.fsr.domain}";
-  domain = config.fsr.domain;
+  sogo-hostname = "mail.${config.networking.domain}";
 in
 {
   sops.secrets = {

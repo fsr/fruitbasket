@@ -1,8 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
-  hostname = "mail.${config.fsr.domain}";
-  domain = config.fsr.domain;
-  rspamd-domain = "rspamd.${config.fsr.domain}";
+  hostname = "mail.${config.networking.domain}";
+  domain = config.networking.domain;
+  rspamd-domain = "rspamd.${config.networking.domain}";
   dovecot-ldap-args = pkgs.writeText "ldap-args" ''
     uris = ldap://localhost
     dn = uid=search, ou=users, dc=ifsr, dc=de
@@ -84,8 +84,7 @@ in
       config = {
         home_mailbox = "Maildir/";
         # hostname used in helo command. It is recommended to have this match the reverse dns entry
-        # smtp_helo_name = "x8d1e1ea9.agdsn.tu-dresden.de";
-        smtp_helo_name = config.networking.rdns;
+        smtp_helo_name = config.networking.rDNS;
         smtp_use_tls = true;
         # smtp_tls_security_level = "encrypt";
         smtpd_use_tls = true;
@@ -239,7 +238,7 @@ in
     };
     opendkim = {
       enable = true;
-      domains = "csl:${config.fsr.domain}";
+      domains = "csl:${config.networking.domain}";
       selector = config.networking.hostName;
       configFile = pkgs.writeText "opendkim-config" ''
         UMask 0117

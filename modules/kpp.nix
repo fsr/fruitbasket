@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  domain = "kpp.ifsr.de";
+  domain = "kpp.${config.networking.domain}";
 in
 {
   services.kpp = {

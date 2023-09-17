@@ -7,10 +7,10 @@
   services.mailman = {
     enable = true;
     serve.enable = true;
-    webHosts = [ "lists.${config.fsr.domain}" ];
+    webHosts = [ "lists.${config.networking.domain}" ];
     hyperkitty.enable = true;
     enablePostfix = true;
-    siteOwner = "mailman@${config.fsr.domain}";
+    siteOwner = "mailman@${config.networking.domain}";
     settings = {
       database = {
         class = "mailman.database.postgresql.PostgreSQLDatabase";
@@ -58,7 +58,7 @@
     ];
     ensureDatabases = [ "mailman" "mailmanweb" ];
   };
-  services.nginx.virtualHosts."lists.${config.fsr.domain}" = {
+  services.nginx.virtualHosts."lists.${config.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
   };

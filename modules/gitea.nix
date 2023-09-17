@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  domain = "git.${config.fsr.domain}";
+  domain = "git.${config.networking.domain}";
   giteaUser = "git";
 in
 {
@@ -38,7 +38,7 @@ in
       server = {
         PROTOCOL = "http+unix";
         DOMAIN = domain;
-        SSH_DOMAIN = config.fsr.domain;
+        SSH_DOMAIN = config.networking.domain;
         ROOT_URL = "https://${domain}";
         OFFLINE_MODE = true; # disable use of CDNs
       };
@@ -46,7 +46,7 @@ in
       service = {
         DISABLE_REGISTRATION = true;
         ENABLE_NOTIFY_MAIL = true;
-        NO_REPLY_ADDRESS = "noreply.${config.fsr.domain}";
+        NO_REPLY_ADDRESS = "noreply.${config.networking.domain}";
       };
       "service.explore".DISABLE_USERS_PAGE = true;
       openid = {
@@ -55,7 +55,7 @@ in
       };
       mailer = {
         ENABLED = true;
-        FROM = "\"iFSR Git\" <git@${config.fsr.domain}>";
+        FROM = "\"iFSR Git\" <git@${config.networking.domain}>";
         SMTP_ADDR = "localhost";
         SMTP_PORT = 25;
       };

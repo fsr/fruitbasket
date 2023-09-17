@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  domain = "vault.ifsr.de";
+  domain = "vault.${config.networking.domain}";
 in
 {
   sops.secrets."vaultwarden_env".owner = "vaultwarden";
@@ -16,7 +16,7 @@ in
       smtpHost = "127.0.0.1";
       smtpPort = 25;
       smtpSSL = false;
-      smtpFrom = "noreply@${config.fsr.domain}";
+      smtpFrom = "noreply@${config.networking.domain}";
       smtpFromName = "iFSR Vaultwarden";
     };
   };

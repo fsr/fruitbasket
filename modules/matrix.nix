@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
-  domainServer = "matrix.staging.ifsr.de";
-  domainClient = "chat.staging.ifsr.de";
+  domainServer = "matrix.staging.${config.networking.domain}";
+  domainClient = "chat.staging.${config.networking.domain}";
 
   clientConfig = {
     "m.homeserver" = {

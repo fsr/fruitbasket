@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  domain = "pad.ifsr.de";
+  domain = "pad.${config.networking.domain}";
   template = pkgs.writeText "hedgedoc-template.md" ''
     ---
     tags: listed

@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   homeserverDomain = config.services.matrix-synapse.settings.server_name;
   registrationFileSynapse = "/var/lib/matrix-synapse/telegram-registration.yaml";

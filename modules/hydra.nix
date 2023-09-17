@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  domain = "hydra.ifsr.de";
+  domain = "hydra.${config.networking.domain}";
 in
 {
   sops.secrets."hydra_ldap_search" = { owner = "hydra"; group = "hydra"; mode = "440"; };

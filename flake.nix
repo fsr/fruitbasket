@@ -52,7 +52,6 @@
             ./modules/course-management.nix
             ./modules/gitea.nix
             {
-              fsr.domain = "ifsr.de";
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
           ];

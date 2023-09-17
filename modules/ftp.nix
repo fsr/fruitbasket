@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  domain = "ftp.ifsr.de";
+  domain = "ftp.${config.networking.domain}";
 in
 {
   services.nginx.additionalModules = [ pkgs.nginxModules.fancyindex ];
