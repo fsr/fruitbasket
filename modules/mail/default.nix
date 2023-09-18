@@ -108,7 +108,7 @@ in
           "reject_unauth_destination"
           "reject_unauth_pipelining"
           "reject_invalid_hostname"
-          "check_policy_service inet:localhost:12340"
+          # "check_policy_service inet:localhost:12340" # disabled since it breaks mails to root@ifsr.de
         ];
         smtpd_relay_restrictions = [
           "permit_sasl_authenticated"
