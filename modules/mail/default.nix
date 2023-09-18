@@ -144,6 +144,7 @@ in
       sslServerKey = "/var/lib/acme/${hostname}/key.pem";
       protocols = [ "imap" "sieve" ];
       mailPlugins = {
+        globally.enable = [ "listescape" ];
         perProtocol = {
           imap = {
             enable = [ "imap_sieve" ];
@@ -214,7 +215,6 @@ in
         }
 
 
-        mail_plugins = $mail_plugins listescape
         plugin {
           sieve_plugins = sieve_imapsieve sieve_extprograms
           sieve_global_extensions = +vnd.dovecot.pipe
