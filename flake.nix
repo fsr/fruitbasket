@@ -3,6 +3,8 @@
     nixpkgs.url = github:nixos/nixpkgs/nixos-23.05;
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     kpp.url = "github:fsr/kpp";
     kpp.inputs.nixpkgs.follows = "nixpkgs";
     course-management = {
@@ -10,7 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, sops-nix, kpp, course-management, ... }@inputs:
+  outputs = { self, nixpkgs, sops-nix, nix-index-database, kpp, course-management, ... }@inputs:
     {
       packages."x86_64-linux".quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
       packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;
@@ -23,6 +25,7 @@
           modules = [
             inputs.sops-nix.nixosModules.sops
             inputs.kpp.nixosModules.default
+            inputs.nix-index-database.nixosModules.nix-index
             course-management.nixosModules.default
             ./hosts/quitte/configuration.nix
             ./modules/bacula.nix
