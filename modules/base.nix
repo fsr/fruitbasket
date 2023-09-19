@@ -73,6 +73,7 @@
     usbutils
     wget
     neovim
+    helix
     nmap
     tcpdump
     bat
