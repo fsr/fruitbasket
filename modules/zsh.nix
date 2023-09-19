@@ -32,6 +32,9 @@
       source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
       source ${pkgs.agdsn-zsh-config}/etc/zsh/zshrc
     '';
+    promptInit = ''
+      prompt_hw_setup
+    '';
   };
 }
 
