@@ -7,7 +7,6 @@
     bat
     duf
   ];
-  users.defaultUserShell = pkgs.zsh;
   programs.fzf = {
     keybindings = true;
   };
