@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   domain = "users.${config.networking.domain}";
   port = 8083;
@@ -18,18 +18,19 @@ in
 
       mkdir -p $HOME/public_html
       # public_html dir: apache and $USER have rwx on everything inside
-      setfacl -m u:${apacheUser}:rwx,d:u:${apacheUser}:rwx,d:u:$USER:rwx $HOME/public_html
+      setfacl -m u:${apacheUser}:rwx,d:u:${apacheUser}:rwx,d:u:''${USER}:rwx $HOME/public_html
     fi
   '';
 
   services.httpd = {
     enable = true;
     enablePHP = true;
+    extraModules = [ "userdir" ];
 
     virtualHosts.${domain} = {
-      enableUserDir = true;
       extraConfig = ''
-        UserDir /home/users/*/public_html
+        UserDir disabled root
+        UserDir /home/users/*/public_html/
         <Directory "/home/users/*/public_html">
           Options -Indexes +MultiViews +SymLinksIfOwnerMatch +IncludesNoExec
           DirectoryIndex index.php index.html
@@ -55,6 +56,10 @@ in
 
     locations."/" = {
       proxyPass = "http://localhost:${toString port}";
+      extraConfig = ''
+        proxy_intercept_errors on;
+        error_page 403 404 =404 /404.html;
+      '';
     };
   };
 }

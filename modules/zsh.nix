@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   programs.command-not-found.enable = false;
   programs.nix-index-database.comma.enable = true;
@@ -12,18 +12,13 @@
   };
   programs.zsh = {
     enable = true;
-    shellAliases = {
-      l = "ls -l";
-      ll = "ls -la";
-      la = "ls -a";
-      less = "bat";
-    };
-    histSize = 100000;
-    histFile = "~/.local/share/zsh/history";
     autosuggestions = {
       enable = true;
       highlightStyle = "fg=#00bbbb,bold";
     };
+
+    # don't override agdsn-zsh-config aliases
+    shellAliases = lib.mkForce {};
 
     shellInit = ''
       zsh-newuser-install () {}
