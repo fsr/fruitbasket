@@ -1,13 +1,13 @@
 { pkgs, ... }:
 {
+  programs.command-not-found.enable = false;
+  programs.nix-index-database.comma.enable = true;
   environment.systemPackages = with pkgs; [
     # fzf
     bat
     duf
   ];
-  users.defaultUserShell = pkgs.zsh;
   programs.fzf = {
-    fuzzyCompletion = true;
     keybindings = true;
   };
   programs.zsh = {
@@ -25,12 +25,14 @@
       highlightStyle = "fg=#00bbbb,bold";
     };
 
-    shellInit =
-      ''
-        source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-
-        zsh-newuser-install () {}
-      '';
+    shellInit = ''
+      zsh-newuser-install () {}
+    '';
+    interactiveShellInit = ''
+      source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+      source ${pkgs.agdsn-zsh-config}/etc/zsh/zshrc
+    '';
+    promptInit = "";
   };
 }
 
