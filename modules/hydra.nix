@@ -4,6 +4,7 @@ let
 in
 {
   sops.secrets."hydra_ldap_search" = { owner = "hydra"; group = "hydra"; mode = "440"; };
+  nix.settings.allowed-uris = [ "https://github.com/nix-community" ]; # whitelisted to fetch nix-index
   services.hydra = {
     enable = true;
     port = 4000;
