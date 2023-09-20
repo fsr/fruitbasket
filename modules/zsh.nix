@@ -18,7 +18,7 @@
     };
 
     # don't override agdsn-zsh-config aliases
-    shellAliases = lib.mkForce {};
+    shellAliases = lib.mkForce { };
 
     shellInit = ''
       zsh-newuser-install () {}
