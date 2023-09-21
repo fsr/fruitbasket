@@ -260,6 +260,31 @@ in
         "milter_headers.conf".text = ''
           use = ["x-spam-level", "x-spam-status"];
         '';
+        "multimap.conf".text = ''
+          WHITELIST_SENDER_DOMAIN {
+            type = "from";
+            filter = "email:domain";
+            map = "/var/lib/rspamd/whitelist.sender.domain.map";
+            action = "accept";
+          }
+          WHITELIST_SENDER_EMAIL {
+            type = "from";
+            map = "/var/lib/rspamd/whitelist.sender.email.map";
+            action = "accept";
+          }
+          BLACKLIST_SENDER_DOMAIN {
+            type = "from";
+            filter = "email:domain";
+            map = "/var/lib/rspamd/blacklist.sender.domain.map";
+            action = "reject";
+          }
+          BLACKLIST_SENDER_EMAIL {
+            type = "from";
+            map = "/var/lib/rspamd/blacklist.sender.email.map";
+            action = "reject";
+          }
+
+        '';
       };
     };
     redis = {
