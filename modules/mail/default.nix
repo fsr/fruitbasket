@@ -264,7 +264,7 @@ in
           servers = "127.0.0.1:6379";
           enabled = true;
         '';
-        neural_group.conf.text = ''
+        "neural_group.conf".text = ''
           symbols = {
             "NEURAL_SPAM" {
               weight = 0.5; # fairly low weight since we don't know how this will behave
