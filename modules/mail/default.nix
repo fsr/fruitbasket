@@ -260,6 +260,23 @@ in
         "milter_headers.conf".text = ''
           use = ["x-spam-level", "x-spam-status"];
         '';
+        "neural.conf".text = ''
+          servers = "127.0.0.1:6379";
+          enabled = true;
+        '';
+        neural_group.conf.text = ''
+          symbols = {
+            "NEURAL_SPAM" {
+              weight = 0.5; # fairly low weight since we don't know how this will behave
+              description = "Neural network spam";
+            }
+            "NEURAL_HAM" {
+              weight = -0.5;
+              description = "Neural network ham";
+            }
+          }
+        '';
+
         "multimap.conf".text = ''
           WHITELIST_SENDER_DOMAIN {
             type = "from";
