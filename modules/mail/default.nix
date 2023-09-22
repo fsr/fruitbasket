@@ -108,7 +108,7 @@ in
           "reject_unauth_destination"
           "reject_unauth_pipelining"
           "reject_invalid_hostname"
-          # "check_policy_service inet:localhost:12340" # disabled since it breaks mails to root@ifsr.de
+          "check_policy_service inet:localhost:12340"
         ];
         smtpd_relay_restrictions = [
           "permit_sasl_authenticated"
@@ -139,6 +139,7 @@ in
       enableQuota = true;
       quotaGlobalPerUser = "10G";
       enableLmtp = true;
+      enablePAM = false;
       mailLocation = "maildir:~/Maildir";
       sslServerCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslServerKey = "/var/lib/acme/${hostname}/key.pem";
