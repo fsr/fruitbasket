@@ -15,7 +15,7 @@ in
   services = {
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud25;
+      package = pkgs.nextcloud27;
       enableBrokenCiphersForSSE = false; # disable the openssl warning
       hostName = domain;
       https = true; # Use https for all urls
