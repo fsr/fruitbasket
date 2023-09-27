@@ -178,7 +178,7 @@ in
         pkgs.dovecot_pigeonhole
       ];
       sievesScripts = {
-        before = pkgs.WriteText "spam.sieve" ''
+        before = pkgs.writeText "spam.sieve" ''
           require "fileinto";
 
           if anyof(
