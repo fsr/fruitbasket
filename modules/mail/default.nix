@@ -177,7 +177,10 @@ in
       modules = [
         pkgs.dovecot_pigeonhole
       ];
-      sievesScripts = {
+      # set to satisfy the sieveScripts check, will be overridden by userdb lookups anyways
+      mailUser = "vmail";
+      mailGroup = "vmail";
+      sieveScripts = {
         before = pkgs.writeText "spam.sieve" ''
           require "fileinto";
 
