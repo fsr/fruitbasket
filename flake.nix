@@ -22,6 +22,7 @@
       nixosConfigurations = {
         quitte = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = inputs;
           modules = [
             inputs.sops-nix.nixosModules.sops
             inputs.kpp.nixosModules.default
@@ -53,6 +54,7 @@
             ./modules/website.nix
             ./modules/zsh.nix
             ./modules/course-management.nix
+            ./modules/courses-phil.nix
             ./modules/gitea.nix
             {
               sops.defaultSopsFile = ./secrets/quitte.yaml;
