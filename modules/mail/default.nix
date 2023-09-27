@@ -177,6 +177,17 @@ in
       modules = [
         pkgs.dovecot_pigeonhole
       ];
+      sievesScripts = {
+        before = pkgs.WriteText "spam.sieve" ''
+          require "fileinto";
+
+          if anyof(
+          header :contains "x-spam-flag" "yes",
+          header :contains "X-Spam-Status" "Yes"){
+                  fileinto "Spam";
+          }
+        '';
+      };
       extraConfig = ''
         auth_username_format = %Ln
         passdb {
