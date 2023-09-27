@@ -5,6 +5,7 @@ in
 {
 
   containers."courses-phil".config = {
+    sops.defaultSopsFile = ../secrets/quitte.yaml;
     sops.secrets =
       let inherit (config.services.course-management) user;
       in
