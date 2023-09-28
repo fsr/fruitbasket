@@ -1,6 +1,6 @@
 { config, lib, sops-nix, course-management, ... }:
 let
-  hostName = "phil.${config.networking.domain}";
+  hostName = "kurse-phil.${config.networking.domain}";
 in
 {
   services.nginx.virtualHosts."${hostName}" = {
@@ -17,6 +17,7 @@ in
     #   mountPoint = "/etc/ssh";
     # };
     config = { pkgs, config, ... }: {
+      system.stateVersion = "23.05";
       networking.domain = "ifsr.de";
       imports = [
         sops-nix.nixosModules.sops
