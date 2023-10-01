@@ -48,6 +48,12 @@ in
         inherit port;
       }];
     };
+
+    phpPackage = pkgs.php.buildEnv {
+      extraConfig = ''
+        display_errors=0
+      '';
+    };
   };
 
   services.nginx.virtualHosts.${domain} = {
