@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ config, lib, ... }:
 let
   hostName = "kurse.${config.networking.domain}";
 in
@@ -15,11 +15,7 @@ in
   services.course-management = {
     inherit hostName;
     enable = true;
-    package = (pkgs.course-management.overrideAttrs (_: {
-      patches = [
-        ./0001-show-participants-again.patch
-      ];
-    }));
+
     settings = {
       secretKeyFile = config.sops.secrets."course-management/secret-key".path;
       adminPassFile = config.sops.secrets."course-management/adminpass".path;

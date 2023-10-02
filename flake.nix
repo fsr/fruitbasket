@@ -53,7 +53,7 @@
             ./modules/vaultwarden.nix
             ./modules/website.nix
             ./modules/zsh.nix
-            ./modules/course-management
+            ./modules/course-management.nix
             ./modules/courses-phil.nix
             ./modules/gitea.nix
             {
