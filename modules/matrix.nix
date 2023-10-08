@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-  domainServer = "matrix.staging.${config.networking.domain}";
-  domainClient = "chat.staging.${config.networking.domain}";
+  domainServer = "matrix.${config.networking.domain}";
+  domainClient = "chat.${config.networking.domain}";
 
   clientConfig = {
     "m.homeserver" = {

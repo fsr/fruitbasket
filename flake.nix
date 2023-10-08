@@ -48,7 +48,7 @@
             ./modules/stream.nix
             ./modules/nextcloud.nix
             ./modules/matrix.nix
-            ./modules/mautrix-telegram.nix
+            # ./modules/mautrix-telegram.nix
             ./modules/sogo.nix
             ./modules/vaultwarden.nix
             ./modules/website.nix
