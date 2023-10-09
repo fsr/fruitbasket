@@ -46,12 +46,13 @@ in
         # Use postgresql instead of sqlite
         database = "postgresql:///mautrix-telegram?host=/run/postgresql";
         port = 8082;
-        address = "localhost:${toString port}";
+        address = "http://localhost:${toString port}";
       };
 
       bridge = {
         relaybot.authless_portals = false;
         permissions = {
+          # Add yourself here temporarily
           "@admin:${homeserverDomain}" = "admin";
         };
         relay_user_distinguishers = [ ];
