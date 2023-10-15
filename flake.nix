@@ -45,7 +45,7 @@
             ./modules/postgres.nix
             ./modules/wiki.nix
             ./modules/ftp.nix
-            ./modules/stream.nix
+            #./modules/stream.nix
             ./modules/nextcloud.nix
             ./modules/matrix.nix
             ./modules/mautrix-telegram.nix
