@@ -57,6 +57,7 @@
             ./modules/courses-phil.nix
             ./modules/gitea.nix
             ./modules/fail2ban.nix
+            ./modules/kanboard.nix
             {
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
