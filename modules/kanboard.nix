@@ -1,5 +1,7 @@
 { pkgs, config, lib, ... }:
 let
+  domain = "kanboard.${config.networking.domain}";
+  domain_short = "kb.${config.networking.domain}";
   user = "kanboard";
   group = "kanboard";
 in
@@ -31,31 +33,38 @@ in
 
 
   services.nginx.enable = true;
-  services.nginx.virtualHosts."kanboard.staging.ifsr.de" = {
-    addSSL = true;
-    enableACME = true;
-    root = "/srv/web/kanboard";
-    extraConfig = ''
-      index index.html index.php;
-    '';
-
-    locations = {
-      "/" = {
-        tryFiles = "$uri $uri/ =404";
-      };
-      "~ \.php$" = {
-        extraConfig = ''
-          try_files $uri =404;
-          fastcgi_pass unix:${config.services.phpfpm.pools.kanboard.socket};
-          fastcgi_split_path_info ^(.+\.php)(/.+)$;
-          fastcgi_index index.php;
-          include ${pkgs.nginx}/conf/fastcgi_params;
-          include ${pkgs.nginx}/conf/fastcgi.conf;
-          fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
-        '';
-      };
-      "/data".return = "403";
+  services.nginx = {
+    virtualHosts."${domain_short}" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/".return = "301 $scheme://${domain}$request_uri";
     };
 
+    virtualHosts."${domain}" = {
+      addSSL = true;
+      enableACME = true;
+      root = "/srv/web/kanboard";
+      extraConfig = ''
+        index index.html index.php;
+      '';
+
+      locations = {
+        "/" = {
+          tryFiles = "$uri $uri/ =404";
+        };
+        "~ \.php$" = {
+          extraConfig = ''
+            try_files $uri =404;
+            fastcgi_pass unix:${config.services.phpfpm.pools.kanboard.socket};
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_index index.php;
+            include ${pkgs.nginx}/conf/fastcgi_params;
+            include ${pkgs.nginx}/conf/fastcgi.conf;
+            fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
+          '';
+        };
+        "/data".return = "403";
+      };
+    };
   };
 }
