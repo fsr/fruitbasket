@@ -9,6 +9,17 @@
         bantime = 25h
         action = iptables-allports[name=fail2banTOR, protocol=all]
       '';
+      dovecot = ''
+        enabled = true
+        # aggressive mode to add blocking for aborted connections
+        filter = dovecot[mode=aggressive]
+        maxretry = 3
+      '';
+      postfix = ''
+        enabled = true
+        filter = postfix[mode=aggressive]
+        maxretry = 3
+      '';
     };
   };
 
