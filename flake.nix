@@ -58,6 +58,9 @@
             ./modules/gitea.nix
             ./modules/fail2ban.nix
             ./modules/kanboard.nix
+            ./modules/infoscreen.nix
+            ./modules/manual.nix
+            ./modules/sharepic.nix
             {
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
