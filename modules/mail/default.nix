@@ -315,6 +315,13 @@ in
             map = "/var/lib/rspamd/blacklist.sender.email.map";
             action = "reject";
           }
+          BLACKLIST_SUBJECT_KEYWORDS {
+            type = "header";
+            header = "Subject"
+            map = "/var/lib/rspamd/blacklist.keyword.subject.map";
+            action = "reject";
+            regexp = true;
+          }
 
         '';
       };
