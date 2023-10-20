@@ -63,6 +63,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     atop
+    btop
     bat
     git
     htop
