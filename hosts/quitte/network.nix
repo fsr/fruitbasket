@@ -18,6 +18,7 @@ in
     useDHCP = true;
     interfaces.ens18.useDHCP = true;
     useNetworkd = true;
+    nftables.enable = true;
 
     firewall.allowedUDPPorts = [ wireguard_port ];
     wireguard.enable = true;
