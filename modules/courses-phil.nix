@@ -1,4 +1,4 @@
-{ config, lib, sops-nix, course-management, ... }:
+{ config, lib, course-management, ... }:
 let
   hostName = "kurse-phil.${config.networking.domain}";
 in
@@ -9,39 +9,39 @@ in
     forceSSL = true;
   };
 
+  sops.secrets = {
+    "course-management-phil/secret-key" = { };
+    "course-management-phil/adminpass" = { };
+  };
   containers."courses-phil" = {
     autoStart = true;
-    # forbidden sadly, I will copy the keys manually. Not very beautiful but it works
-    # bindMounts = {
-    #   hostPath = "/etc/ssh";
-    #   mountPoint = "/etc/ssh";
-    # };
+    extraFlags = [
+      "--load-credential=course-secret-key:${config.sops.secrets."course-management-phil/secret-key".path}"
+      "--load-credential=course-adminpass:${config.sops.secrets."course-management-phil/adminpass".path}"
+    ];
     config = { pkgs, config, ... }: {
       system.stateVersion = "23.05";
       networking.domain = "ifsr.de";
       imports = [
-        sops-nix.nixosModules.sops
         course-management.nixosModules.default
       ];
-      sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      sops.age.generateKey = false;
-      sops.defaultSopsFile = ../secrets/quitte.yaml;
-      sops.secrets =
-        let inherit (config.services.course-management) user;
-        in
-        {
-          "course-management-phil/secret-key".owner = user;
-          "course-management-phil/adminpass".owner = user;
+      systemd.services.course-management = {
+        after = [ "postgresql.service" ];
+        serviceConfig = {
+          LoadCredential = [
+            "secret-key:course-secret-key"
+            "adminpass:course-adminpass"
+          ];
         };
-      systemd.services.course-management.after = [ "postgresql.service" ];
+      };
       services.course-management = {
         inherit hostName;
         enable = true;
         listenPort = 5001;
 
         settings = {
-          secretKeyFile = config.sops.secrets."course-management-phil/secret-key".path;
-          adminPassFile = config.sops.secrets."course-management-phil/adminpass".path;
+          secretKeyFile = "$CREDENTIALS_DIRECTORY/secret-key";
+          adminPassFile = "$CREDENTIALS_DIRECTORY/adminpass";
           admins = [{
             name = "Root iFSR";
             email = "root@${config.networking.domain}";
@@ -65,7 +65,6 @@ in
       services.postgresql = {
         enable = true;
         enableTCPIP = lib.mkForce false;
-        # port = 55555;
         ensureUsers = [{
           name = "course-management";
           ensurePermissions = {
