@@ -7,12 +7,15 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     kpp.url = "github:fsr/kpp";
     kpp.inputs.nixpkgs.follows = "nixpkgs";
+    ese-manual.url = "git+https://git.ifsr.de/ese/manual-website";
+    ese-manual.inputs.nixpkgs.follows = "nixpkgs";
+
     course-management = {
       url = "github:fsr/course-management";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, sops-nix, nix-index-database, kpp, course-management, ... }@inputs:
+  outputs = { self, nixpkgs, sops-nix, nix-index-database, kpp, ese-manual, course-management, ... }@inputs:
     {
       packages."x86_64-linux".quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
       packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;
@@ -27,6 +30,7 @@
             inputs.sops-nix.nixosModules.sops
             inputs.kpp.nixosModules.default
             inputs.nix-index-database.nixosModules.nix-index
+            ese-manual.nixosModules.default
             course-management.nixosModules.default
             ./hosts/quitte/configuration.nix
             ./modules/bacula.nix
