@@ -14,7 +14,7 @@
       tor = ''
         enabled = true
         bantime = 25h
-        action = iptables-allports[name=fail2banTOR, protocol=all]
+        action = nftables-allports
       '';
       dovecot = ''
         enabled = true
