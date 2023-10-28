@@ -25,6 +25,8 @@ in
   services.httpd = {
     enable = true;
     enablePHP = true;
+    maxClients = 10;
+    mpm = "prefork";
     extraModules = [ "userdir" ];
 
     virtualHosts.${domain} = {
