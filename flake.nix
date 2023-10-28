@@ -42,7 +42,7 @@
             ./modules/mail
             ./modules/mailman.nix
             ./modules/nginx.nix
-            ./modules/hydra.nix
+            # ./modules/hydra.nix
             ./modules/userdir.nix
             ./modules/hedgedoc.nix
             ./modules/padlist.nix
