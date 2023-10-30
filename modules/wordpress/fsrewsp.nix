@@ -11,8 +11,7 @@ in
         WPLANG = "de_DE";
       };
       database = {
-        name = "wordpress-fsrewsp";
-        user = "wordpress-fsrewsp";
+        name = "wordpress_fsrewsp";
       };
     };
   };

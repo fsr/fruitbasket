@@ -65,6 +65,7 @@
             ./modules/infoscreen.nix
             ./modules/manual.nix
             ./modules/sharepic.nix
+            ./modules/wordpress/fsrewsp.nix
             {
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
