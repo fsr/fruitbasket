@@ -292,38 +292,58 @@ in
           }
         '';
 
-        "multimap.conf".text = ''
-          WHITELIST_SENDER_DOMAIN {
-            type = "from";
-            filter = "email:domain";
-            map = "/var/lib/rspamd/whitelist.sender.domain.map";
-            action = "accept";
-          }
-          WHITELIST_SENDER_EMAIL {
-            type = "from";
-            map = "/var/lib/rspamd/whitelist.sender.email.map";
-            action = "accept";
-          }
-          BLACKLIST_SENDER_DOMAIN {
-            type = "from";
-            filter = "email:domain";
-            map = "/var/lib/rspamd/blacklist.sender.domain.map";
-            action = "reject";
-          }
-          BLACKLIST_SENDER_EMAIL {
-            type = "from";
-            map = "/var/lib/rspamd/blacklist.sender.email.map";
-            action = "reject";
-          }
-          BLACKLIST_SUBJECT_KEYWORDS {
-            type = "header";
-            header = "Subject"
-            map = "/var/lib/rspamd/blacklist.keyword.subject.map";
-            action = "reject";
-            regexp = true;
-          }
+        "multimap.conf".text =
+          let
+            local_ips = pkgs.writeText "localhost.map" ''
+              ::1
+              127.0.0.1
+            '';
+            tud_ips = pkgs.writeText "tud.map" ''
+              141.30.0.0/16
+              141.76.0.0/16
+            '';
+          in
+          ''
+            WHITELIST_SENDER_DOMAIN {
+              type = "from";
+              filter = "email:domain";
+              map = "/var/lib/rspamd/whitelist.sender.domain.map";
+              action = "accept";
+            }
+            WHITELIST_SENDER_EMAIL {
+              type = "from";
+              map = "/var/lib/rspamd/whitelist.sender.email.map";
+              action = "accept";
+            }
+            BLACKLIST_SENDER_DOMAIN {
+              type = "from";
+              filter = "email:domain";
+              map = "/var/lib/rspamd/blacklist.sender.domain.map";
+              action = "reject";
+            }
+            BLACKLIST_SENDER_EMAIL {
+              type = "from";
+              map = "/var/lib/rspamd/blacklist.sender.email.map";
+              action = "reject";
+            }
+            BLACKLIST_SUBJECT_KEYWORDS {
+              type = "header";
+              header = "Subject"
+              map = "/var/lib/rspamd/blacklist.keyword.subject.map";
+              action = "reject";
+              regexp = true;
+            }
+            RECEIVED_LOCALHOST {
+              type = "ip";
+              action = "accept";
+              map = ${local_ips};
+            }
+            RECEIVED_TU_NETWORKS {
+              type = "ip";
+              map = ${tud_ips};
+            }
 
-        '';
+          '';
       };
     };
     redis = {
