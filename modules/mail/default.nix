@@ -148,7 +148,7 @@ in
         globally.enable = [ "listescape" ];
         perProtocol = {
           imap = {
-            enable = [ "imap_sieve" ];
+            enable = [ "imap_sieve" "imap_filter_sieve" ];
           };
           lmtp = {
             enable = [ "sieve" ];
