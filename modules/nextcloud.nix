@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  domain = "nc.staging.${config.networking.domain}";
+  domain = "nc.${config.networking.domain}";
   legacy_domain = "oc.${config.networking.domain}";
 in
 {
@@ -74,6 +74,9 @@ in
       preStart = pkgs.writeScript "nextcloud-preStart" ''
         # enable included LDAP app
         ${occ} app:enable user_ldap
+        ${occ} app:enable calendar
+        ${occ} app:enable tasks
+        ${occ} app:enable polls
 
         # set up new LDAP config if it does not exist
         if ! ${occ} ldap:show-config s01 > /dev/null; then
