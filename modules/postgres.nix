@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   # automatically back up all databases
   services.postgresqlBackup = {
@@ -19,4 +19,6 @@
       "mailmanweb"
     ];
   };
+
+  services.postgresql.settings.max_connections = 1000;
 }
