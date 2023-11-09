@@ -15,6 +15,7 @@ in
   services = {
     nextcloud = {
       enable = true;
+      configureRedis = true;
       package = pkgs.nextcloud27;
       enableBrokenCiphersForSSE = false; # disable the openssl warning
       hostName = domain;
