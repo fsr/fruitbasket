@@ -64,7 +64,10 @@ in
 
           root = pkgs.element-web.override {
             conf = {
-              default_server_config = clientConfig;
+              default_server_config = {
+                inherit (clientConfig) "m.homeserver";
+                "m.identity_server".base_url = "";
+              };
               disable_3pid_login = true;
             };
           };
