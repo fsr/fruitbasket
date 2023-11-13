@@ -1,25 +1,28 @@
 { lib, config, pkgs, ... }:
 {
-  services.nginx =
-    let
-      # manually write the hosts in here since automatic grabbing leads to an unfixable infinite recursion
-      hosts = [ "mail" "rspamd" "chat" "matrix" "kpp" "kurse" "git" "ftp" "users" "pad" "list.pad" "manual" "infoscreen" "kanboard" "kb" "lists" "nc" "oc" "sharepic" "vault" "www" "wiki" ];
-    in
-    {
+  # set default options for virtualHosts
+  options = with lib; {
+    services.nginx.virtualHosts = mkOption {
+      type = types.attrsOf (types.submodule
+        ({ name, ... }: {
+          # split up nginx access logs per vhost
+          extraConfig = ''
+            access_log /var/log/nginx/${name}_access.log;
+            error_log /var/log/nginx/${name}_error.log;
+          '';
+        })
+      );
+    };
+  };
 
+  config = {
+    services.nginx = {
       additionalModules = [ pkgs.nginxModules.pam ];
       enable = true;
       recommendedProxySettings = true;
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       recommendedTlsSettings = true;
-      # split up nginx access logs per vhost
-      virtualHosts = lib.genAttrs (lib.lists.forEach hosts (h: h + ".ifsr.de")) (host: {
-        extraConfig = ''
-          access_log /var/log/nginx/${host}_access.log;
-          error_log /var/log/nginx/${host}_error.log;
-        '';
-      });
 
       # appendHttpConfig = ''
       #   map $remote_addr $remote_addr_anon {
@@ -37,15 +40,16 @@
       #   access_log  /var/log/nginx/access.log  anon_ip;
       # '';
     };
-  security.acme = {
-    acceptTerms = true;
-    defaults = {
-      #server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      email = "root@${config.networking.domain}";
+    security.acme = {
+      acceptTerms = true;
+      defaults = {
+        #server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+        email = "root@${config.networking.domain}";
+      };
     };
+    security.pam.services.nginx.text = ''
+      auth required ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
+      account required ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
+    '';
   };
-  security.pam.services.nginx.text = ''
-    auth required ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
-    account required ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
-  '';
 }
