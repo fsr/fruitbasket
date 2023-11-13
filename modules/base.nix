@@ -23,6 +23,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  programs.mosh.enable = true;
 
   # set root ssh keys
   users.users.root.openssh.authorizedKeys = {
