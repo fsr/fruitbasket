@@ -18,7 +18,6 @@
         extraConfig = ''
           access_log /var/log/nginx/${host}_access.log;
           error_log /var/log/nginx/${host}_error.log;
-
         '';
       });
 
