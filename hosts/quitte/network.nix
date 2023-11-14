@@ -20,7 +20,10 @@ in
     useNetworkd = true;
     nftables.enable = true;
 
-    firewall.allowedUDPPorts = [ wireguard_port ];
+    firewall = {
+      allowedUDPPorts = [ wireguard_port ];
+      logRefusedConnections = false;
+    };
     wireguard.enable = true;
   };
 
