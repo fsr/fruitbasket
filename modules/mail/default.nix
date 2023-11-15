@@ -273,7 +273,7 @@ in
           spam_header = "X-Spam-Flag";
         '';
         "milter_headers.conf".text = ''
-          use = ["x-spam-level", "x-spam-status"];
+          use = ["x-spam-level", "x-spam-status", "x-spamd-result", "authentication-results" ];
         '';
         "neural.conf".text = ''
           servers = "127.0.0.1:6379";
