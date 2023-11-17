@@ -19,9 +19,7 @@ let
     return 200 '${builtins.toJSON data}';
   '';
 
-  # build ldap3 plugin from git because it's very outdated in nixpkgs
-  matrix-synapse-ldap3 = pkgs.python3.pkgs.callPackage ../pkgs/matrix-synapse-ldap3.nix { };
-  # matrix-synapse-ldap3 = config.services.matrix-synapse.package.plugins.matrix-synapse-ldap3;
+  matrix-synapse-ldap3 = config.services.matrix-synapse.package.plugins.matrix-synapse-ldap3;
 in
 {
   sops.secrets.matrix_ldap_search = {
