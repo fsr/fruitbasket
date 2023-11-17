@@ -65,6 +65,7 @@
             ./modules/infoscreen.nix
             ./modules/manual.nix
             ./modules/sharepic.nix
+            ./modules/zammad.nix
             {
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
