@@ -76,6 +76,8 @@
           specialArgs = inputs;
           modules = [
             inputs.sops-nix.nixosModules.sops
+            inputs.nix-index-database.nixosModules.nix-index
+            ./hosts/tomate/configuration.nix
             ./modules/base.nix
             ./modules/zsh.nix
             # {
