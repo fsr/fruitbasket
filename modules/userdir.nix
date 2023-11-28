@@ -54,6 +54,8 @@ in
     phpPackage = pkgs.php.buildEnv {
       extraConfig = ''
         display_errors=0
+        post_max_size = 40M
+        upload_max_filesize = 40M
       '';
     };
   };
@@ -67,6 +69,7 @@ in
       extraConfig = ''
         proxy_intercept_errors on;
         error_page 403 404 =404 /404.html;
+        client_max_body_size 40M;
       '';
     };
   };
