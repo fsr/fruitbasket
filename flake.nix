@@ -71,6 +71,18 @@
             }
           ];
         };
+        tomate = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = inputs;
+          modules = [
+            inputs.sops-nix.nixosModules.sops
+            ./modules/base.nix
+            ./modules/zsh.nix
+            # {
+            #   sops.defaultSopsFile = ./secrets/tomate.yaml;
+            # }
+          ];
+        };
       };
     };
 }
