@@ -10,6 +10,7 @@ keys:
   - &jonas A4F92BC7B792108A463995827C1F2DA2BC929412
   - &joachim  B1A16011B86BACB56ADB713DB712039D23133661
   - &quitte age1wvdnprpnq2rcc4se3zpx2p267n0apxg2jucvlm93e3pfj439ephqh2506t
+  - &tomate age18lwgjazaxujqgcc5j0gjllnykhtjn6p0q44jzrsk4au2a5k6nd9s77kd6d
 
 creation_rules:
   - path_regex: secrets/quitte\.yaml$
@@ -24,6 +25,18 @@ creation_rules:
         - *jonas
         age:
         - *quitte
+  - path_regex: secrets/tomate\.yaml$
+    key_groups:
+      - pgp:
+        - *bennofs
+        - *revol-xut
+        - *felix
+        - *rouven
+        - *fugi
+        - *joachim
+        - *jonas
+        age:
+        - *tomate
   - path_regex: secrets/admin\.yaml$
     key_groups:
       - pgp:
