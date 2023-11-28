@@ -80,6 +80,7 @@
             ./hosts/tomate/configuration.nix
             ./modules/base.nix
             ./modules/zsh.nix
+            ./modules/fail2ban.nix
             # {
             #   sops.defaultSopsFile = ./secrets/tomate.yaml;
             # }
