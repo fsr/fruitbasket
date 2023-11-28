@@ -105,7 +105,7 @@
   users.users.fsr = {
     isNormalUser = true;
     description = "FSR Informatik";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" ];
     packages = with pkgs; [
       firefox
       kate
