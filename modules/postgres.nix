@@ -17,6 +17,7 @@
       "vaultwarden"
       "mailman"
       "mailmanweb"
+      "zammad"
     ];
   };
 
