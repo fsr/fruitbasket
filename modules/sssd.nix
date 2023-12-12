@@ -1,7 +1,7 @@
-{ config, ...}:
+{ config, ... }:
 {
   sops.secrets = {
-    "sssd/env"= {};
+    "sssd/env" = { };
 
   };
   services.sssd = {
@@ -32,7 +32,7 @@
       ldap_tls_cacert = /etc/ssl/certs/ca-bundle.crt
       ldap_tls_reqcert = hard
     '';
-    
+
   };
   security.pam.services.sshd.makeHomeDir = true;
 }
