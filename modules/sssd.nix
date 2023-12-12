@@ -34,5 +34,8 @@
     '';
 
   };
-  security.pam.services.sshd.makeHomeDir = true;
+  security.pam.services = {
+    sshd.makeHomeDir = true;
+    login.makeHomeDir = true;
+  };
 }
