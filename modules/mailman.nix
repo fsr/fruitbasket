@@ -20,7 +20,7 @@
     webSettings = {
       DATABASES.default = {
         ENGINE = "django.db.backends.postgresql";
-        NAME = "mailmanweb";
+        NAME = "mailman-web";
       };
     };
     ldap = {
@@ -45,18 +45,14 @@
     ensureUsers = [
       {
         name = "mailman";
-        ensurePermissions = {
-          "DATABASE mailman" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       }
       {
         name = "mailman-web";
-        ensurePermissions = {
-          "DATABASE mailmanweb" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       }
     ];
-    ensureDatabases = [ "mailman" "mailmanweb" ];
+    ensureDatabases = [ "mailman" "mailman-web" ];
   };
   services.nginx.virtualHosts."lists.${config.networking.domain}" = {
     enableACME = true;

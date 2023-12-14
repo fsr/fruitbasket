@@ -38,9 +38,7 @@ in
     enable = lib.mkForce true; # upstream bacula config wants to disable it, so we need to force
     ensureUsers = [{
       name = "course-management";
-      ensurePermissions = {
-        "DATABASE \"course-management\"" = "ALL PRIVILEGES";
-      };
+      ensureDBOwnership = true;
     }];
     ensureDatabases = [ "course-management" ];
   };

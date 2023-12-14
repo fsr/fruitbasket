@@ -93,7 +93,7 @@
     sysstat
     tree
     whois
-    exa
+    eza
     zsh
   ];
 }

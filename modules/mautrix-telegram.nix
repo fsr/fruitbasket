@@ -10,9 +10,7 @@ in
     enable = true;
     ensureUsers = [{
       name = "mautrix-telegram";
-      ensurePermissions = {
-        "DATABASE \"mautrix-telegram\"" = "ALL PRIVILEGES";
-      };
+      ensureDBOwnership = true;
     }];
     ensureDatabases = [ "mautrix-telegram" ];
   };
