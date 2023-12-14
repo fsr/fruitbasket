@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-23.05;
-    sops-nix.url = github:Mic92/sops-nix;
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
