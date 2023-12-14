@@ -19,7 +19,7 @@ in
       "--load-credential=course-secret-key:${config.sops.secrets."course-management-phil/secret-key".path}"
       "--load-credential=course-adminpass:${config.sops.secrets."course-management-phil/adminpass".path}"
     ];
-    config = { pkgs, config, ... }: {
+    config = { config, ... }: {
       system.stateVersion = "23.05";
       networking.domain = "ifsr.de";
       imports = [
@@ -71,7 +71,7 @@ in
         }];
         ensureDatabases = [ "course-management" ];
       };
-      systemd.services.postgresql.serviceConfig.ExecStart = lib.mkForce "${pkgs.postgresql}/bin/postgres -c listen_addresses=''";
+      systemd.services.postgresql.serviceConfig.ExecStart = lib.mkForce "${config.services.postgresql.package}/bin/postgres -c listen_addresses=''";
       services.nginx = {
         enable = true;
         recommendedProxySettings = true;
