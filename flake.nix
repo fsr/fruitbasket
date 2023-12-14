@@ -22,6 +22,7 @@
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       hydraJobs."x86-64-linux".quitte = self.packages."x86_64-linux".quitte;
 
+      overlays.default = import ./overlays;
       nixosConfigurations = {
         quitte = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -67,6 +68,7 @@
             ./modules/sharepic.nix
             ./modules/zammad.nix
             {
+              nixpkgs.overlays = [ self.overlays.default ];
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
           ];
