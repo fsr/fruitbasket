@@ -1,41 +1,4 @@
 { pkgs, config, lib, ... }:
-with lib;
-
-let
-  # We write a custom config file because the upstream config has some flaws
-  fd_cfg = config.services.bacula-fd;
-  fd_conf = pkgs.writeText "bacula-fd.conf" ''
-    Client {
-      Name = ${fd_cfg.name}
-      FDPort = ${toString fd_cfg.port}
-      WorkingDirectory = /var/lib/bacula
-      Pid Directory = /run
-      ${fd_cfg.extraClientConfig}
-    }
-
-    ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
-    Director {
-      Name = ${name}
-      Password = ${value.password}
-      Monitor = ${value.monitor}
-    }
-    '') fd_cfg.director)}
-
-    Messages {
-      Name = Standard;
-      syslog = all, !skipped, !restored
-      ${fd_cfg.extraMessagesConfig}
-    }
-  '';
-  # AGDSN is running an outdated version that we have to comply to
-  bacula_package = (pkgs.bacula.overrideAttrs (old: rec {
-    version = "9.6.7";
-    src = pkgs.fetchurl {
-      url = "mirror://sourceforge/bacula/${old.pname}-${version}.tar.gz";
-      sha256 = "sha256-3w+FJezbo4DnS1N8pxrfO3WWWT8CGJtZqw6//IXMyN4=";
-    };
-  }));
-in
 {
   sops.secrets = {
     "bacula/password".owner = "bacula";
@@ -56,7 +19,7 @@ in
     '';
     extraMessagesConfig = ''
       director = abel-dir = all, !skipped, !restored
-      mailcommand = "${bacula_package}/bin/bsmtp -f \"Bacula <bacula@${config.networking.domain}>\" -s \"Bacula report" %r"
+      mailcommand = "${pkgs.bacula}/bin/bsmtp -f \"Bacula <bacula@${config.networking.domain}>\" -s \"Bacula report" %r"
       mail = root+backup = all, !skipped
     '';
     director."abel-dir".password = "@${config.sops.secrets."bacula/password".path}";
@@ -73,5 +36,4 @@ in
       Password = @${config.sops.secrets."bacula/password".path}
     }
   '';
-  systemd.services.bacula-fd.serviceConfig.ExecStart = lib.mkForce "${bacula_package}/sbin/bacula-fd -f -u root -g bacula -c ${fd_conf}";
 }

@@ -17,7 +17,6 @@ in
       enable = true;
       configureRedis = true;
       package = pkgs.nextcloud27;
-      enableBrokenCiphersForSSE = false; # disable the openssl warning
       hostName = domain;
       https = true; # Use https for all urls
       phpExtraExtensions = all: [

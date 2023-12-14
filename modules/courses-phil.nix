@@ -67,9 +67,7 @@ in
         enableTCPIP = lib.mkForce false;
         ensureUsers = [{
           name = "course-management";
-          ensurePermissions = {
-            "DATABASE \"course-management\"" = "ALL PRIVILEGES";
-          };
+          ensureDBOwnership = true;
         }];
         ensureDatabases = [ "course-management" ];
       };

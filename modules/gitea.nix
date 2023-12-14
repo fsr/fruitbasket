@@ -1,40 +1,43 @@
 { config, lib, pkgs, ... }:
 let
   domain = "git.${config.networking.domain}";
-  giteaUser = "git";
+  gitUser = "git";
 in
 {
   sops.secrets.gitea_ldap_search = {
     key = "portunus/search-password";
-    owner = config.services.gitea.user;
+    owner = config.services.forgejo.user;
   };
 
-  users.users.${giteaUser} = {
+  users.users.${gitUser} = {
     isSystemUser = true;
     home = config.services.gitea.stateDir;
-    group = giteaUser;
+    group = gitUser;
     useDefaultShell = true;
   };
-  users.groups.${giteaUser} = { };
+  users.groups.${gitUser} = { };
 
-  services.gitea = {
+  services.forgejo = {
     enable = true;
-    package = pkgs.forgejo; # community fork
-    user = giteaUser;
-    group = giteaUser;
-    appName = "iFSR Git";
+    # package = pkgs.forgejo; # community fork
+    user = gitUser;
+    group = gitUser;
     lfs.enable = true;
 
     database = {
       type = "postgres";
+      name = "git"; # legacy
       createDatabase = true;
-      user = giteaUser;
+      user = gitUser;
     };
 
     # TODO: enable periodic dumps of the DB and repos, maybe use this for backups?
     # dump = { };
 
     settings = {
+      DEFAULT = {
+        APP_NAME = "iFSR Git";
+      };
       server = {
         PROTOCOL = "http+unix";
         DOMAIN = domain;
@@ -68,7 +71,7 @@ in
 
   systemd.services.gitea.preStart =
     let
-      exe = lib.getExe config.services.gitea.package;
+      exe = lib.getExe config.services.forgejo.package;
       portunus = config.services.portunus;
       basedn = "ou=users,${portunus.ldap.suffix}";
       ldapConfigArgs = ''
@@ -108,7 +111,7 @@ in
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-      proxyPass = "http://unix:${config.services.gitea.settings.server.HTTP_ADDR}:/";
+      proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:/";
       proxyWebsockets = true;
     };
     locations."/api/v1/users/search".return = "403";
