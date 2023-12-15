@@ -90,7 +90,7 @@ in
         SyntaxHighlight = pkgs.fetchzip {
           url = "https://extdist.wmflabs.org/dist/extensions/SyntaxHighlight_GeSHi-REL1_40-ded412b.tar.gz";
           hash = "sha256-mlNrcZhGADqzdLNeck0ATv44W3cTTOykQouHJTaj5cA=";
-	};
+        };
       };
     };
 
