@@ -72,5 +72,13 @@ in
         client_max_body_size 40M;
       '';
     };
+
+    locations."/robots.txt" = {
+      extraConfig = ''
+        add_header  Content-Type  text/plain;
+        return 200 "User-agent: *\nDisallow: /\n";
+      '';
+    };
+
   };
 }
