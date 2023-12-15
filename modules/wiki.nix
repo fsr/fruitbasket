@@ -76,16 +76,16 @@ in
 
       extensions = {
         PluggableAuth = pkgs.fetchzip {
-          url = "https://web.archive.org/web/20230615112924/https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_39-068be5d.tar.gz";
-          hash = "sha256-kmdSPMQNaO0qgEzb8j0+eLlsNQLmfJfo0Ls4yvYgOFI=";
+          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_40-2d86d50.tar.gz";
+          hash = "sha256-NAdjc8pqAjSZrsN2IQ/rESyZYEnesBT0cGg8CrIlvFM=";
         };
         OpenIDConnect = pkgs.fetchzip {
-          url = "https://web.archive.org/web/20230615113527/https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_39-42e4d75.tar.gz";
-          hash = "sha256-VN0G0Crjlx0DTLeDvaSFtMmYsfB7VzgYkSNDS+nkIyQ=";
+          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_40-e97e0b1.tar.gz";
+          hash = "sha256-UrxaszLL3e4PZmTOnGkNliQ8fjGVD37Xj7BjhvhQDJU=";
         };
         VisualEditor = pkgs.fetchzip {
-          url = "https://web.archive.org/web/20230723212424/https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_39-b1204c9.tar.gz";
-          hash = "sha256-g/ATW3xkecHynwbwLbmYgawNW+LCVTth0ZlhY7A3N5U=";
+          url = "https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_40-c6aec49.tar.gz";
+          hash = "sha256-p66C7ks0ocy5sL7LTkFQuDA3/2uSXdfldUXoOQ6afWM=";
         };
       };
     };
