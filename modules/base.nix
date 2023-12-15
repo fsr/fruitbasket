@@ -95,6 +95,7 @@
     whois
     eza
     zsh
+    unzip
   ];
 }
 
