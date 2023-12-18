@@ -25,6 +25,7 @@
     '';
     interactiveShellInit = ''
       source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+      HW_CONF_ALIASES_GIT_AUTHOR_REMINDER=0
       source ${pkgs.agdsn-zsh-config}/etc/zsh/zshrc
     '';
     promptInit = "";
