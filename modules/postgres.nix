@@ -6,7 +6,7 @@
     location = "/var/lib/backup/postgresql";
     databases = [
       "course-management"
-      "gitea"
+      "git"
       "hedgedoc"
       "matrix-synapse"
       "mautrix-telegram"
@@ -16,7 +16,7 @@
       "sogo"
       "vaultwarden"
       "mailman"
-      "mailmanweb"
+      "mailman-web"
       "zammad"
     ];
   };
