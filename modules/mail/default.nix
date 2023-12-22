@@ -115,6 +115,10 @@ in
           "permit_mynetworks"
           "reject_unauth_destination"
         ];
+        # https://www.postfix.org/smtp-smuggling.html
+        smtpd_data_restrictions = [
+          "reject_unauth_pipelining"
+        ];
         smtp_header_checks = "pcre:${header_cleanup}";
         # smtpd_sender_login_maps = [ "ldap:${ldap-senders}" ];
         alias_maps = [ "hash:/etc/aliases" ];
