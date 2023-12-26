@@ -7,7 +7,6 @@ keys:
   - &helene B43C3A8A92CA28486AC6C4E2F115100C787C1C19
   - &fugi BF37903AE6FD294C4C674EE24472A20091BFA792
   - &emmanuel E83F398E6423179FE4F63D4FF085CAD394DE329D
-  - &jonas A4F92BC7B792108A463995827C1F2DA2BC929412
   - &joachim  B1A16011B86BACB56ADB713DB712039D23133661
   - &quitte age1wvdnprpnq2rcc4se3zpx2p267n0apxg2jucvlm93e3pfj439ephqh2506t
   - &tomate age18lwgjazaxujqgcc5j0gjllnykhtjn6p0q44jzrsk4au2a5k6nd9s77kd6d
@@ -22,7 +21,6 @@ creation_rules:
         - *rouven
         - *fugi
         - *joachim
-        - *jonas
         age:
         - *quitte
   - path_regex: secrets/tomate\.yaml$
@@ -34,7 +32,6 @@ creation_rules:
         - *rouven
         - *fugi
         - *joachim
-        - *jonas
         age:
         - *tomate
   - path_regex: secrets/admin\.yaml$
@@ -46,4 +43,3 @@ creation_rules:
         - *rouven
         - *fugi
         - *joachim
-        - *jonas
