@@ -69,7 +69,7 @@ in
     };
   };
 
-  systemd.services.gitea.preStart =
+  systemd.services.forgejo.preStart =
     let
       exe = lib.getExe config.services.forgejo.package;
       portunus = config.services.portunus;
