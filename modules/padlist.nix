@@ -24,13 +24,9 @@ in
 
   services.nginx = {
     virtualHosts.${domain} = {
-      root = pkgs.callPackage ../pkgs/padlist { };
       enableACME = true;
       forceSSL = true;
-      extraConfig = ''
-        auth_pam "LDAP Authentication Required";
-        auth_pam_service_name "nginx";
-      '';
+      root = "/srv/web/padlist";
       locations = {
         "= /" = {
           extraConfig = ''
@@ -41,13 +37,21 @@ in
           extraConfig = ''
             try_files $uri =404;
             fastcgi_pass unix:${config.services.phpfpm.pools.padlist.socket};
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
             fastcgi_index index.php;
             include ${pkgs.nginx}/conf/fastcgi_params;
             include ${pkgs.nginx}/conf/fastcgi.conf;
+            fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
           '';
         };
+        "/vendor".return = "403";
       };
     };
   };
+
+  services.portunus.dex.oidcClients = [{
+    id = "padlist";
+    callbackURL = "https://list.pad.ifsr.de/callback.php";
+  }];
 
 }
