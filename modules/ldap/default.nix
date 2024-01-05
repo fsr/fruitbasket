@@ -80,6 +80,9 @@ in
   };
 
   services.dex.settings.oauth2.skipApprovalScreen = true;
+  services.dex.settings.frontend.issuer = "iFSR Schliboleth";
+  services.dex.settings.frontend.logoURL = "https://wiki.ifsr.de/images/3/3b/LogoiFSR.png";
+  services.dex.settings.frontend.theme = "dark";
 
   systemd.services.dex.serviceConfig = {
     DynamicUser = lib.mkForce false;
