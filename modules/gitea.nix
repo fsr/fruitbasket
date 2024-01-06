@@ -45,6 +45,7 @@ in
         ROOT_URL = "https://${domain}";
         OFFLINE_MODE = true; # disable use of CDNs
       };
+      log.LEVEL = "Warn";
       database.LOG_SQL = false;
       service = {
         DISABLE_REGISTRATION = true;
