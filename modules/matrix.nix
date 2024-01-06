@@ -78,6 +78,10 @@ in
 
       plugins = [ matrix-synapse-ldap3 ];
 
+
+      log = {
+        root.level = "WARNING";
+      };
       settings = {
         server_name = domainServer;
 
