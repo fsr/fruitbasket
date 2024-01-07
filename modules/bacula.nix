@@ -7,7 +7,7 @@
   };
   networking.firewall = {
     extraInputRules = ''
-      ip saddr 10.144.0.11 tcp dport ${config.services.bacula-fd.port} accept comment "Only allow Bacula access from Abel"
+      ip saddr 10.144.0.11 tcp dport ${builtins.toString config.services.bacula-fd.port} accept comment "Only allow Bacula access from Abel"
     '';
   };
   services.bacula-fd = {
