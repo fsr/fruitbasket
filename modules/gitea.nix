@@ -11,7 +11,7 @@ in
 
   users.users.${gitUser} = {
     isSystemUser = true;
-    home = config.services.gitea.stateDir;
+    home = config.services.forgejo.stateDir;
     group = gitUser;
     useDefaultShell = true;
   };
