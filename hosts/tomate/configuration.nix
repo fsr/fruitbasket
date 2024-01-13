@@ -60,22 +60,28 @@
   # Configure console keymap
   console.keyMap = "de";
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.defaultShared = true;
-  services.printing.browsing = true;
-  # sollte auf nur fsr netz beschränkt werden sobald die tomate mal nach außen zeigt
-  services.printing.allowFrom = [ "all" ];
 
-  # services.avahi = {
-  # enable = true;
-  # nssmdns = true;
-  # openFirewall = true;
-  # publish = {
-  #   enable = true;
-  #   userServices = true;
-  # };
-  # };
+
+  services.printing = {
+    enable = true;
+    stateless = true;
+    drivers = with pkgs; [ cups-kyocera ];
+    browsing = true;
+    defaultShared = true;
+    # todo fix
+    allowFrom = [ "all" ];
+    listenAddresses = [ "0.0.0.0:631" ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
   networking.firewall = {
     allowedTCPPorts = [ 631 ];
     allowedUDPPorts = [ 631 ];
