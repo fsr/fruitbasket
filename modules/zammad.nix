@@ -12,6 +12,12 @@ in
     port = 8085;
     secretKeyBaseFile = config.sops.secrets."zammad_secret".path;
   };
+  
+
+  # disably spammy logs
+  systemd.services.zammad-web.preStart = ''
+    sed -i -e "s|debug|warn|" ./config/environments/production.rb 
+  '';
 
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
