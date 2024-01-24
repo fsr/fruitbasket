@@ -24,6 +24,11 @@ let
     /^\s*X-Originating-IP/ IGNORE
     /^\s*Mime-Version/ IGNORE
   '';
+  # https://unix.stackexchange.com/questions/294300/postfix-prevent-users-from-changing-the-real-e-mail-address
+  login_maps = pkgs.writeText "login_maps.pcre" ''
+    # basic username => username@ifsr.de
+    /^([^@+]*)(\+[^@]*)?@ifsr\.de$/ ''${1}
+  '';
 in
 {
   sops.secrets."rspamd-password".owner = config.users.users.rspamd.name;
@@ -118,6 +123,13 @@ in
         # https://www.postfix.org/smtp-smuggling.html
         smtpd_data_restrictions = [
           "reject_unauth_pipelining"
+        ];
+        smtpd_sender_restrictions = [
+          "reject_authenticated_sender_login_mismatch"
+        ];
+        smtpd_sender_login_maps = [
+          "pcre:/etc/special-aliases.pcre"
+          "pcre:${login_maps}"
         ];
         smtp_header_checks = "pcre:${header_cleanup}";
         # smtpd_sender_login_maps = [ "ldap:${ldap-senders}" ];
