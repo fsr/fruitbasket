@@ -69,6 +69,7 @@
             ./modules/manual.nix
             ./modules/sharepic.nix
             ./modules/zammad.nix
+            ./modules/initrd-ssh.nix
             {
               nixpkgs.overlays = [ self.overlays.default ];
               sops.defaultSopsFile = ./secrets/quitte.yaml;
