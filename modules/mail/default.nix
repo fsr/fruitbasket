@@ -88,6 +88,8 @@ in
       relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
       config = {
         home_mailbox = "Maildir/";
+        # 25 MiB
+        message_size_limit = 26214400;
         # hostname used in helo command. It is recommended to have this match the reverse dns entry
         smtp_helo_name = config.networking.rDNS;
         smtp_use_tls = true;
