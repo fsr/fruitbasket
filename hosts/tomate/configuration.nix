@@ -73,6 +73,19 @@
     listenAddresses = [ "0.0.0.0:631" ];
   };
 
+  sops.secrets."print/smtp-password" = {
+    owner = config.services.print-interface.user;
+    group = config.services.print-interface.group;
+  };
+
+  services.print-interface = {
+    enable = true;
+    smtp = {
+      username = "print";
+      passwordFile = config.sops.secrets."print/smtp-password".path;
+    };
+  };
+
   services.avahi = {
     enable = true;
     nssmdns = true;
@@ -83,7 +96,10 @@
     };
   };
   networking.firewall = {
-    allowedTCPPorts = [ 631 ];
+    allowedTCPPorts = [
+      631
+      config.services.print-interface.listenPort
+    ];
     allowedUDPPorts = [ 631 ];
   };
 

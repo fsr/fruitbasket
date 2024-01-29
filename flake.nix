@@ -7,6 +7,10 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     kpp.url = "github:fsr/kpp";
     kpp.inputs.nixpkgs.follows = "nixpkgs";
+    print-interface = {
+      url = "github:fsr/print-interface";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ese-manual.url = "git+https://git.ifsr.de/ese/manual-website";
     ese-manual.inputs.nixpkgs.follows = "nixpkgs";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
@@ -16,7 +20,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, sops-nix, nix-index-database, kpp, ese-manual, vscode-server, course-management, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , sops-nix
+    , nix-index-database
+    , kpp
+    , ese-manual
+    , vscode-server
+    , course-management
+    , print-interface
+    , ...
+    }@inputs:
     {
       packages."x86_64-linux".quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
       packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;
@@ -82,6 +97,7 @@
             inputs.sops-nix.nixosModules.sops
             inputs.nix-index-database.nixosModules.nix-index
             vscode-server.nixosModules.default
+            print-interface.nixosModules.default
             ./hosts/tomate/configuration.nix
             ./modules/base.nix
             ./modules/zsh.nix
