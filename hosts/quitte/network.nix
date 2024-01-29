@@ -43,7 +43,7 @@ in
     enable = true;
 
     # Interfaces on the machine
-    networks."10-ether-bond" = {
+    networks."10-wired-default" = {
       matchConfig.Name = "ens18";
 
       address = [ "141.30.30.169/25" ];
