@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   domain = "nc.${config.networking.domain}";
-  legacy_domain = "oc.${config.networking.domain}";
 in
 {
   sops.secrets = {
@@ -51,11 +50,6 @@ in
     nginx.virtualHosts.${domain} = {
       enableACME = true;
       forceSSL = true;
-    };
-    nginx.virtualHosts.${legacy_domain} = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/".return = "301 https://nc.ifsr.de";
     };
   };
 
