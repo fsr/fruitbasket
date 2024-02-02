@@ -5,6 +5,7 @@
     enable = true;
     location = "/var/lib/backup/postgresql";
     databases = [
+      "directus_ese"
       "course-management"
       "git"
       "hedgedoc"

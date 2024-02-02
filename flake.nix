@@ -56,9 +56,12 @@
             ./modules/base.nix
             ./modules/sops.nix
             ./modules/kpp.nix
+            ./modules/ese-website.nix
+
             ./modules/ldap
             ./modules/mail
             ./modules/mailman.nix
+            ./modules/mysql.nix
             ./modules/nginx.nix
             # ./modules/hydra.nix
             ./modules/userdir.nix
@@ -85,6 +88,8 @@
             ./modules/sharepic.nix
             ./modules/zammad.nix
             ./modules/initrd-ssh.nix
+            ./modules/fsrewsp.nix
+            ./modules/nightline.nix
             {
               nixpkgs.overlays = [ self.overlays.default ];
               sops.defaultSopsFile = ./secrets/quitte.yaml;
