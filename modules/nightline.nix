@@ -29,9 +29,6 @@ in
     phpEnv."PATH" = lib.makeBinPath [ pkgs.php ];
   };
 
-
-
-  services.nginx.enable = true;
   services.nginx = {
     virtualHosts."${domain}" = {
       addSSL = true;

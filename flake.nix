@@ -68,7 +68,7 @@
             ./modules/hedgedoc.nix
             ./modules/padlist.nix
             ./modules/postgres.nix
-            ./modules/wiki.nix
+            ./modules/wiki
             ./modules/ftp.nix
             #./modules/stream.nix
             ./modules/nextcloud.nix

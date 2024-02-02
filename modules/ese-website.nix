@@ -1,4 +1,4 @@
-{ config, pkgs,  ... }:
+{ config, pkgs, ... }:
 let
   domain = "ese.${config.networking.domain}";
   cms-domain = "directus-ese.${config.networking.domain}";
@@ -64,6 +64,8 @@ in
       };
     };
     virtualHosts."${domain}" = {
+      enableACME = true;
+      forceSSL = true;
       locations."= /" = {
         return = "301 /2023/";
       };
