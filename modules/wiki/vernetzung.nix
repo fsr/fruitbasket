@@ -70,7 +70,7 @@ in
             empty_gif;
           '';
         };
-        "^~ /cache/".extraConfig =''
+        "^~ /cache/".extraConfig = ''
           deny all;
         '';
         "/dumps" = {
