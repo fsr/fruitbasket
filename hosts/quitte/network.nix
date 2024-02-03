@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   wireguard_port = 51820;
 in
@@ -10,6 +10,11 @@ in
   };
 
   networking = {
+    # portunus module does weird things to this, so we force it to some sane values
+    hosts = {
+      "127.0.0.1" = lib.mkForce ["quitte.ifsr.de" "quitte" ];
+      "::1" = lib.mkForce ["quitte.ifsr.de" "quitte" ];
+    };
     hostId = "a71c81fc";
     domain = "ifsr.de";
     hostName = "quitte";
