@@ -91,7 +91,7 @@
             ./modules/fsrewsp.nix
             ./modules/nightline.nix
             ./modules/decisions.nix
-            # ./modules/struktur-bot.nix
+            ./modules/struktur-bot.nix
             {
               nixpkgs.overlays = [ self.overlays.default ];
               sops.defaultSopsFile = ./secrets/quitte.yaml;
