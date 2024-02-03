@@ -3,12 +3,15 @@ let
   domain = "decisions.${config.networking.domain}";
 in
 {
+  sops.secrets."decisions_env" = { };
   virtualisation.oci-containers = {
-    backend = "docker";
     containers.decicions = {
       image = "decisions";
       volumes = [
         "/var/lib/nextcloud/data/root/files/FSR/protokolle:/protokolle:ro"
+      ];
+      environmentFiles = [
+        config.sops.secrets."strukturbot_env".path
       ];
       extraOptions = [ "--network=host" ];
     };
