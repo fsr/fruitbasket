@@ -30,4 +30,23 @@ in
       '';
     };
   };
+
+  systemd.timers."decisions-to-db" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "01:11:00";
+      Unit = "decisions-to-db.service";
+    };
+  };
+
+  systemd.services."decisions-to-db" = {
+    script = ''
+      set -eu
+      ${pkgs.docker}/bin/docker exec decicions python tex_to_db.py
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+  };
 }
