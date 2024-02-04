@@ -5,7 +5,7 @@ in
 {
   sops.secrets."decisions_env" = { };
   virtualisation.oci-containers = {
-    containers.decicions = {
+    containers.decisions = {
       image = "decisions";
       volumes = [
         "/var/lib/nextcloud/data/root/files/FSR/protokolle:/protokolle:ro"
@@ -42,7 +42,7 @@ in
   systemd.services."decisions-to-db" = {
     script = ''
       set -eu
-      ${pkgs.docker}/bin/docker exec decicions python tex_to_db.py
+      ${pkgs.docker}/bin/docker exec decisions python tex_to_db.py
     '';
     serviceConfig = {
       Type = "oneshot";
