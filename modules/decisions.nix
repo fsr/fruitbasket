@@ -31,6 +31,11 @@ in
     };
   };
 
+  services.portunus.dex.oidcClients = [{
+    id = "decisions";
+    callbackURL = "https://decisions.ifsr.de/auth";
+  }];
+
   systemd.timers."decisions-to-db" = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
