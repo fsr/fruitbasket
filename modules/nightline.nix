@@ -10,7 +10,7 @@ in
     isSystemUser = true;
   };
   users.users.nginx = {
-    extraGroups = ["nightline"];
+    extraGroups = [ group ];
   };
   users.groups.${group} = { };
 
