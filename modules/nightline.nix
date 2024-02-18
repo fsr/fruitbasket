@@ -9,6 +9,9 @@ in
     group = group;
     isSystemUser = true;
   };
+  users.users.nginx = {
+    extraGroups = ["nightline"];
+  };
   users.groups.${group} = { };
 
   services.phpfpm.pools.nightline = {
