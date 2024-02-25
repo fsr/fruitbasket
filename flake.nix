@@ -62,6 +62,7 @@
             ./modules/mail
             ./modules/mailman.nix
             ./modules/mysql.nix
+            ./modules/nix-serve.nix
             ./modules/nginx.nix
             # ./modules/hydra.nix
             ./modules/userdir.nix
