@@ -7,6 +7,7 @@ in
   services.nix-serve = {
     enable = true;
     secretKeyFile = config.sops.secrets."nix-serve/key".path;
+    port = 5002;
   };
   services.nginx.virtualHosts."${domain}" = {
     enableACME = true;
