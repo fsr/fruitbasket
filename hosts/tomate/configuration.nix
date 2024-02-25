@@ -17,11 +17,17 @@
 
   networking.hostName = "tomate"; # Define your hostname.
   networking.nftables.enable = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  nix = {
+    settings = {
+      substituters = [
+        "https://cache.ifsr.de"
+      ];
+      trusted-public-keys = [
+        "cache.ifsr.de:y55KBAMF4YkjIzXwYOKVk9fcQS+CZ9RM1zAAMYQJtsg="
+      ];
+    };
+  };
 
   # Enable networking
   networking.networkmanager.enable = true;
