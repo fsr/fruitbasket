@@ -33,6 +33,17 @@
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
 
+  systemd = {
+    services.nix-daemon.serviceConfig = {
+      MemoryMax = "32G";
+    };
+    # all users together may not use more than $MemoryMax of RAM
+    slices."user".sliceConfig = {
+      MemoryMax = "32G";
+    };
+  };
+
+
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 443 80 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
