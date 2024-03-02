@@ -32,12 +32,31 @@
     , print-interface
     , ...
     }@inputs:
+    let
+      supportedSystems = [ "x86_64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      pkgs = forAllSystems (system: nixpkgs.legacyPackages.${system});
+    in
     {
-      packages."x86_64-linux".quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
-      packages."x86_64-linux".default = self.packages."x86_64-linux".quitte;
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-      hydraJobs."x86-64-linux".quitte = self.packages."x86_64-linux".quitte;
+      packages = forAllSystems (system: rec {
+        default = quitte;
+        quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
+        tomate = self.nixosConfigurations.tomate.config.system.build.toplevel;
+      });
+      formatters = forAllSystems (system: rec {
+        default = pkgs.${system}.nixpkgs-fmt;
+      });
+      hydraJobs = forAllSystems (system: {
+        quitte = self.packages.${system}.quitte;
+      });
 
+      devShells = forAllSystems (system: {
+        default = pkgs.${system}.mkShell {
+          packages = with pkgs.${system}; [
+            sops
+          ];
+        };
+      });
       overlays.default = import ./overlays;
       nixosConfigurations = {
         quitte = nixpkgs.lib.nixosSystem {
