@@ -37,6 +37,12 @@
       type = "hard";
       value = "2000";
     }
+    {
+      domain = "@nixbld";
+      item = "nproc";
+      type = "hard";
+      value = "10000";
+    }
   ];
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
