@@ -29,6 +29,15 @@
     git
   ];
 
+  # prevent fork bombs
+  security.pam.loginLimits = [
+    {
+      domain = "@users";
+      item = "nproc";
+      type = "hard";
+      value = "2000";
+    }
+  ];
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
