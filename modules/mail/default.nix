@@ -44,6 +44,7 @@ in
     4190 # sieve
   ];
   users.users.postfix.extraGroups = [ "opendkim" ];
+  users.users.rspamd.extraGroups = [ "redis-rspamd" ];
   environment.etc = {
     "dovecot/sieve-pipe/sa-learn-spam.sh" = {
       text = ''
@@ -287,8 +288,8 @@ in
       locals = {
         "worker-controller.inc".source = config.sops.secrets."rspamd-password".path;
         "redis.conf".text = ''
-          read_servers = "127.0.0.1";
-          write_servers = "127.0.0.1";
+          read_servers = "/run/redis-rspamd/redis.sock";
+          write_servers = "/run/redis-rspamd/redis.sock";
         '';
         # headers in spamassasin style to not break old sieve scripts
         "worker-proxy.inc".text = ''
@@ -298,7 +299,7 @@ in
           use = ["x-spam-level", "x-spam-status", "x-spamd-result", "authentication-results" ];
         '';
         "neural.conf".text = ''
-          servers = "127.0.0.1:6379";
+          servers = "/run/redis-rspamd/redis.sock";
           enabled = true;
         '';
         "neural_group.conf".text = ''
@@ -379,7 +380,6 @@ in
       vmOverCommit = true;
       servers.rspamd = {
         enable = true;
-        port = 6379;
       };
     };
     nginx = {
