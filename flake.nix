@@ -78,6 +78,7 @@
             ./modules/ese-website.nix
 
             ./modules/ldap
+            ./modules/sssd.nix
             ./modules/mail
             ./modules/mailman.nix
             ./modules/mysql.nix

@@ -47,10 +47,6 @@ in
     "portunus/admin-password".owner = config.services.portunus.user;
     "portunus/search-password".owner = config.services.portunus.user;
     "dex/environment".owner = config.systemd.services.dex.serviceConfig.User;
-    nslcd_ldap_search = {
-      key = "portunus/search-password";
-      owner = config.systemd.services.nslcd.serviceConfig.User;
-    };
   };
 
   services.portunus = {
@@ -97,19 +93,6 @@ in
       isSystemUser = true;
     };
     groups.dex = { };
-
-    ldap =
-      let portunus = config.services.portunus; in
-      rec {
-        enable = true;
-        server = "ldap://localhost";
-        base = "${portunus.ldap.suffix}";
-        bind = {
-          distinguishedName = "uid=${portunus.ldap.searchUserName},ou=users,${base}";
-          passwordFile = config.sops.secrets.nslcd_ldap_search.path;
-        };
-        daemon.enable = true;
-      };
   };
 
   security.pam.services.sshd.makeHomeDir = true;
