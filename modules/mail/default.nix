@@ -313,6 +313,13 @@ in
             }
           }
         '';
+        "dkim_signing.conf".text = ''
+          selector = "quitte-rspamd";
+          allow_username_mismatch = true;
+          allow_hdrfrom_mismatch = true;
+          path = /var/lib/rspamd/dkim/$domain.$selector.key;
+
+        '';
 
         "multimap.conf".text =
           let
