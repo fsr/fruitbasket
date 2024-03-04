@@ -313,6 +313,15 @@ in
             }
           }
         '';
+        "dmarc.conf".text = ''
+          reporting {
+            enabled = true;
+            email = 'reports@${config.networking.domain}';
+            domain = '${config.networking.domain}';
+            org_name = '${config.networking.domain}';
+            from_name = 'DMARC Aggregate Report';
+          }
+        '';
         "dkim_signing.conf".text = ''
           selector = "quitte-rspamd";
           allow_username_mismatch = true;
@@ -410,5 +419,17 @@ in
       "postfix.service"
       "dovecot2.service"
     ];
+  };
+  systemd = {
+    services.rspamd-dmarc-report = {
+      description = "rspamd dmarc reporter";
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.rspamd}/bin/rspamadm dmarc_report -v";
+        User = "rspamd";
+        Group = "rspamd";
+      };
+      startAt = "daily";
+    };
   };
 }
