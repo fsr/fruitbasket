@@ -324,7 +324,7 @@ in
           }
         '';
         "dkim_signing.conf".text = ''
-          selector = "quitte-rspamd";
+          selector = "quitte2024";
           allow_username_mismatch = true;
           path = /var/lib/rspamd/dkim/$domain.$selector.key;
 
