@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nixpkgs-unstable, system, ... }:
 let
   domain = "auth.${config.networking.domain}";
-  seed = {
+  seedSettings = {
     groups = [
       {
         name = "admins";
@@ -43,6 +43,15 @@ let
   };
 in
 {
+  # Use portunus from unstable branch until 24.05 is here
+  disabledModules = [ "services/misc/portunus.nix" ];
+  imports = [ "${nixpkgs-unstable}/nixos/modules/services/misc/portunus.nix" ];
+  nixpkgs.overlays = [
+    (self: super: {
+      inherit (nixpkgs-unstable.legacyPackages.${system}) portunus;
+    })
+  ];
+
   sops.secrets = {
     "portunus/admin-password".owner = config.services.portunus.user;
     "portunus/search-password".owner = config.services.portunus.user;
@@ -58,12 +67,12 @@ in
         ./0003-gecos-ascii-escape.patch
         ./0004-make-givenName-optional.patch
       ];
+      doCheck = false; # posix regex related tests break
     });
 
-    inherit domain;
+    inherit domain seedSettings;
     port = 8681;
     dex.enable = true;
-    seedPath = pkgs.writeText "portunus-seed.json" (builtins.toJSON seed);
 
     ldap = {
       suffix = "dc=ifsr,dc=de";
@@ -75,10 +84,14 @@ in
     };
   };
 
-  services.dex.settings.oauth2.skipApprovalScreen = true;
-  services.dex.settings.frontend.issuer = "iFSR Schliboleth";
-  services.dex.settings.frontend.logoURL = "https://wiki.ifsr.de/images/3/3b/LogoiFSR.png";
-  services.dex.settings.frontend.theme = "dark";
+  services.dex.settings = {
+    oauth2.skipApprovalScreen = true;
+    frontend = {
+      issuer = "iFSR Schliboleth";
+      logoURL = "https://wiki.ifsr.de/images/3/3b/LogoiFSR.png";
+      theme = "dark";
+    };
+  };
 
   systemd.services.dex.serviceConfig = {
     DynamicUser = lib.mkForce false;

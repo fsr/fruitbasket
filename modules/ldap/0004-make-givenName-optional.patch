@@ -1,8 +1,20 @@
 diff --git a/internal/core/user.go b/internal/core/user.go
-index e74ccfe..ce03eeb 100644
+index f45fdf7..4f93b37 100644
 --- a/internal/core/user.go
 +++ b/internal/core/user.go
-@@ -64,7 +64,6 @@ func (u User) RenderToLDAP(suffix string, allGroups map[string]Group) LDAPObject
+@@ -76,7 +76,6 @@ func (u User) validateLocal(cfg *ValidationConfig) (errs errext.ErrorSet) {
+ 		MustBePosixAccountNameIf(u.LoginName, u.POSIX != nil),
+ 	))
+ 	errs.Add(ref.Field("given_name").WrapFirst(
+-		MustNotBeEmpty(u.GivenName),
+ 		MustNotHaveSurroundingSpaces(u.GivenName),
+ 	))
+ 	errs.Add(ref.Field("family_name").WrapFirst(
+diff --git a/internal/ldap/object.go b/internal/ldap/object.go
+index d4e5c6f..1225084 100644
+--- a/internal/ldap/object.go
++++ b/internal/ldap/object.go
+@@ -73,7 +73,6 @@ func renderUser(u core.User, dnSuffix string, allGroups []core.Group) Object {
  			"uid":          {u.LoginName},
  			"cn":           {u.FullName()},
  			"sn":           {u.FamilyName},
@@ -10,7 +22,7 @@ index e74ccfe..ce03eeb 100644
  			"userPassword": {u.PasswordHash},
  			"isMemberOf":   memberOfGroupDNames,
  			"objectClass":  {"portunusPerson", "inetOrgPerson", "organizationalPerson", "person", "top"},
-@@ -74,6 +73,9 @@ func (u User) RenderToLDAP(suffix string, allGroups map[string]Group) LDAPObject
+@@ -83,6 +82,9 @@ func renderUser(u core.User, dnSuffix string, allGroups []core.Group) Object {
  	if u.EMailAddress != "" {
  		obj.Attributes["mail"] = []string{u.EMailAddress}
  	}
@@ -20,15 +32,3 @@ index e74ccfe..ce03eeb 100644
  	if len(u.SSHPublicKeys) > 0 {
  		obj.Attributes["sshPublicKey"] = u.SSHPublicKeys
  	}
-diff --git a/internal/frontend/users.go b/internal/frontend/users.go
-index 225c5b3..1a961ca 100644
---- a/internal/frontend/users.go
-+++ b/internal/frontend/users.go
-@@ -168,7 +168,6 @@ func buildUserMasterdataFieldset(e core.Engine, u *core.User, state *h.FormState
- 			Name:      "given_name",
- 			Label:     "Given name",
- 			Rules: []h.ValidationRule{
--				core.MustNotBeEmpty,
- 				core.MustNotHaveSurroundingSpaces,
- 			},
- 		},
