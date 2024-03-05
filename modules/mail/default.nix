@@ -43,7 +43,6 @@ in
     993 # IMAP
     4190 # sieve
   ];
-  users.users.postfix.extraGroups = [ "opendkim" ];
   users.users.rspamd.extraGroups = [ "redis-rspamd" ];
   environment.etc = {
     "dovecot/sieve-pipe/sa-learn-spam.sh" = {
@@ -139,8 +138,6 @@ in
         alias_maps = [ "hash:/etc/aliases" ];
         alias_database = [ "hash:/etc/aliases" ];
         # alias_maps = [ "hash:/etc/aliases" "ldap:${ldap-aliases}" ];
-        smtpd_milters = [ "local:/run/opendkim/opendkim.sock" ];
-        non_smtpd_milters = [ "local:/var/run/opendkim/opendkim.sock" ];
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
         smtpd_sasl_type = "dovecot";
@@ -272,14 +269,6 @@ in
           # https://doc.dovecot.org/configuration_manual/plugins/listescape_plugin/
           listescape_char = "\\"
         }
-      '';
-    };
-    opendkim = {
-      enable = true;
-      domains = "csl:${config.networking.domain}";
-      selector = config.networking.hostName;
-      configFile = pkgs.writeText "opendkim-config" ''
-        UMask 0117
       '';
     };
     rspamd = {
