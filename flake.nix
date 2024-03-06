@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -59,9 +60,9 @@
       });
       overlays.default = import ./overlays;
       nixosConfigurations = {
-        quitte = nixpkgs.lib.nixosSystem {
+        quitte = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
-          specialArgs = inputs;
+          specialArgs = inputs // { inherit system; };
           modules = [
             inputs.sops-nix.nixosModules.sops
             inputs.kpp.nixosModules.default
