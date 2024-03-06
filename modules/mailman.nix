@@ -57,5 +57,11 @@
   services.nginx.virtualHosts."lists.${config.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
+    locations."/robots.txt" = {
+      extraConfig = ''
+        add_header  Content-Type  text/plain;
+        return 200 "User-agent: *\nDisallow: /\n";
+      '';
+    };
   };
 }
