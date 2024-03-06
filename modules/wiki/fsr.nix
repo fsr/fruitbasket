@@ -104,6 +104,12 @@ in
       virtualHosts.${domain} = {
         enableACME = true;
         forceSSL = true;
+        locations."/robots.txt" = {
+          extraConfig = ''
+            add_header  Content-Type  text/plain;
+            return 200 "User-agent: *\nDisallow: /\n";
+          '';
+        };
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString listenPort}";
           proxyWebsockets = true;
