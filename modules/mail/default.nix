@@ -315,6 +315,8 @@ in
         "dkim_signing.conf".text = ''
           selector = "quitte2024";
           allow_username_mismatch = true;
+          allow_hdrfrom_mismatch = true;
+          use_domain_sign_local = "ifsr.de";
           path = /var/lib/rspamd/dkim/$domain.$selector.key;
 
         '';
