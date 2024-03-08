@@ -92,6 +92,7 @@ in
         message_size_limit = "26214400";
         # hostname used in helo command. It is recommended to have this match the reverse dns entry
         smtp_helo_name = config.networking.rDNS;
+        smtpd_banner = "${config.networking.rDNS} ESMTP $mail_name";
         smtp_use_tls = true;
         # smtp_tls_security_level = "encrypt";
         smtpd_use_tls = true;
