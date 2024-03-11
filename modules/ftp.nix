@@ -18,6 +18,9 @@ in
       allow 141.76.0.0/16;
       deny all;
     '';
+    locations."~ /komplexpruef".extraConfig = ''
+      default_type text/plain;
+    '';
     locations."=/403.html" = {
       root = pkgs.writeTextDir "403.html" ''
         <html>
