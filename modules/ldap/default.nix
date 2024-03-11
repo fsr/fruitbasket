@@ -47,7 +47,7 @@ in
   disabledModules = [ "services/misc/portunus.nix" ];
   imports = [ "${nixpkgs-unstable}/nixos/modules/services/misc/portunus.nix" ];
   nixpkgs.overlays = [
-    (self: super: {
+    (_self: _super: {
       inherit (nixpkgs-unstable.legacyPackages.${system}) portunus;
     })
   ];

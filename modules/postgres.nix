@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   # automatically back up all databases
   services.postgresqlBackup = {

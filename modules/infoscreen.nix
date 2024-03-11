@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ config, ... }:
 let
   domain = "infoscreen.${config.networking.domain}";
 in

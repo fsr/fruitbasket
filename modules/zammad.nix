@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 let
   domain = "tickets.${config.networking.domain}";
 in

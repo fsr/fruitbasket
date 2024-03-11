@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ config, ... }:
 let
   domain = "manual.${config.networking.domain}";
 in
