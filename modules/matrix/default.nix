@@ -22,6 +22,7 @@ let
   matrix-synapse-ldap3 = config.services.matrix-synapse.package.plugins.matrix-synapse-ldap3;
 in
 {
+  imports = [ ./mautrix-telegram.nix ];
   sops.secrets.matrix_ldap_search = {
     key = "portunus/search-password";
     owner = config.systemd.services.matrix-synapse.serviceConfig.User;

@@ -78,14 +78,13 @@
             ./modules/mail
             ./modules/web
             ./modules/courses
+            ./modules/wiki
+            ./modules/matrix
 
             ./modules/nix-serve.nix
             ./modules/hedgedoc.nix
             ./modules/padlist.nix
-            ./modules/wiki
             ./modules/nextcloud.nix
-            ./modules/matrix.nix
-            ./modules/mautrix-telegram.nix
             ./modules/vaultwarden.nix
             ./modules/gitea.nix
             ./modules/kanboard.nix
