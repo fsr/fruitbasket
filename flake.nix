@@ -77,18 +77,16 @@
             ./modules/ldap
             ./modules/mail
             ./modules/web
+            ./modules/courses
 
             ./modules/nix-serve.nix
             ./modules/hedgedoc.nix
             ./modules/padlist.nix
             ./modules/wiki
-            #./modules/stream.nix
             ./modules/nextcloud.nix
             ./modules/matrix.nix
             ./modules/mautrix-telegram.nix
             ./modules/vaultwarden.nix
-            ./modules/course-management.nix
-            ./modules/courses-phil.nix
             ./modules/gitea.nix
             ./modules/kanboard.nix
             ./modules/zammad.nix
