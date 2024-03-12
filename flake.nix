@@ -44,7 +44,7 @@
         quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
         tomate = self.nixosConfigurations.tomate.config.system.build.toplevel;
       });
-      formatters = forAllSystems (system: rec {
+      formatters = forAllSystems (system: {
         default = pkgs.${system}.nixpkgs-fmt;
       });
       hydraJobs = forAllSystems (system: {
@@ -96,7 +96,6 @@
             ./modules/nextcloud.nix
             ./modules/matrix.nix
             ./modules/mautrix-telegram.nix
-            ./modules/sogo.nix
             ./modules/vaultwarden.nix
             ./modules/website.nix
             ./modules/zsh.nix
