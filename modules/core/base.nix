@@ -54,14 +54,14 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINJgYI2rXmw4uPXAMmOgqgJEwYfwj/IBExTCzs9Dgo+R w0lff"
     ];
     keyFiles = [
-      ../keys/ssh/marcus-sapphire
-      ../keys/ssh/schrader
-      ../keys/ssh/jannusch
-      ../keys/ssh/jannusch-arch
-      ../keys/ssh/tassilo
-      ../keys/ssh/jonasga
-      ../keys/ssh/rouven
-      ../keys/ssh/joachim
+      ../../keys/ssh/marcus-sapphire
+      ../../keys/ssh/schrader
+      ../../keys/ssh/jannusch
+      ../../keys/ssh/jannusch-arch
+      ../../keys/ssh/tassilo
+      ../../keys/ssh/jonasga
+      ../../keys/ssh/rouven
+      ../../keys/ssh/joachim
     ];
   };
 

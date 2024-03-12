@@ -71,37 +71,27 @@
             course-management.nixosModules.default
             vscode-server.nixosModules.default
             ./hosts/quitte/configuration.nix
-            ./modules/bacula.nix
             ./modules/options.nix
-            ./modules/base.nix
-            ./modules/sops.nix
 
+            ./modules/core
             ./modules/ldap
-            ./modules/sssd.nix
             ./modules/mail
             ./modules/web
 
-            ./modules/mysql.nix
             ./modules/nix-serve.nix
-            ./modules/nginx.nix
             ./modules/hedgedoc.nix
             ./modules/padlist.nix
-            ./modules/postgres.nix
             ./modules/wiki
-            ./modules/ftp.nix
             #./modules/stream.nix
             ./modules/nextcloud.nix
             ./modules/matrix.nix
             ./modules/mautrix-telegram.nix
             ./modules/vaultwarden.nix
-            ./modules/zsh.nix
             ./modules/course-management.nix
             ./modules/courses-phil.nix
             ./modules/gitea.nix
-            ./modules/fail2ban.nix
             ./modules/kanboard.nix
             ./modules/zammad.nix
-            ./modules/initrd-ssh.nix
             ./modules/decisions.nix
             ./modules/struktur-bot.nix
             {
@@ -119,10 +109,10 @@
             vscode-server.nixosModules.default
             print-interface.nixosModules.default
             ./hosts/tomate/configuration.nix
-            ./modules/base.nix
-            ./modules/zsh.nix
-            ./modules/fail2ban.nix
-            ./modules/sssd.nix
+            ./modules/core/base.nix
+            ./modules/core/zsh.nix
+            ./modules/core/fail2ban.nix
+            ./modules/core/sssd.nix
             {
               sops.defaultSopsFile = ./secrets/tomate.yaml;
             }
