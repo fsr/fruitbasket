@@ -71,7 +71,7 @@
             course-management.nixosModules.default
             vscode-server.nixosModules.default
             ./hosts/quitte/configuration.nix
-            ./modules/options.nix
+            ./options
 
             ./modules/core
             ./modules/ldap
