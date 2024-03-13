@@ -37,7 +37,6 @@ in
       networksStyle = "host"; # localhost and own public IP
       sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
       sslKey = "/var/lib/acme/${hostname}/key.pem";
-      relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
       config = {
         home_mailbox = "Maildir/";
         # 25 MiB
@@ -94,12 +93,7 @@ in
         smtpd_sasl_auth_enable = true;
         smtpd_sasl_path = "/var/lib/postfix/auth";
         smtpd_sasl_type = "dovecot";
-        #mailman stuff
-        mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
-
-        transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
-        virtual_alias_maps = [ "hash:/var/lib/mailman/data/postfix_vmap" ];
-        local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" "ldap:${config.sops.secrets."postfix_ldap_aliases".path}" "$alias_maps" ];
+        local_recipient_maps = [ "ldap:${config.sops.secrets."postfix_ldap_aliases".path}" "$alias_maps" ];
       };
     };
   };

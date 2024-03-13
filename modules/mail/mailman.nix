@@ -40,6 +40,15 @@
       superUserGroup = "cn=admins,ou=groups,dc=ifsr,dc=de";
     };
   };
+  services.postfix = {
+    relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
+    config = {
+      mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
+      transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
+      virtual_alias_maps = [ "hash:/var/lib/mailman/data/postfix_vmap" ];
+      local_recipient_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
+    };
+  };
   services.postgresql = {
     enable = true;
     ensureUsers = [
