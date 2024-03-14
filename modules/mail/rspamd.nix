@@ -41,7 +41,7 @@ in
         "dmarc.conf".text = ''
           reporting {
             enabled = true;
-            email = 'reports@${config.networking.domain}';
+            email = 'noreply-dmarc@${config.networking.domain}';
             domain = '${config.networking.domain}';
             org_name = '${config.networking.domain}';
             from_name = 'DMARC Aggregate Report';
