@@ -2,6 +2,7 @@
 {
   imports = [
     ./base.nix
+    ./logging.nix
     ./bacula.nix
     ./fail2ban.nix
     ./initrd-ssh.nix
