@@ -44,7 +44,7 @@
         quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
         tomate = self.nixosConfigurations.tomate.config.system.build.toplevel;
       });
-      formatters = forAllSystems (system: rec {
+      formatters = forAllSystems (system: {
         default = pkgs.${system}.nixpkgs-fmt;
       });
       hydraJobs = forAllSystems (system: {
@@ -71,47 +71,24 @@
             course-management.nixosModules.default
             vscode-server.nixosModules.default
             ./hosts/quitte/configuration.nix
-            ./modules/bacula.nix
-            ./modules/options.nix
-            ./modules/base.nix
-            ./modules/sops.nix
-            ./modules/kpp.nix
-            ./modules/ese-website.nix
+            ./options
 
+            ./modules/core
             ./modules/ldap
-            ./modules/sssd.nix
             ./modules/mail
-            ./modules/mailman.nix
-            ./modules/mysql.nix
+            ./modules/web
+            ./modules/courses
+            ./modules/wiki
+            ./modules/matrix
+
             ./modules/nix-serve.nix
-            ./modules/nginx.nix
-            # ./modules/hydra.nix
-            ./modules/userdir.nix
             ./modules/hedgedoc.nix
             ./modules/padlist.nix
-            ./modules/postgres.nix
-            ./modules/wiki
-            ./modules/ftp.nix
-            #./modules/stream.nix
             ./modules/nextcloud.nix
-            ./modules/matrix.nix
-            ./modules/mautrix-telegram.nix
-            ./modules/sogo.nix
             ./modules/vaultwarden.nix
-            ./modules/website.nix
-            ./modules/zsh.nix
-            ./modules/course-management.nix
-            ./modules/courses-phil.nix
             ./modules/gitea.nix
-            ./modules/fail2ban.nix
             ./modules/kanboard.nix
-            ./modules/infoscreen.nix
-            ./modules/manual.nix
-            ./modules/sharepic.nix
             ./modules/zammad.nix
-            ./modules/initrd-ssh.nix
-            ./modules/fsrewsp.nix
-            ./modules/nightline.nix
             ./modules/decisions.nix
             ./modules/struktur-bot.nix
             {
@@ -129,10 +106,10 @@
             vscode-server.nixosModules.default
             print-interface.nixosModules.default
             ./hosts/tomate/configuration.nix
-            ./modules/base.nix
-            ./modules/zsh.nix
-            ./modules/fail2ban.nix
-            ./modules/sssd.nix
+            ./modules/core/base.nix
+            ./modules/core/zsh.nix
+            ./modules/core/fail2ban.nix
+            ./modules/core/sssd.nix
             {
               sops.defaultSopsFile = ./secrets/tomate.yaml;
             }
