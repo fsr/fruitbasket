@@ -12,6 +12,7 @@ in
       fancyindex on;
       fancyindex_exact_size off;
       error_page 403 /403.html;
+      fancyindex_localtime on;
     '';
     locations."~/(klausuren|uebungen|skripte|abschlussarbeiten)".extraConfig = ''
       allow 141.30.0.0/16;
