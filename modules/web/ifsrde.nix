@@ -75,4 +75,9 @@ in
       };
     };
   };
+
+  services.portunus.dex.oidcClients = [{
+    id = "grav";
+    callbackURL = "https://ifsr.de/admin/task:callback.oauth2";
+  }];
 }
