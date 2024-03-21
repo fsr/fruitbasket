@@ -3,12 +3,6 @@ let
   wireguard_port = 51820;
 in
 {
-  sops.secrets = {
-    "wg-fsr" = {
-      owner = config.users.users.systemd-network.name;
-    };
-  };
-
   networking = {
     # portunus module does weird things to this, so we force it to some sane values
     hosts = {
