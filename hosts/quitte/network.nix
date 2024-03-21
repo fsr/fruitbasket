@@ -34,18 +34,12 @@ in
 
   services.resolved = {
     enable = true;
-    #dnssec = "false";
-    fallbackDns = [ "1.1.1.1" ];
+    fallbackDns = [ "9.9.9.9" ];
   };
-
-  # workaround for networkd waiting for shit
-  systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [
-    "" # clear old command
-    "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
-  ];
 
   systemd.network = {
     enable = true;
+    wait-online.anyInterface = true;
 
     # Interfaces on the machine
     networks."10-wired-default" = {
@@ -59,39 +53,6 @@ in
       ];
       networkConfig = {
         DNS = "141.30.1.1";
-        #IPv6AcceptRA = true;
-      };
-    };
-
-    # defining network device for wireguard connections
-    netdevs."fsr-wg" = {
-      netdevConfig = {
-        Kind = "wireguard";
-        Name = "fsr-wg";
-        Description = "fsr enterprise wireguard";
-      };
-      wireguardConfig = {
-        PrivateKeyFile = config.sops.secrets."wg-fsr".path;
-        ListenPort = wireguard_port;
-      };
-      wireguardPeers = [
-        {
-          # tassilo
-          wireguardPeerConfig = {
-            PublicKey = "vgo3le9xrFsIbbDZsAhQZpIlX+TuWjfEyUcwkoqUl2Y=";
-            AllowedIPs = [ "10.66.66.100/32" ];
-            PersistentKeepalive = 25;
-          };
-        }
-      ];
-    };
-
-    # fsr wireguard server
-    networks."fsr-wg" = {
-      matchConfig.Name = "fsr-wg";
-      networkConfig = {
-        Address = "10.66.66.1/24";
-        IPForward = "ipv4";
       };
     };
   };
