@@ -32,14 +32,9 @@ in
   services.nginx = {
 
     virtualHosts."www.${config.networking.domain}" = {
-      enableACME = true;
-      forceSSL = true;
       locations."/".return = "301 $scheme://ifsr.de$request_uri";
-
     };
     virtualHosts."${config.networking.domain}" = {
-      enableACME = true;
-      forceSSL = true;
       root = "/srv/web/ifsrde";
       extraConfig = ''
         index index.html index.php;

@@ -35,14 +35,10 @@ in
   services.nginx.enable = true;
   services.nginx = {
     virtualHosts."${domain_short}" = {
-      enableACME = true;
-      forceSSL = true;
       locations."/".return = "301 $scheme://${domain}$request_uri";
     };
 
     virtualHosts."${domain}" = {
-      addSSL = true;
-      enableACME = true;
       root = "/srv/web/kanboard";
       extraConfig = ''
         index index.html index.php;

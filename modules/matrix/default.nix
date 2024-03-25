@@ -41,9 +41,6 @@ in
       virtualHosts = {
         # synapse
         "${domainServer}" = {
-          enableACME = true;
-          forceSSL = true;
-
           # homeserver discovery
           locations."= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
           locations."= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
@@ -58,9 +55,6 @@ in
 
         # element
         "${domainClient}" = {
-          enableACME = true;
-          forceSSL = true;
-
           root = pkgs.element-web.override {
             conf = {
               default_server_config = {

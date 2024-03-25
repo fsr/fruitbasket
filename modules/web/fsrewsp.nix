@@ -37,8 +37,6 @@ in
   services.nginx.enable = true;
   services.nginx = {
     virtualHosts."${domain}" = {
-      addSSL = true;
-      enableACME = true;
       root = "/srv/web/fsrewsp";
       extraConfig = ''
         index index.php index.html;

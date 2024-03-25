@@ -4,8 +4,6 @@
     nginx = {
       virtualHosts = {
         "stream.${config.networking.domain}" = {
-          enableACME = true;
-          forceSSL = true;
           locations."/" =
             let
               cfg = config.services.owncast;

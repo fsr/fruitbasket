@@ -7,10 +7,4 @@ in
     enable = true;
     hostName = domain;
   };
-  services.nginx = {
-    virtualHosts."${domain}" = {
-      addSSL = true;
-      enableACME = true;
-    };
-  };
 }

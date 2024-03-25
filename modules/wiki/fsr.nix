@@ -102,8 +102,6 @@ in
     nginx = {
       recommendedProxySettings = true;
       virtualHosts.${domain} = {
-        enableACME = true;
-        forceSSL = true;
         locations."/robots.txt" = {
           extraConfig = ''
             add_header  Content-Type  text/plain;

@@ -20,8 +20,6 @@ in
   '';
 
   services.nginx.virtualHosts.${domain} = {
-    enableACME = true;
-    forceSSL = true;
     locations."/" = {
       proxyPass = "http://localhost:${toString config.services.zammad.port}";
     };

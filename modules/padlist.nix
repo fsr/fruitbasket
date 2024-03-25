@@ -24,8 +24,6 @@ in
 
   services.nginx = {
     virtualHosts.${domain} = {
-      enableACME = true;
-      forceSSL = true;
       root = "/srv/web/padlist";
       locations = {
         "= /" = {

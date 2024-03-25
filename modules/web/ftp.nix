@@ -5,8 +5,6 @@ in
 {
   services.nginx.additionalModules = [ pkgs.nginxModules.fancyindex ];
   services.nginx.virtualHosts."${domain}" = {
-    enableACME = true;
-    forceSSL = true;
     root = "/srv/ftp";
     extraConfig = ''
       fancyindex on;

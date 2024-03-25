@@ -33,8 +33,6 @@ in
     enable = true;
 
     virtualHosts."${domain}" = {
-      addSSL = true;
-      enableACME = true;
       root = "/srv/web/sharepic";
       extraConfig = ''
         index index.php index.html;

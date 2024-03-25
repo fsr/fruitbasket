@@ -45,9 +45,6 @@ in
   };
 
   services.nginx.virtualHosts.${hostName} = {
-    enableACME = true;
-    forceSSL = true;
-
     # phil redirects
     locations =
       let

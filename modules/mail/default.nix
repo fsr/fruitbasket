@@ -11,11 +11,6 @@ in
     ./mailman.nix
   ];
 
-  # Get SSL certs for dovecot and postfix via ngnix
-  services.nginx.virtualHosts."${hostname}" = {
-    forceSSL = true;
-    enableACME = true;
-  };
   security.acme.certs."${hostname}" = {
     reloadServices = [
       "postfix.service"
