@@ -45,12 +45,6 @@ in
       ];
 
     };
-
-    # Enable ACME and force SSL
-    nginx.virtualHosts.${domain} = {
-      enableACME = true;
-      forceSSL = true;
-    };
   };
 
   # ensure that postgres is running *before* running the setup

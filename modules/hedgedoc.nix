@@ -68,8 +68,6 @@ in
       recommendedProxySettings = true;
       virtualHosts = {
         "${domain}" = {
-          enableACME = true;
-          forceSSL = true;
           locations."/" = {
             proxyPass = "http://[::1]:${toString config.services.hedgedoc.settings.port}";
             proxyWebsockets = true;

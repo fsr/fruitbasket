@@ -5,6 +5,8 @@
     services.nginx.virtualHosts = mkOption {
       type = types.attrsOf (types.submodule
         ({ name, ... }: {
+          enableACME = true;
+          forceSSL = true;
           # split up nginx access logs per vhost
           extraConfig = ''
             access_log /var/log/nginx/${name}_access.log;

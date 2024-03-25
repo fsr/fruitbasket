@@ -109,8 +109,6 @@ in
     '';
 
   services.nginx.virtualHosts.${domain} = {
-    enableACME = true;
-    forceSSL = true;
     locations."/" = {
       proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:/";
       proxyWebsockets = true;

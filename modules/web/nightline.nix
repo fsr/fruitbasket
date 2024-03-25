@@ -34,8 +34,6 @@ in
 
   services.nginx = {
     virtualHosts."${domain}" = {
-      addSSL = true;
-      enableACME = true;
       root = "/srv/web/nightline";
       extraConfig = ''
         index index.php index.html;

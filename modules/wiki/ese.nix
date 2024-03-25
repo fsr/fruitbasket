@@ -30,8 +30,6 @@ in
   };
   services.nginx = {
     virtualHosts."${domain}" = {
-      addSSL = true;
-      enableACME = true;
       root = "/srv/web/wiki.ese";
       extraConfig = ''
         index index.php;

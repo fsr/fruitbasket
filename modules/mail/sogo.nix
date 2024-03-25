@@ -65,11 +65,7 @@ in
           proxy_buffers   8 64k;
           proxy_buffer_size   64k;
         '';
-        forceSSL = true;
-        enableACME = true;
         locations = {
-
-
           "^~/SOGo".extraConfig = lib.mkForce ''
             proxy_pass http://127.0.0.1:20000;
             proxy_redirect http://127.0.0.1:20000 default;

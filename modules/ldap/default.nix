@@ -113,8 +113,6 @@ in
   services.nginx = {
     enable = true;
     virtualHosts."${config.services.portunus.domain}" = {
-      forceSSL = true;
-      enableACME = true;
       locations = {
         "/".proxyPass = "http://localhost:${toString config.services.portunus.port}";
         "/dex".proxyPass = "http://localhost:${toString config.services.portunus.dex.port}";

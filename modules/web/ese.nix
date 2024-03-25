@@ -42,8 +42,6 @@ in
 
   services.nginx = {
     virtualHosts."${cms-domain}" = {
-      enableACME = true;
-      forceSSL = true;
       locations."/" = {
         extraConfig = ''
           if ($request_method = 'OPTIONS') {
@@ -64,8 +62,6 @@ in
       };
     };
     virtualHosts."${domain}" = {
-      enableACME = true;
-      forceSSL = true;
       locations."= /" = {
         return = "301 /2023/";
       };

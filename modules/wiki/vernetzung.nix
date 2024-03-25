@@ -30,8 +30,6 @@ in
   };
   services.nginx = {
     virtualHosts."${domain}" = {
-      addSSL = true;
-      enableACME = true;
       root = "/srv/web/vernetzung";
       extraConfig = ''
         index index.php;
