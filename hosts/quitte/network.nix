@@ -1,7 +1,4 @@
 { config, lib, ... }:
-let
-  wireguard_port = 51820;
-in
 {
   networking = {
     # portunus module does weird things to this, so we force it to some sane values
@@ -17,7 +14,6 @@ in
     nftables.enable = true;
 
     firewall = {
-      allowedUDPPorts = [ wireguard_port ];
       logRefusedConnections = false;
     };
   };
@@ -43,6 +39,8 @@ in
       ];
       networkConfig = {
         DNS = "141.30.1.1";
+        LLDP = true;
+        EmitLLDP = "nearest-bridge";
       };
     };
   };
