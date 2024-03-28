@@ -12,22 +12,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  boot.zfs = {
-    forceImportRoot = true;
-  };
-
-  # services.qemuGuest.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
-
-  # List packages installed in system profile. To search, run:
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-  ];
 
   # prevent fork bombs
   security.pam.loginLimits = [
@@ -57,18 +45,6 @@
       MemoryMax = "32G";
     };
   };
-
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 443 80 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
