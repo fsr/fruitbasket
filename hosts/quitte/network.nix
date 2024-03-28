@@ -13,9 +13,6 @@ in
     domain = "ifsr.de";
     hostName = "quitte";
     rDNS = config.networking.fqdn;
-    enableIPv6 = true;
-    useDHCP = true;
-    interfaces.ens18.useDHCP = true;
     useNetworkd = true;
     nftables.enable = true;
 
@@ -23,7 +20,6 @@ in
       allowedUDPPorts = [ wireguard_port ];
       logRefusedConnections = false;
     };
-    wireguard.enable = true;
   };
 
   services.resolved = {
@@ -37,7 +33,7 @@ in
 
     # Interfaces on the machine
     networks."10-wired-default" = {
-      matchConfig.Name = "ens18";
+      matchConfig.Name = "enp65s0f0np0";
 
       address = [ "141.30.30.169/25" ];
       routes = [
