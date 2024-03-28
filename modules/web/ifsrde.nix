@@ -10,7 +10,9 @@ in
     isSystemUser = true;
   };
   users.groups.${group} = { };
-
+  users.users.nginx = {
+    extraGroups = [ group ];
+  };
   services.phpfpm.pools.ifsrde = {
     user = user;
     group = group;
