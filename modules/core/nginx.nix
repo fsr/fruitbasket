@@ -18,7 +18,7 @@
   };
 
   config = {
-  networking.firewall.allowedTCPPorts = [ 443 80 ];
+    networking.firewall.allowedTCPPorts = [ 443 80 ];
     services.nginx = {
       additionalModules = [ pkgs.nginxModules.pam ];
       enable = true;
