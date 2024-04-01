@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 
 {
   imports =
@@ -12,6 +12,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+
+  services.zfs = {
+    trim.enable = true;
+    autoScrub.enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
