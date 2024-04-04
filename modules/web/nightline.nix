@@ -33,6 +33,9 @@ in
   };
 
   services.nginx = {
+    virtualHosts."www.${domain}" = {
+      locations."/".return = "301 $scheme://${domain}$request_uri";
+    };
     virtualHosts."${domain}" = {
       root = "/srv/web/nightline";
       extraConfig = ''
