@@ -16,6 +16,10 @@
     firewall = {
       logRefusedConnections = false;
     };
+    timeServers = [
+      "ntp1.zih.tu-dresden.de"
+      "ntp2.zih.tu-dresden.de"
+    ];
   };
 
   services.resolved = {
