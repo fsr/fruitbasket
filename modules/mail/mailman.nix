@@ -22,6 +22,8 @@
         ENGINE = "django.db.backends.postgresql";
         NAME = "mailman-web";
       };
+      ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = false;
+      ACCOUNT_PREVENT_ENUMERATION = false;
     };
     ldap = {
       enable = true;
