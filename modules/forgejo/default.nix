@@ -4,6 +4,9 @@ let
   gitUser = "git";
 in
 {
+  # imports = [
+  #   ./actions.nix
+  # ];
   sops.secrets.gitea_ldap_search = {
     key = "portunus/search-password";
     owner = config.services.forgejo.user;
@@ -75,6 +78,7 @@ in
         COOKIE_SECURE = true;
         PROVIDER = "db";
       };
+      actions.ENABLED = true;
     };
   };
 

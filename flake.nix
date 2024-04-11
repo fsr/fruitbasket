@@ -84,7 +84,7 @@
             ./modules/padlist.nix
             ./modules/nextcloud.nix
             ./modules/vaultwarden.nix
-            ./modules/gitea.nix
+            ./modules/forgejo
             ./modules/kanboard.nix
             ./modules/zammad.nix
             ./modules/decisions.nix
