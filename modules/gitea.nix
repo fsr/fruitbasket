@@ -19,7 +19,15 @@ in
 
   services.forgejo = {
     enable = true;
-    # package = pkgs.forgejo; # community fork
+    package = pkgs.forgejo.overrideAttrs (_old: {
+      patches = [
+        # migration fix
+        (pkgs.fetchpatch {
+          url = "https://codeberg.org/forgejo/forgejo/commit/ae463c7c559e02975ce5e758d8780def978eebee.patch";
+          hash = "sha256-cOXPvkLS0n+ynSBTrmEtumZ2PYBeCZmxPpFktqkw6Fo=";
+        })
+      ];
+    });
     user = gitUser;
     group = gitUser;
     lfs.enable = true;
