@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -7,7 +7,12 @@
       ./network.nix
     ];
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    extraInstallCommands = ''
+      ${pkgs.coreutils}/bin/cp -r /boot/* /boot2
+    '';
+  };
   # boot.kernelParams = [ "video=VGA-1:1024x768@30" ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
