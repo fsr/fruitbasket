@@ -44,11 +44,13 @@
     {
       device = "/dev/disk/by-uuid/3278-8D00";
       fsType = "vfat";
+      options = [ "nofail" ];
     };
   fileSystems."/boot2" =
     {
       device = "/dev/disk/by-uuid/3366-F71E";
       fsType = "vfat";
+      options = [ "nofail" ];
     };
 
   swapDevices = [ ];
