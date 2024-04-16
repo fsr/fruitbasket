@@ -7,10 +7,14 @@
         ({ name, ... }: {
           enableACME = true;
           forceSSL = true;
+          # enable http3 for all hosts
+          quic = true;
+          http3 = true;
           # split up nginx access logs per vhost
           extraConfig = ''
             access_log /var/log/nginx/${name}_access.log;
             error_log /var/log/nginx/${name}_error.log;
+            add_header Alt-Svc 'h3=":443"; ma=86400';
           '';
         })
       );
@@ -22,6 +26,7 @@
     networking.firewall.allowedUDPPorts = [ 443 ];
     services.nginx = {
       enable = true;
+      package = pkgs.nginxQuic;
       additionalModules = [ pkgs.nginxModules.pam ];
       recommendedProxySettings = true;
       recommendedGzipSettings = true;
