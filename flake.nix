@@ -106,7 +106,6 @@
             ./hosts/tomate/configuration.nix
             ./modules/core/base.nix
             ./modules/core/zsh.nix
-            ./modules/core/fail2ban.nix
             ./modules/core/sssd.nix
             {
               sops.defaultSopsFile = ./secrets/tomate.yaml;
