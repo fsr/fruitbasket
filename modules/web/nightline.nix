@@ -40,7 +40,6 @@ in
       root = "/srv/web/nightline";
       extraConfig = ''
         index index.php index.html;
-        fastcgi_param HTTP_HOST $host;
       '';
 
       locations = {
@@ -56,6 +55,7 @@ in
             include ${pkgs.nginx}/conf/fastcgi_params;
             include ${pkgs.nginx}/conf/fastcgi.conf;
             fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
+            fastcgi_param HTTP_HOST $host;
           '';
         };
         "~ \.log$".return = "403";
