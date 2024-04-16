@@ -40,6 +40,7 @@ in
       root = "/srv/web/nightline";
       extraConfig = ''
         index index.php index.html;
+        fastcgi_param HTTP_HOST $host;
       '';
 
       locations = {

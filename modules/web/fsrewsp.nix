@@ -43,6 +43,7 @@ in
       root = "/srv/web/fsrewsp";
       extraConfig = ''
         index index.php index.html;
+        fastcgi_param HTTP_HOST $host;
       '';
 
       locations = {
