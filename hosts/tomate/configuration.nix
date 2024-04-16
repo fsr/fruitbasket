@@ -27,6 +27,7 @@
       ];
     };
   };
+  users.users.root.shell = pkgs.zsh;
 
 
   # Set your time zone.
