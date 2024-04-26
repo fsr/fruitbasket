@@ -9,11 +9,11 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1713268687,
-        "narHash": "sha256-rC8f3dFiCl7LFFmselEo9qIiGdRiCbkJCCjMu/nTHzg=",
+        "lastModified": 1714117615,
+        "narHash": "sha256-Ilu7j7tihFI0jtnsQS+7H0SZX4C61NZHaV/7fJ39t/E=",
         "owner": "fsr",
         "repo": "course-management",
-        "rev": "820cbb8eb16237d75902202bdbee012aced29f8d",
+        "rev": "9e5ab11788b926a9a26d2aaa0e0958c3c5865cc9",
         "type": "github"
       },
       "original": {
