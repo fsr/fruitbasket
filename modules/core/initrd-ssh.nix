@@ -6,6 +6,7 @@
 { config, ... }:
 {
   boot.initrd = {
+   availableKernelModules = ["mlx5_core"];
     systemd = {
       enable = true;
       network = {
