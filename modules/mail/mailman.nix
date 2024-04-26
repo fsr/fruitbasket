@@ -66,6 +66,14 @@
     ensureDatabases = [ "mailman" "mailman-web" ];
   };
   services.nginx.virtualHosts."lists.${config.networking.domain}" = {
+    locations."/accounts/signup" = {
+      extraConfig = ''
+        allow 141.30.0.0/16;
+        allow 141.76.0.0/16;
+        deny all;
+        uwsgi_pass unix:/run/mailman-web.socket;
+      '';
+    };
     locations."/robots.txt" = {
       extraConfig = ''
         add_header  Content-Type  text/plain;
