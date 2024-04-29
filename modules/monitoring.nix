@@ -52,6 +52,7 @@ in
         static_configs = [{
           targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
         }];
+        scrape_interval = "15s";
       }
     ];
   };
