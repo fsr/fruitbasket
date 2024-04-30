@@ -43,6 +43,11 @@ in
         enabledCollectors = [ "systemd" ];
         port = 9002;
       };
+      postfix = {
+        enable = true;
+        port = 25;
+        user = config.serivces.postfix.user;
+      };
     };
     scrapeConfigs = [
       {
