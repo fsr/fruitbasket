@@ -45,8 +45,7 @@ in
       };
       postfix = {
         enable = true;
-        port = 25;
-        user = config.serivces.postfix.user;
+        port = 9003;
       };
     };
     scrapeConfigs = [
@@ -57,13 +56,20 @@ in
         }];
         scrape_interval = "15s";
       }
+      {
+        job_name = "postfix";
+        static_configs = [{
+          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.postfix.port}" ];
+        }];
+        # scrape_interval = "60s";
+      }
     ];
   };
 
   # nginx reverse proxy
   services.nginx.virtualHosts.${domain} = {
     locations."/" = {
-      proxyPass = "http://localhost:${toString config.services.grafana.port}";
+      proxyPass = "http://localhost:${toString config.services.grafana.settings.server.http_port}";
       proxyWebsockets = true;
     };
   };
