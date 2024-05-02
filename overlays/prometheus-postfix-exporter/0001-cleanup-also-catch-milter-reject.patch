@@ -1,0 +1,25 @@
+From f4c5dd5628c873981b2d6d6b8f3bbf036b9fd724 Mon Sep 17 00:00:00 2001
+From: Rouven Seifert <rouven.seifert@ifsr.de>
+Date: Thu, 2 May 2024 11:20:27 +0200
+Subject: [PATCH] cleanup: also catch milter-reject
+
+---
+ postfix_exporter.go | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/postfix_exporter.go b/postfix_exporter.go
+index f20d99c..676d767 100644
+--- a/postfix_exporter.go
++++ b/postfix_exporter.go
+@@ -335,6 +335,8 @@ func (e *PostfixExporter) CollectFromLogLine(line string) {
+ 				e.cleanupProcesses.Inc()
+ 			} else if strings.Contains(remainder, ": reject: ") {
+ 				e.cleanupRejects.Inc()
++			} else if strings.Contains(remainder, ": milter-reject: ") {
++				e.cleanupRejects.Inc()
+ 			} else {
+ 				e.addToUnsupportedLine(line, subprocess, level)
+ 			}
+-- 
+2.44.0
+
