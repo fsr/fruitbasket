@@ -11,6 +11,7 @@ in
         inherit domain;
         http_addr = "127.0.0.1";
         http_port = 2342;
+        root_url = "https://monitoring.ifsr.de";
       };
       database = {
         type = "postgres";
