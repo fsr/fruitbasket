@@ -83,6 +83,7 @@
             ./modules/hedgedoc.nix
             ./modules/padlist.nix
             ./modules/nextcloud.nix
+            ./modules/keycloak.nix
             ./modules/monitoring.nix
             ./modules/vaultwarden.nix
             ./modules/forgejo

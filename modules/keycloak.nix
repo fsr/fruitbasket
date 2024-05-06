@@ -3,7 +3,7 @@ let
   domain = "sso.${config.networking.domain}";
 in
 {
-  sops.secrets."keykloak/db" = { };
+  sops.secrets."keycloak/db" = { };
   services.keycloak = {
     enable = true;
     settings = {
