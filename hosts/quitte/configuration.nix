@@ -21,12 +21,12 @@
   boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_6.override {
     argsOverride = rec {
       src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-            sha256 = "sha256-Y55QBg48jyPtAXyxDP6sxrqI/1WDgSu3aFm0zGoSgpE=";
+        url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+        sha256 = "sha256-Y55QBg48jyPtAXyxDP6sxrqI/1WDgSu3aFm0zGoSgpE=";
       };
       version = "6.6.27";
       modDirVersion = "6.6.27";
-      };
+    };
   });
 
   services.zfs = {
@@ -53,9 +53,6 @@
       value = "10000";
     }
   ];
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.settings.PermitRootLogin = "yes";
 
   systemd = {
     services.nix-daemon.serviceConfig = {

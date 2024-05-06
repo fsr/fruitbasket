@@ -29,7 +29,13 @@
   };
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "yes";
+      PasswordAuthentication = "no";
+    };
+  };
   programs.mosh.enable = true;
 
   # vs code server
