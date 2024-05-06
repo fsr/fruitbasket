@@ -13,7 +13,7 @@ in
     };
   }));
   # (hopefully) fix systemd journal reading
-  prometheus-postfix-exporter = prev.prometheus-postfix-exporter.overrideAttrs (old: {
+  prometheus-postfix-exporter = prev.prometheus-postfix-exporter.overrideAttrs (_old: {
     patches = [
       ./prometheus-postfix-exporter/0001-cleanup-also-catch-milter-reject.patch
     ];
