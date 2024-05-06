@@ -6,7 +6,7 @@ in
   sops.secrets."decisions_env" = { };
   virtualisation.oci-containers = {
     containers.decisions = {
-      image = "decisions";
+      image = "ghcr.io/fsr/decisions";
       volumes = [
         "/var/lib/nextcloud/data/root/files/FSR/protokolle:/protokolle:ro"
       ];
