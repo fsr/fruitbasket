@@ -33,7 +33,7 @@
     enable = true;
     settings = {
       PermitRootLogin = "yes";
-      PasswordAuthentication = "no";
+      PasswordAuthentication = false;
     };
   };
   programs.mosh.enable = true;
