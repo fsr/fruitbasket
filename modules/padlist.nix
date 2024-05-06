@@ -46,10 +46,4 @@ in
       };
     };
   };
-
-  services.portunus.dex.oidcClients = [{
-    id = "padlist";
-    callbackURL = "https://list.pad.ifsr.de/callback.php";
-  }];
-
 }
