@@ -22,6 +22,10 @@ in
         "DB_PORT" = "5432";
         "DB_DATABASE" = "directus_ese";
         "DB_USER" = "directus_ese";
+        "AUTH_KEYCLOAK_DRIVER" = "openid";
+        "AUTH_KEYCLOAK_CLIENT_ID" = "directus-ese";
+        "AUTH_KEYCLOAK_ISSUER_URL" = "http://sso.ifsr.de/realms/internal/.well-known/openid-configuration";
+        "AUTH_KEYCLOAK_IDENTIFIER_KEY" = "email";
       };
       environmentFiles = [
         config.sops.secrets."directus_env".path
