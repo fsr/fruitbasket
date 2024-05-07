@@ -3,6 +3,9 @@ let
   domain = "monitoring.${config.networking.domain}";
 in
 {
+  sops.secrets."grafana/oidc_secret" = {
+    owner = "grafana";
+  };
   # grafana configuration
   services.grafana = {
     enable = true;
@@ -17,6 +20,24 @@ in
         type = "postgres";
         user = "grafana";
         host = "/run/postgresql";
+      };
+      "auth.generic_oauth" = {
+        enabled = true;
+        name = "iFSR";
+        allow_sign_up = true;
+        client_id = "grafana";
+        client_secret = "$__file{${config.sops.secrets."grafana/oidc_secret".path}}";
+        scopes = "openid email profile offline_access roles";
+
+        email_attribute_path = "email";
+        login_attribute_path = "username";
+        name_attribute_path = "full_name";
+
+        auth_url = "https://sso.ifsr.de/realms/internal/protocol/openid-connect/auth";
+        token_url = "https://sso.ifsr.de/realms/internal/protocol/openid-connect/token";
+        api_url = "https://sso.ifsr.de/realms/internal/protocol/openid-connect/userinfo";
+        role_attribute_path = "contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'";
+
       };
 
     };
