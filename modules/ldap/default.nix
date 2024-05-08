@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixpkgs-unstable, system, ... }:
+{ config, pkgs, nixpkgs-unstable, system, ... }:
 let
   domain = "auth.${config.networking.domain}";
   seedSettings = {
@@ -55,7 +55,6 @@ in
   sops.secrets = {
     "portunus/admin-password".owner = config.services.portunus.user;
     "portunus/search-password".owner = config.services.portunus.user;
-    "dex/environment".owner = config.systemd.services.dex.serviceConfig.User;
   };
 
   services.portunus = {
@@ -72,8 +71,6 @@ in
 
     inherit domain seedSettings;
     port = 8681;
-    dex.enable = true;
-
     ldap = {
       suffix = "dc=ifsr,dc=de";
       searchUserName = "search";
@@ -84,30 +81,6 @@ in
     };
   };
 
-  services.dex.settings = {
-    oauth2.skipApprovalScreen = true;
-    frontend = {
-      issuer = "iFSR Schliboleth";
-      logoURL = "https://wiki.ifsr.de/images/3/3b/LogoiFSR.png";
-      theme = "dark";
-    };
-  };
-
-  systemd.services.dex.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    EnvironmentFile = config.sops.secrets."dex/environment".path;
-    StateDirectory = "dex";
-    User = "dex";
-  };
-
-  users = {
-    users.dex = {
-      group = "dex";
-      isSystemUser = true;
-    };
-    groups.dex = { };
-  };
-
   security.pam.services.sshd.makeHomeDir = true;
 
   services.nginx = {
@@ -115,7 +88,6 @@ in
     virtualHosts."${config.services.portunus.domain}" = {
       locations = {
         "/".proxyPass = "http://localhost:${toString config.services.portunus.port}";
-        "/dex".proxyPass = "http://localhost:${toString config.services.portunus.dex.port}";
       };
     };
   };
