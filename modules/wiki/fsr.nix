@@ -67,7 +67,7 @@ in
         $wgPluggableAuth_Config["iFSR Login"] = [
           "plugin" => "OpenIDConnect",
           "data" => [
-            "providerURL" => "${config.services.portunus.domain}/dex",
+            "providerURL" => "https://sso.ifsr.de/realms/internal",
             "clientID" => "wiki",
             "clientsecret" => file_get_contents('${config.sops.secrets."mediawiki/oidc_secret".path}'),
           ],
@@ -93,11 +93,6 @@ in
         };
       };
     };
-
-    portunus.dex.oidcClients = [{
-      id = "wiki";
-      callbackURL = "https://${domain}/Spezial:PluggableAuthLogin";
-    }];
 
     nginx = {
       recommendedProxySettings = true;
