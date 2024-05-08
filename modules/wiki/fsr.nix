@@ -63,6 +63,7 @@ in
         # Auth
         # https://www.mediawiki.org/wiki/Extension:PluggableAuth
         # https://www.mediawiki.org/wiki/Extension:OpenID_Connect
+        $wgOpenIDConnect_MigrateUsersByEmail = true;
         $wgPluggableAuth_EnableLocalLogin = true;
         $wgPluggableAuth_Config["iFSR Login"] = [
           "plugin" => "OpenIDConnect",
