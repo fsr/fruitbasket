@@ -83,7 +83,6 @@ in
 
   security.pam.services.sshd.makeHomeDir = true;
 
-  systemd.services.dex = null;
   services.nginx = {
     enable = true;
     virtualHosts."${config.services.portunus.domain}" = {
