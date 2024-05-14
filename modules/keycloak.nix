@@ -6,6 +6,7 @@ in
   sops.secrets."keycloak/db" = { };
   services.keycloak = {
     enable = true;
+    # we use unstable as the release in stable is insecure
     package = nixpkgs-unstable.legacyPackages.x86_64-linux.keycloak;
     settings = {
       http-port = 8086;
