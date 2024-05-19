@@ -7,7 +7,6 @@ in
   sops.secrets."directus_env" = { };
   environment.systemPackages = [ pkgs.nodejs_21 ];
   virtualisation.oci-containers = {
-    # backend = "docker";
     containers.directus-ese = {
       image = "directus/directus:latest";
       volumes = [
@@ -15,7 +14,6 @@ in
         "/srv/web/directus-ese/database:/directus/database"
       ];
       ports = [ "127.0.0.1:8055:8055" ];
-      extraOptions = [ "--network=host" ];
       environment = {
         "DB_CLIENT" = "pg";
         "DB_HOST" = "localhost";
