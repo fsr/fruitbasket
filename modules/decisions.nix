@@ -10,7 +10,7 @@ in
       volumes = [
         "/var/lib/nextcloud/data/root/files/FSR/protokolle:/protokolle:ro"
       ];
-      ports = [ "127.0.0.1:5055:5055" ];
+      extraOptions = [ "--network=host" ];
       environmentFiles = [
         config.sops.secrets."decisions_env".path
       ];
