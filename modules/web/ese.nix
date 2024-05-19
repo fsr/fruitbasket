@@ -7,7 +7,7 @@ in
   sops.secrets."directus_env" = { };
   environment.systemPackages = [ pkgs.nodejs_21 ];
   virtualisation.oci-containers = {
-    backend = "docker";
+    # backend = "docker";
     containers.directus-ese = {
       image = "directus/directus:latest";
       volumes = [

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   sops.secrets."strukturbot_env" = { };
-  virtualisation.docker.daemon.settings.dns = [ "141.30.1.1" "141.76.14.1" ];
+  # virtualisation.docker.daemon.settings.dns = [ "141.30.1.1" "141.76.14.1" ];
   virtualisation.oci-containers = {
     containers.struktur-bot = {
       image = "struktur-bot";
