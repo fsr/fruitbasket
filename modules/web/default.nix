@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./crimecampus.nix
     ./ifsrde.nix
     ./ese.nix
     ./infoscreen.nix
