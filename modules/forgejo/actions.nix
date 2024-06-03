@@ -10,7 +10,7 @@
         # fake the ubuntu name, because node provides no ubuntu builds
         "ubuntu-latest:docker://node:18-bullseye"
         # provide native execution on the host
-        "native:host"
+        # "native:host"
       ];
       #TODO get a token from git.ifsr.de and use it
       # tokenfile = /"dev/null";
