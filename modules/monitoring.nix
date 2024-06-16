@@ -85,6 +85,13 @@ in
         }];
         # scrape_interval = "60s";
       }
+      {
+        job_name = "rspamd";
+        static_configs = [{
+          targets = [ "rspamd.ifsr.de:11334" ];
+        }];
+        scrape_interval = "15s";
+      }
     ];
   };
 

@@ -56,6 +56,7 @@ in
         display_errors=0
         post_max_size = 40M
         upload_max_filesize = 40M
+        extension=sysvsem.so
       '';
     };
   };

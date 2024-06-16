@@ -69,7 +69,7 @@ in
     };
     virtualHosts."${domain}" = {
       locations."= /" = {
-        return = "301 /2023/";
+        return = "301 /2024/";
       };
       locations."/" = {
         root = "/srv/web/ese/served";

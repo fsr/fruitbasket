@@ -36,7 +36,7 @@ in
   systemd.services."decisions-to-db" = {
     script = ''
       set -eu
-      ${pkgs.docker}/bin/docker exec decisions python tex_to_db.py
+      ${pkgs.podman}/bin/podman exec decisions python tex_to_db.py
     '';
     serviceConfig = {
       Type = "oneshot";
