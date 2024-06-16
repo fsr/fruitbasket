@@ -26,7 +26,10 @@
       mailcommand = "${pkgs.bacula}/bin/bsmtp -f \"Bacula <bacula@${config.networking.domain}>\" -s \"Bacula report" %r"
       mail = root+backup = all, !skipped
     '';
-    director."abel-dir".password = "@${config.sops.secrets."bacula/password".path}";
+    director."abel-dir" = {
+      password = "@${config.sops.secrets."bacula/password".path}";
+      tls.enable = false;
+    };
   };
   environment.etc."bacula/bconsole.conf".text = ''
     Director {

@@ -5,7 +5,7 @@ let
 in
 {
   sops.secrets."directus_env" = { };
-  environment.systemPackages = [ pkgs.nodejs_21 ];
+  environment.systemPackages = [ pkgs.nodejs_22 ];
   virtualisation.oci-containers = {
     containers.directus-ese = {
       image = "directus/directus:latest";
@@ -21,13 +21,13 @@ in
         "DB_DATABASE" = "directus_ese";
         "DB_USER" = "directus_ese";
         "PUBLIC_URL" = "https://directus-ese.ifsr.de";
-        "AUTH_PROVIDERS"="keycloak";
+        "AUTH_PROVIDERS" = "keycloak";
         "AUTH_KEYCLOAK_DRIVER" = "openid";
         "AUTH_KEYCLOAK_CLIENT_ID" = "directus-ese";
         "AUTH_KEYCLOAK_ISSUER_URL" = "https://sso.ifsr.de/realms/internal/.well-known/openid-configuration";
         "AUTH_KEYCLOAK_IDENTIFIER_KEY" = "email";
-        "AUTH_KEYCLOAK_ALLOW_PUBLIC_REGISTRATION"="true";
-        "AUTH_KEYCLOAK_DEFAULT_ROLE_ID"="a6b7a1b6-a6fa-442c-87fd-e37c2a16424b";
+        "AUTH_KEYCLOAK_ALLOW_PUBLIC_REGISTRATION" = "true";
+        "AUTH_KEYCLOAK_DEFAULT_ROLE_ID" = "a6b7a1b6-a6fa-442c-87fd-e37c2a16424b";
       };
       environmentFiles = [
         config.sops.secrets."directus_env".path
