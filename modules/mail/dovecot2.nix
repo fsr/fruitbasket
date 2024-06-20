@@ -16,7 +16,6 @@ let
 in
 {
   networking.firewall.allowedTCPPorts = [
-    143 # IMAP
     993 # IMAPS
     4190 # Managesieve
   ];
