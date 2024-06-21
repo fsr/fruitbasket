@@ -1,4 +1,4 @@
-{ config, nixpkgs-unstable, ... }:
+{ config, ... }:
 let
   domain = "sso.${config.networking.domain}";
 in
@@ -7,7 +7,7 @@ in
   services.keycloak = {
     enable = true;
     # we use unstable as the release in stable is insecure
-    package = nixpkgs-unstable.legacyPackages.x86_64-linux.keycloak;
+    # package = nixpkgs-unstable.legacyPackages.x86_64-linux.keycloak;
     settings = {
       http-port = 8086;
       https-port = 19000;

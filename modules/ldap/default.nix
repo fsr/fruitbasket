@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs-unstable, system, ... }:
+{ config, pkgs, system, ... }:
 let
   domain = "auth.${config.networking.domain}";
   seedSettings = {
@@ -43,15 +43,6 @@ let
   };
 in
 {
-  # Use portunus from unstable branch until 24.05 is here
-  disabledModules = [ "services/misc/portunus.nix" ];
-  imports = [ "${nixpkgs-unstable}/nixos/modules/services/misc/portunus.nix" ];
-  nixpkgs.overlays = [
-    (_self: _super: {
-      inherit (nixpkgs-unstable.legacyPackages.${system}) portunus;
-    })
-  ];
-
   sops.secrets = {
     "portunus/admin-password".owner = config.services.portunus.user;
     "portunus/search-password".owner = config.services.portunus.user;
