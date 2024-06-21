@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports =
@@ -16,18 +16,7 @@
   # boot.kernelParams = [ "video=VGA-1:1024x768@30" ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
-  # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  # Pin Kernel Version as 6.6.28 has a broken networking driver
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_6.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-        url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-        sha256 = "sha256-Y55QBg48jyPtAXyxDP6sxrqI/1WDgSu3aFm0zGoSgpE=";
-      };
-      version = "6.6.27";
-      modDirVersion = "6.6.27";
-    };
-  });
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   services.zfs = {
     trim.enable = true;
