@@ -55,6 +55,74 @@ in
           path = /var/lib/rspamd/dkim/$domain.$selector.key;
 
         '';
+        "reputation.conf".text = ''
+          rules {
+            ip_reputation = {
+              selector "ip" {
+              }
+              backend "redis" {
+                servers = "/run/redis-rspamd/redis.sock";
+              }
+
+              symbol = "IP_REPUTATION";
+            }
+            spf_reputation =  {
+              selector "spf" {
+              }
+              backend "redis" {
+                servers = "/run/redis-rspamd/redis.sock";
+              }
+
+              symbol = "SPF_REPUTATION";
+            }
+            dkim_reputation =  {
+              selector "dkim" {
+              }
+              backend "redis" {
+                servers = "/run/redis-rspamd/redis.sock";
+              }
+
+              symbol = "DKIM_REPUTATION"; # Also adjusts scores for DKIM_ALLOW, DKIM_REJECT
+            }
+            generic_reputation =  {
+              selector "generic" {
+                selector = "ip"; # see https://rspamd.com/doc/configuration/selectors.html
+              }
+              backend "redis" {
+                servers = "/run/redis-rspamd/redis.sock";
+              }
+
+              symbol = "GENERIC_REPUTATION";
+            }
+          }
+        '';
+        "groups.conf".text = ''
+            group "reputation" {
+              symbols = {
+                  "IP_REPUTATION_HAM" {
+                      weight = 1.0;
+                  }
+                  "IP_REPUTATION_SPAM" {
+                      weight = 4.0;
+                  }
+
+                  "DKIM_REPUTATION" {
+                      weight = 1.0;
+                  }
+
+                  "SPF_REPUTATION_HAM" {
+                      weight = 1.0;
+                  }
+                  "SPF_REPUTATION_SPAM" {
+                      weight = 2.0;
+                  }
+
+                  "GENERIC_REPUTATION" {
+                      weight = 1.0;
+                  }
+              }
+          }
+        '';
 
         "multimap.conf".text =
           let
