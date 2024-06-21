@@ -101,7 +101,7 @@ in
     # set to satisfy the sieveScripts check, will be overridden by userdb lookups anyways
     mailUser = "vmail";
     mailGroup = "vmail";
-    sieveScripts = {
+    sieve.scripts = {
       before = pkgs.writeText "spam.sieve" ''
         require "fileinto";
 

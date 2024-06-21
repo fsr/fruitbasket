@@ -30,7 +30,7 @@ in
       database.createLocally = true;
 
       # enable HEIC image preview
-      extraOptions.enabledPreviewProviders = [
+      settings.enabledPreviewProviders = [
         "OC\\Preview\\BMP"
         "OC\\Preview\\GIF"
         "OC\\Preview\\JPEG"
