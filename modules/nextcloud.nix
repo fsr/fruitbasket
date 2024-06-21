@@ -15,7 +15,7 @@ in
     nextcloud = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud28;
+      package = pkgs.nextcloud29;
       hostName = domain;
       https = true; # Use https for all urls
       phpExtraExtensions = all: [
