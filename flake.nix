@@ -18,7 +18,7 @@
 
     course-management = {
       url = "github:fsr/course-management";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs =

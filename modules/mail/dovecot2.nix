@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 let
   hostname = "mail.${config.networking.domain}";
   dovecot-ldap-args = pkgs.writeText "ldap-args" ''
@@ -20,35 +20,6 @@ in
     4190 # Managesieve
   ];
   sops.secrets."dovecot_ldap_search".owner = config.services.dovecot2.user;
-  environment.etc = {
-    "dovecot/sieve-pipe/sa-learn-spam.sh" = {
-      text = ''
-        #!/bin/sh
-        ${pkgs.rspamd}/bin/rspamc learn_spam
-      '';
-      mode = "0555";
-    };
-    "dovecot/sieve-pipe/sa-learn-ham.sh" = {
-      text = ''
-        #!/bin/sh
-        ${pkgs.rspamd}/bin/rspamc learn_ham
-      '';
-      mode = "0555";
-    };
-    "dovecot/sieve/report-spam.sieve" = {
-      source = ./report-spam.sieve;
-      user = "dovecot2";
-      group = "dovecot2";
-      mode = "0544";
-    };
-    "dovecot/sieve/report-ham.sieve" = {
-      source = ./report-ham.sieve;
-      user = "dovecot2";
-      group = "dovecot2";
-      mode = "0544";
-    };
-  };
-
   services.dovecot2 = {
     enable = true;
     enableImap = true;
@@ -100,17 +71,45 @@ in
     # set to satisfy the sieveScripts check, will be overridden by userdb lookups anyways
     mailUser = "vmail";
     mailGroup = "vmail";
-    sieve.scripts = {
-      before = pkgs.writeText "spam.sieve" ''
-        require "fileinto";
+    sieve = {
+      # just pot something in here to prevent empty strings
+      extensions = [ "notify" ];
+      pipeBins = map lib.getExe [
+        (pkgs.writeShellScriptBin "learn-ham.sh" "exec ${pkgs.rspamd}/bin/rspamc learn_ham")
+        (pkgs.writeShellScriptBin "learn-spam.sh" "exec ${pkgs.rspamd}/bin/rspamc learn_spam")
+      ];
+      plugins = [
+        "sieve_imapsieve"
+        "sieve_extprograms"
+      ];
+      scripts = {
+        before = pkgs.writeText "spam.sieve" ''
+          require "fileinto";
 
-        if anyof(
-        header :contains "x-spam-flag" "yes",
-        header :contains "X-Spam-Status" "Yes"){
-                fileinto "Spam";
-        }
-      '';
+          if anyof(
+          header :contains "x-spam-flag" "yes",
+          header :contains "X-Spam-Status" "Yes"){
+                  fileinto "Spam";
+          }
+        '';
+      };
     };
+    imapsieve.mailbox = [
+      {
+        # Spam: From elsewhere to Spam folder or flag changed in Spam folder
+        name = "Spam";
+        causes = [ "COPY" "APPEND" "FLAG" ];
+        before = ./report-spam.sieve;
+
+      }
+      {
+        # From Junk folder to elsewhere
+        name = "*";
+        from = "Spam";
+        causes = [ "COPY" ];
+        before = ./report-ham.sieve;
+      }
+    ];
     extraConfig = ''
       auth_username_format = %Ln
       passdb {
@@ -151,21 +150,6 @@ in
 
 
       plugin {
-        sieve_plugins = sieve_imapsieve sieve_extprograms
-        sieve_global_extensions = +vnd.dovecot.pipe
-        sieve_pipe_bin_dir = /etc/dovecot/sieve-pipe
-
-        # Spam: From elsewhere to Spam folder or flag changed in Spam folder
-        imapsieve_mailbox1_name = Spam
-        imapsieve_mailbox1_causes = COPY APPEND FLAG
-        imapsieve_mailbox1_before = file:/etc/dovecot/sieve/report-spam.sieve
-
-        # Ham: From Spam folder to elsewhere
-        imapsieve_mailbox2_name = *
-        imapsieve_mailbox2_from = Spam
-        imapsieve_mailbox2_causes = COPY
-        imapsieve_mailbox2_before = file:/etc/dovecot/sieve/report-ham.sieve
-
         # https://doc.dovecot.org/configuration_manual/plugins/listescape_plugin/
         listescape_char = "\\"
       }
