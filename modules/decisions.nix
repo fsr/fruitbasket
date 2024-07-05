@@ -33,14 +33,14 @@ in
     };
   };
 
-  systemd.services."decisions-to-db" = {
-    script = ''
-      set -eu
-      ${pkgs.podman}/bin/podman exec decisions python tex_to_db.py
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-    };
-  };
+  # systemd.services."decisions-to-db" = {
+  #   script = ''
+  #     set -eu
+  #     ${pkgs.podman}/bin/podman exec decisions python tex_to_db.py
+  #   '';
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     User = "root";
+  #   };
+  # };
 }
