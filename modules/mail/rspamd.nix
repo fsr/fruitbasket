@@ -141,22 +141,26 @@ in
               filter = "email:domain";
               map = "/var/lib/rspamd/whitelist.sender.domain.map";
               action = "accept";
+              regexp = true;
             }
             WHITELIST_SENDER_EMAIL {
               type = "from";
               map = "/var/lib/rspamd/whitelist.sender.email.map";
               action = "accept";
+              regexp = true;
             }
             BLACKLIST_SENDER_DOMAIN {
               type = "from";
               filter = "email:domain";
               map = "/var/lib/rspamd/blacklist.sender.domain.map";
               action = "reject";
+              regexp = true;
             }
             BLACKLIST_SENDER_EMAIL {
               type = "from";
               map = "/var/lib/rspamd/blacklist.sender.email.map";
               action = "reject";
+              regexp = true;
             }
             BLACKLIST_SUBJECT_KEYWORDS {
               type = "header";
