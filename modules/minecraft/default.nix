@@ -1,4 +1,4 @@
-{config,  pkgs, lib, nixpkgs-unstable, ... }:
+{ config, lib, nixpkgs-unstable, ... }:
 {
   services.minecraft-server = {
     enable = true;
@@ -10,6 +10,7 @@
     enable = true;
     host = "map.mc.ifsr.de";
     eula = true;
+    onCalendar = "hourly";
     defaultWorld = "${config.services.minecraft-server.dataDir}/world";
   };
   services.nginx.virtualHosts."map.mc.ifsr.de".extraConfig = ''
