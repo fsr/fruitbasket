@@ -77,6 +77,7 @@
             ./modules/courses
             ./modules/wiki
             ./modules/matrix
+            ./modules/minecraft
 
             ./modules/nix-serve.nix
             ./modules/hedgedoc.nix
