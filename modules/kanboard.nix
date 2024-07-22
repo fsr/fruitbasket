@@ -5,7 +5,7 @@ let
 in
 {
   sops.secrets."kanboard_env" = { };
-  
+
   virtualisation.oci-containers = {
     containers.kanboard = {
       image = "ghcr.io/kanboard/kanboard:v1.2.36";
