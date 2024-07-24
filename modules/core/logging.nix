@@ -3,6 +3,7 @@
   services.rsyslogd = {
     enable = true;
     defaultConfig = ''
+      $FileCreateMode 0640
       :programname, isequal, "postfix" /var/log/postfix.log
 
       auth.*                          -/var/log/auth.log
