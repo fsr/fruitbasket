@@ -24,5 +24,14 @@ in
       hash = "sha256-m1kVaO3N7XC1vtnxXX9kMiEFPmZuoopRUYgA7gQzP8w=";
     };
   });
-
+  # Mailman internal server error fix
+  # https://gitlab.com/mailman/mailman/-/issues/1137
+  # https://github.com/NixOS/nixpkgs/pull/321136
+  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+    (python-final: python-prev: {
+      readme-renderer = python-prev.readme-renderer.overridePythonAttrs (oldAttrs: {
+        propagatedBuildInputs = [ python-prev.cmarkgfm ];
+      });
+    })
+  ];
 }
