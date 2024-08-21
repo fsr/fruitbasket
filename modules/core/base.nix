@@ -112,6 +112,7 @@
     eza
     zsh
     unzip
+    yazi
   ];
 }
 
