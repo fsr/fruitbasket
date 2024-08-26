@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -20,11 +19,12 @@
       url = "github:fsr/course-management";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    nix-minecraft.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-unstable
     , sops-nix
     , nix-index-database
     , kpp
@@ -32,6 +32,7 @@
     , vscode-server
     , course-management
     , print-interface
+    , nix-minecraft
     , ...
     }@inputs:
     let
@@ -70,6 +71,7 @@
             ese-manual.nixosModules.default
             course-management.nixosModules.default
             vscode-server.nixosModules.default
+            nix-minecraft.nixosModules.minecraft-servers
             ./hosts/quitte/configuration.nix
             ./options
 
@@ -95,7 +97,10 @@
             ./modules/decisions.nix
             # ./modules/struktur-bot.nix
             {
-              nixpkgs.overlays = [ self.overlays.default ];
+              nixpkgs.overlays = [
+                self.overlays.default
+                nix-minecraft.overlay
+              ];
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
           ];

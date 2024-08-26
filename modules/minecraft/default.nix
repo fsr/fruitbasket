@@ -1,17 +1,23 @@
-{ config, lib, nixpkgs-unstable, ... }:
+{ pkgs, config, lib, ... }:
 {
-  services.minecraft-server = {
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "minecraft-server"
+  ];
+  services.minecraft-servers = {
     enable = true;
-    # hack to enable unstable unfree package
-    package = nixpkgs-unstable.legacyPackages.x86_64-linux.minecraft-server.overrideAttrs (_old: { meta.license = [ lib.licenses.mit ]; });
     eula = true;
+    servers.ifsr = {
+      enable = true;
+      package = pkgs.fabricServers.fabric-1_21;
+      jvmOpts = "-Xmx8192M -Xms8192M";
+    };
   };
   services.bluemap = {
     enable = true;
     host = "map.mc.ifsr.de";
     eula = true;
     onCalendar = "hourly";
-    defaultWorld = "${config.services.minecraft-server.dataDir}/world";
+    defaultWorld = "/srv/minecraft/ifsr/world";
   };
   services.nginx.virtualHosts."map.mc.ifsr.de".extraConfig = ''
     allow 141.30.0.0/16;
@@ -36,9 +42,9 @@
     {
       users = [ "minecraft" ];
       commands = [
-        { command = "/run/current-system/sw/bin/systemctl restart minecraft-server"; options = [ "NOPASSWD" ]; }
-        { command = "/run/current-system/sw/bin/systemctl start minecraft-server"; options = [ "NOPASSWD" ]; }
-        { command = "/run/current-system/sw/bin/systemctl stop minecraft-server"; options = [ "NOPASSWD" ]; }
+        { command = "/run/current-system/sw/bin/systemctl restart minecraft-server-ifsr"; options = [ "NOPASSWD" ]; }
+        { command = "/run/current-system/sw/bin/systemctl start minecraft-server-ifsr"; options = [ "NOPASSWD" ]; }
+        { command = "/run/current-system/sw/bin/systemctl stop minecraft-server-ifsr"; options = [ "NOPASSWD" ]; }
       ];
     }
   ];
