@@ -83,12 +83,12 @@
             ./modules/wiki
             ./modules/matrix
             ./modules/minecraft
+            ./modules/keycloak
 
             ./modules/nix-serve.nix
             ./modules/hedgedoc.nix
             ./modules/padlist.nix
             ./modules/nextcloud.nix
-            ./modules/keycloak.nix
             ./modules/monitoring.nix
             ./modules/vaultwarden.nix
             ./modules/forgejo

@@ -2,6 +2,7 @@ _final: prev:
 let
   inherit (prev) fetchurl;
   inherit (prev) fetchFromGitHub;
+  inherit (prev) callPackage;
 in
 {
   # AGDSN is running an outdated version that we have to comply to
@@ -34,4 +35,6 @@ in
       });
     })
   ];
+
+  keycloak_ifsr_theme = callPackage ../modules/keycloak/theme.nix {};
 }
