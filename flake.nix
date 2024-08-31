@@ -95,6 +95,7 @@
             ./modules/kanboard.nix
             ./modules/zammad.nix
             ./modules/decisions.nix
+            ./modules/stream.nix
             # ./modules/struktur-bot.nix
             {
               nixpkgs.overlays = [
