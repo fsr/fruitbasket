@@ -11,5 +11,6 @@
     ./sharepic.nix
     ./userdir.nix
     ./ftp.nix
+    ./hyperilo.nix
   ];
 }
