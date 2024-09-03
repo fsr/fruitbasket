@@ -71,6 +71,7 @@ in
       };
       actions.ENABLED = true;
       federation.ENABLED = true;
+      webhook.ALLOWED_HOST_LIST = "*.ifsr.de";
     };
   };
 
