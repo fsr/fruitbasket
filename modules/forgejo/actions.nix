@@ -1,5 +1,6 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
+  sops.secrets."forgejo/runner-token" = { };
   services.gitea-actions-runner = {
     package = pkgs.forgejo-actions-runner;
     instances."quitte" = {
@@ -12,8 +13,9 @@
         # provide native execution on the host
         # "native:host"
       ];
-      #TODO get a token from git.ifsr.de and use it
-      # tokenfile = /"dev/null";
+      tokenFile = config.sops.secrets."forgejo/runner-token".path;
+      url = "https://git.ifsr.de";
+      name = "quitte";
     };
   };
 }
