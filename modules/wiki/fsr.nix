@@ -77,20 +77,20 @@ in
 
       extensions = {
         PluggableAuth = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_40-3689731.tar.gz";
-          hash = "sha256-BMA0qV+x+iQt/P9tbl9csEUni9jiQcBtZeuwdjx2QPk=";
+          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_41-b92b48e.tar.gz";
+          hash = "sha256-Fv5reEqFVVpSvmb4cy4oZBzeKc/fVddoJIsalnW4wUY=";
         };
         OpenIDConnect = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_40-b354cdb.tar.gz";
+          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_41-520f4bf.tar.gz";
           hash = "sha256-gLHaveEzfmpqU9fWATZsUU377FJj2yq//raHZUR/VWk=";
         };
-        # VisualEditor = pkgs.fetchzip {
-        #   url = "https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_41-1bdb5a0.tar.gz";
-        #   hash = "sha256-HtKV9Uru0SRtl61nP3PgMcT9t8okB8jGPKFmtYIV1XM=";
-        # };
+        VisualEditor = pkgs.fetchzip {
+          url = "https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_41-1bdb5a0.tar.gz";
+          hash = "sha256-HtKV9Uru0SRtl61nP3PgMcT9t8okB8jGPKFmtYIV1XM=";
+        };
         SyntaxHighlight = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/SyntaxHighlight_GeSHi-REL1_40-1170e8f.tar.gz";
-          hash = "sha256-75+wwTvHhwPBP1jVLK2fQWBi7vznOvPVgNpY3kzWJtg=";
+          url = "https://extdist.wmflabs.org/dist/extensions/SyntaxHighlight_GeSHi-REL1_41-e5818be.tar.gz";
+          hash = "sha256-dvXfOUlvT2Y8ELx83JlEx0S51oKyW4DDbVyUzyh5zag=";
         };
       };
     };
