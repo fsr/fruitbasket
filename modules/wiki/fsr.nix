@@ -84,10 +84,10 @@ in
           url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_40-b354cdb.tar.gz";
           hash = "sha256-gLHaveEzfmpqU9fWATZsUU377FJj2yq//raHZUR/VWk=";
         };
-        VisualEditor = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_40-8970b62.tar.gz";
-          hash = "sha256-G+qvKVuF6OCnwS5q2cKfij1/aH1I6lOw84K6fED980s=";
-        };
+        # VisualEditor = pkgs.fetchzip {
+        #   url = "https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_41-1bdb5a0.tar.gz";
+        #   hash = "sha256-HtKV9Uru0SRtl61nP3PgMcT9t8okB8jGPKFmtYIV1XM=";
+        # };
         SyntaxHighlight = pkgs.fetchzip {
           url = "https://extdist.wmflabs.org/dist/extensions/SyntaxHighlight_GeSHi-REL1_40-1170e8f.tar.gz";
           hash = "sha256-75+wwTvHhwPBP1jVLK2fQWBi7vznOvPVgNpY3kzWJtg=";
