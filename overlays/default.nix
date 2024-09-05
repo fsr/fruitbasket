@@ -36,5 +36,5 @@ in
     })
   ];
 
-  keycloak_ifsr_theme = callPackage ../modules/keycloak/theme.nix {};
+  keycloak_ifsr_theme = callPackage ../modules/keycloak/theme.nix { };
 }
