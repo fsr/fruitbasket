@@ -27,6 +27,9 @@ in
     key = "portunus/search-password";
     owner = config.systemd.services.matrix-synapse.serviceConfig.User;
   };
+  nixpkgs.config.permittedInsecurePackages = [
+    "olm-3.2.16"
+  ];
 
   services = {
     postgresql = {
