@@ -11,7 +11,7 @@
       proxy_ssl_verify off;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection $connection_upgrade;
+      proxy_set_header Connection $connection_upgrade_capitalized;
     '';
   };
 
