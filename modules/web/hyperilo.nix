@@ -9,8 +9,19 @@
     locations."/".basicAuthFile = "/run/secrets/hyperilo_htaccess";
     locations."/".extraConfig = ''
       proxy_ssl_verify off;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
     '';
   };
+
+  # HP iLO requires uppercase Upgrade, not lowercase "upgrade"
+  services.nginx.commonHttpConfig = ''
+     map $http_upgrade $connection_upgrade_capitalized {
+       default  Upgrade;
+       '''      close;
+     }
+  '';
 
   systemd.network.networks."20-hyperilo" = {
     matchConfig.Name = "eno8303";
