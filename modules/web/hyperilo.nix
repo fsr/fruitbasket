@@ -17,10 +17,10 @@
 
   # HP iLO requires uppercase Upgrade, not lowercase "upgrade"
   services.nginx.commonHttpConfig = ''
-     map $http_upgrade $connection_upgrade_capitalized {
-       default  Upgrade;
-       '''      close;
-     }
+    map $http_upgrade $connection_upgrade_capitalized {
+      default  Upgrade;
+      '''      close;
+    }
   '';
 
   systemd.network.networks."20-hyperilo" = {
