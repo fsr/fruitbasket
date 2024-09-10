@@ -14,6 +14,7 @@
     enable = true;
     name = "ifsr-quitte";
     extraClientConfig = ''
+      Comm Compression = no
       Maximum Concurrent Jobs = 20
       FDAddress = 141.30.30.169
       PKI Signatures = Yes
