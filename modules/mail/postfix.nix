@@ -44,11 +44,10 @@ in
         # hostname used in helo command. It is recommended to have this match the reverse dns entry
         smtp_helo_name = config.networking.rDNS;
         smtpd_banner = "${config.networking.rDNS} ESMTP $mail_name";
-        smtp_use_tls = true;
-        # smtp_tls_security_level = "encrypt";
-        smtpd_use_tls = true;
-        # smtpd_tls_security_level = lib.mkForce "encrypt";
-        # smtpd_tls_auth_only = true;
+        # allow non-tls connections for server-to-server communication
+        smtp_tls_security_level = "may";
+        smtpd_tls_security_level = "encrypt";
+        smtpd_tls_auth_only = true;
         smtpd_tls_protocols = [
           "!SSLv2"
           "!SSLv3"
