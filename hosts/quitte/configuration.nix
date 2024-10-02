@@ -27,6 +27,17 @@
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  security.sudo.extraRules = [
+    {
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+      groups = [ "admins" ];
+    }
+  ];
   # prevent fork bombs
   security.pam.loginLimits = [
     {
