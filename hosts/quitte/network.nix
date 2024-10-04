@@ -1,5 +1,6 @@
 { config, lib, ... }:
 {
+  sops.secrets."wg-ese" = { };
   networking = {
     # portunus module does weird things to this, so we force it to some sane values
     hosts = {
@@ -43,5 +44,36 @@
         EmitLLDP = "nearest-bridge";
       };
     };
+  };
+  netdevs."30-wireguard-ese" = {
+    netdevConfig = {
+      Kind = "wireguard";
+      Name = "wg0";
+    };
+    wireguardConfig = {
+      PrivateKeyFile = config.sops.secrets."wg-ese".path;
+      ListenPort = 10000;
+      RouteTable = "main";
+      RouteMetric = 30;
+    };
+    wireguardPeers = [
+      {
+        PublicKey = "";
+        AllowedIPs = "0.0.0.0/0";
+      }
+    ];
+  };
+  networks."30-wireguard-ese" = {
+    matchConfig.Name = "wg0";
+    addresses = [
+      {
+        Address = "10.20.24.1/24";
+        # AddPrefixRoute = false;
+      }
+    ];
+    # networkConfig = {
+    #   DNSSEC = false;
+    #   BindCarrier = [ "ens3" ];
+    # };
   };
 }
