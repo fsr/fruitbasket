@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   domain = "ese.${config.networking.domain}";
   webRoot = "/srv/web/ese";
@@ -23,4 +23,12 @@ in
       };
     };
   };
+
+  users.users."ese-deploy" = {
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = [
+      ''command="${pkgs.rrsync}/bin/rrsync ${webRoot}",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEWGdTdobZN2oSLsTQmHOahdc9vqyuwUBS0PSk5IQhGV''
+    ];
+  };
+
 }
