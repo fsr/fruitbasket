@@ -16,6 +16,15 @@
       tokenFile = config.sops.secrets."forgejo/runner-token".path;
       url = "https://git.ifsr.de";
       name = "quitte";
+      settings = {
+        container = {
+          # use podman's default network, otherwise dns was not working for some reason
+          network = "podman";
+          # don't mount the docker socket into the build containers,
+          # this would basically mean root on the host...
+          docker_host = "-";
+        };
+      };
     };
   };
 }
