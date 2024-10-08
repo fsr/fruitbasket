@@ -1,7 +1,6 @@
 _final: prev:
 let
   inherit (prev) fetchurl;
-  inherit (prev) fetchFromGitHub;
   inherit (prev) callPackage;
 in
 {
@@ -29,8 +28,8 @@ in
   # https://gitlab.com/mailman/mailman/-/issues/1137
   # https://github.com/NixOS/nixpkgs/pull/321136
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-    (python-final: python-prev: {
-      readme-renderer = python-prev.readme-renderer.overridePythonAttrs (oldAttrs: {
+    (_python-final: python-prev: {
+      readme-renderer = python-prev.readme-renderer.overridePythonAttrs (_oldAttrs: {
         propagatedBuildInputs = [ python-prev.cmarkgfm ];
       });
     })

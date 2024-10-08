@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   # From: https://nixos.wiki/wiki/Podman
   virtualisation.containers.enable = true;

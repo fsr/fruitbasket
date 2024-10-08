@@ -1,4 +1,4 @@
-{ config, pkgs, system, ... }:
+{ config, pkgs, ... }:
 let
   domain = "auth.${config.networking.domain}";
   seedSettings = {
