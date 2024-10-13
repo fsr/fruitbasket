@@ -47,35 +47,5 @@
         EmitLLDP = "nearest-bridge";
       };
     };
-    netdevs."30-wireguard-ese" = {
-      netdevConfig = {
-        Kind = "wireguard";
-        Name = "wg0";
-      };
-      wireguardConfig = {
-        PrivateKeyFile = config.sops.secrets."wg-ese".path;
-        ListenPort = 10000;
-        RouteTable = "main";
-        RouteMetric = 30;
-      };
-      wireguardPeers = [
-
-        {
-          wireguardPeerConfig = {
-
-            PublicKey = "gTWcZ8dAb735kY0vs/LwnBdap5J6+eeHAsLXCu+C52M=";
-            AllowedIPs = "10.20.24.2/24";
-          };
-        }
-      ];
-    };
-    networks."30-wireguard-ese" = {
-      matchConfig.Name = "wg0";
-      address = [ "10.20.24.1/24" ];
-      # networkConfig = {
-      #   DNSSEC = false;
-      #   BindCarrier = [ "ens3" ];
-      # };
-    };
   };
 }
