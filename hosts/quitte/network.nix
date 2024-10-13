@@ -15,7 +15,6 @@
 
     firewall = {
       logRefusedConnections = false;
-      allowedUDPPorts = [ 10000 ];
     };
   };
 
