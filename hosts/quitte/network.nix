@@ -1,8 +1,5 @@
 { config, lib, ... }:
 {
-  sops.secrets."wg-ese" = {
-    owner = config.users.users.systemd-network.name;
-  };
   networking = {
     # portunus module does weird things to this, so we force it to some sane values
     hosts = {
