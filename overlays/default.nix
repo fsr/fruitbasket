@@ -12,18 +12,6 @@ in
       sha256 = "sha256-3w+FJezbo4DnS1N8pxrfO3WWWT8CGJtZqw6//IXMyN4=";
     };
   }));
-  # (hopefully) fix systemd journal reading
-  # prometheus-postfix-exporter = prev.prometheus-postfix-exporter.overrideAttrs (_old: {
-  #   patches = [
-  #     ./prometheus-postfix-exporter/0001-cleanup-also-catch-milter-reject.patch
-  #   ];
-  #   src = fetchFromGitHub {
-  #     owner = "adangel";
-  #     repo = "postfix_exporter";
-  #     rev = "414ac12ee63415eede46cb3084d755a6da6fba23";
-  #     hash = "sha256-m1kVaO3N7XC1vtnxXX9kMiEFPmZuoopRUYgA7gQzP8w=";
-  #   };
-  # });
   # Mailman internal server error fix
   # https://gitlab.com/mailman/mailman/-/issues/1137
   # https://github.com/NixOS/nixpkgs/pull/321136

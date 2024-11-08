@@ -37,12 +37,8 @@ in
         token_url = "https://sso.ifsr.de/realms/internal/protocol/openid-connect/token";
         api_url = "https://sso.ifsr.de/realms/internal/protocol/openid-connect/userinfo";
         role_attribute_path = "contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'";
-
       };
-
     };
-
-
   };
 
   services.postgresql = {
@@ -65,10 +61,6 @@ in
         enabledCollectors = [ "systemd" ];
         port = 9002;
       };
-      postfix = {
-        enable = true;
-        port = 9003;
-      };
     };
     scrapeConfigs = [
       {
@@ -77,13 +69,6 @@ in
           targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
         }];
         scrape_interval = "15s";
-      }
-      {
-        job_name = "postfix";
-        static_configs = [{
-          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.postfix.port}" ];
-        }];
-        # scrape_interval = "60s";
       }
       {
         job_name = "rspamd";
