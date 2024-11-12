@@ -3,7 +3,6 @@ let
   hostName = "kurse.${config.networking.domain}";
 in
 {
-  imports = [ ./phil.nix ];
   sops.secrets =
     let inherit (config.services.course-management) user;
     in
