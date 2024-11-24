@@ -77,6 +77,13 @@ in
         }];
         scrape_interval = "15s";
       }
+      {
+        job_name = "fabric";
+        static_configs = [{
+          targets = [ "127.0.0.1:25585" ];
+        }];
+        scrape_interval = "60s";
+      }
     ];
   };
 
