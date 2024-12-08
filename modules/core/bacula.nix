@@ -16,7 +16,7 @@
     extraClientConfig = ''
       Comm Compression = no
       Maximum Concurrent Jobs = 20
-      FDAddress = 141.30.30.169
+      FDAddress = 141.30.30.194
       PKI Signatures = Yes
       PKI Encryption = Yes
       PKI Keypair = ${config.sops.secrets."bacula/keypair".path}
