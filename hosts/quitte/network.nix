@@ -31,10 +31,17 @@
     networks."10-wired-default" = {
       matchConfig.Name = "enp65s0f0np0";
 
-      address = [ "141.30.30.194/26"];
+      address = [
+
+        "141.30.30.194/26"
+        "2a13:dd85:b23:1::1337/64"
+      ];
       routes = [
         {
           routeConfig.Gateway = "141.30.30.193";
+        }
+        {
+          routeConfig.Gateway = "fe80::7a24:59ff:fe5e:6e2f";
         }
       ];
       networkConfig = {
