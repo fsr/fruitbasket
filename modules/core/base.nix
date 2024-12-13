@@ -73,6 +73,7 @@
   time.timeZone = "Europe/Berlin";
 
   # basic shell & editor
+  programs.vim.enable = true;
   programs.vim.defaultEditor = true;
 
   # List packages installed in system profile. To search, run:

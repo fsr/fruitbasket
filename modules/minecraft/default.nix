@@ -12,13 +12,6 @@
       jvmOpts = "-Xmx8192M -Xms8192M";
     };
   };
-  services.bluemap = {
-    enable = true;
-    host = "map.mc.ifsr.de";
-    eula = true;
-    onCalendar = "hourly";
-    defaultWorld = "/srv/minecraft/ifsr/world";
-  };
   services.nginx.virtualHosts."map.mc.ifsr.de".extraConfig = ''
     allow 141.30.0.0/16;
     allow 141.76.0.0/16;

@@ -27,7 +27,7 @@
       address = [ "141.30.86.196/26" ];
       routes = [
         {
-          routeConfig.Gateway = "141.30.86.193";
+          Gateway = "141.30.86.193";
         }
       ];
       networkConfig = {

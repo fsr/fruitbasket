@@ -38,10 +38,10 @@
       ];
       routes = [
         {
-          routeConfig.Gateway = "141.30.30.193";
+          Gateway = "141.30.30.193";
         }
         {
-          routeConfig.Gateway = "fe80::7a24:59ff:fe5e:6e2f";
+          Gateway = "fe80::7a24:59ff:fe5e:6e2f";
         }
       ];
       networkConfig = {

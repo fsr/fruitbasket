@@ -12,7 +12,9 @@ in
       http-port = 8086;
       https-port = 19000;
       hostname = domain;
-      proxy = "edge";
+      proxy-headers = "xforwarded";
+      http-enabled = true;
+      hostname-strict-https = false;
     };
     # The module requires a password for the DB and works best with its own DB config
     # Does an automatic Postgresql configuration
