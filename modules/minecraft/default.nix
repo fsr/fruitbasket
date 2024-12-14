@@ -12,13 +12,6 @@
       jvmOpts = "-Xmx8192M -Xms8192M";
     };
   };
-  services.nginx.virtualHosts."map.mc.ifsr.de".extraConfig = ''
-    allow 141.30.0.0/16;
-    allow 141.76.0.0/16;
-    allow 217.160.244.15/32; # jonas uptime kuma
-    deny all;
-  '';
-
   networking.firewall = {
     extraInputRules = ''
       ip saddr { 141.30.0.0/16, 141.76.0.0/16, 217.160.244.15/32 } tcp dport 25565 accept comment "Allow minecraft access from TU network and jonas monitoring"

@@ -5,6 +5,7 @@
     defaultConfig = ''
       $FileCreateMode 0640
       :programname, isequal, "postfix" /var/log/postfix.log
+      :programname, isequal, "portunus" /var/log/portunus.log
 
       auth.*                          -/var/log/auth.log
     '';

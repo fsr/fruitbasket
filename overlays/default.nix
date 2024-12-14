@@ -24,4 +24,5 @@ in
   ];
 
   keycloak_ifsr_theme = callPackage ../modules/keycloak/theme.nix { };
+  portunus = callPackage ./portunus.nix { };
 }
