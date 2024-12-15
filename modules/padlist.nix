@@ -43,6 +43,7 @@ in
           '';
         };
         "/vendor".return = "403";
+        "/.git".return = "403";
       };
     };
   };
