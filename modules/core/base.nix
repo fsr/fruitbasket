@@ -105,6 +105,7 @@
     ltrace
     strace
     mtr
+    nix-output-monitor
     traceroute
     smartmontools
     sysstat
