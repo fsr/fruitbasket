@@ -24,6 +24,7 @@ in
     enable = true;
     user = gitUser;
     group = gitUser;
+    package = pkgs.forgejo;
     lfs.enable = true;
 
     database = {
