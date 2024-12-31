@@ -8,7 +8,7 @@ in
 
   virtualisation.oci-containers = {
     containers.kanboard = {
-      image = "ghcr.io/kanboard/kanboard:v1.2.42";
+      image = "ghcr.io/kanboard/kanboard:v1.2.43";
       volumes = [
         "kanboard_data:/var/www/app/data"
         "kanboard_plugins:/var/www/app/plugins"
