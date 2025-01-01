@@ -7,8 +7,7 @@ in
   services.nginx = {
     virtualHosts."${domain}" = {
       locations."= /" = {
-        # temporary redirect, to avoid caching problems
-        return = "302 /2024/";
+        return = "302 /2025/";
       };
       locations."/" = {
         root = webRoot;
