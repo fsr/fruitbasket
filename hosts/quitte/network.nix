@@ -45,7 +45,7 @@
         }
       ];
       networkConfig = {
-        DNS = "141.30.1.1";
+        DNS = "9.9.9.9";
         LLDP = true;
         EmitLLDP = "nearest-bridge";
       };
