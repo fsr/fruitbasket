@@ -19,8 +19,6 @@
       url = "github:fsr/course-management";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
-    nix-minecraft.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     { self
@@ -32,7 +30,6 @@
     , vscode-server
     , course-management
     , print-interface
-    , nix-minecraft
     , ...
     }@inputs:
     let
@@ -71,7 +68,6 @@
             ese-manual.nixosModules.default
             course-management.nixosModules.default
             vscode-server.nixosModules.default
-            nix-minecraft.nixosModules.minecraft-servers
             ./hosts/quitte/configuration.nix
             ./options
 
@@ -82,7 +78,6 @@
             ./modules/courses
             ./modules/wiki
             ./modules/matrix
-            ./modules/minecraft
             ./modules/keycloak
             ./modules/monitoring
 
@@ -100,7 +95,6 @@
             {
               nixpkgs.overlays = [
                 self.overlays.default
-                nix-minecraft.overlay
               ];
               sops.defaultSopsFile = ./secrets/quitte.yaml;
             }
