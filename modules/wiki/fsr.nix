@@ -76,21 +76,18 @@ in
       '';
 
       extensions = {
+        # some extensions are included and can enabled by passing null
+        VisualEditor = null;
+        # the dir in the mediawiki-1.42.3.tar.gz inside of the extension folder is called "SyntaxHighlight_GeSHi" not "SyntaxHighlight"
+        SyntaxHighlight_GeSHi = null;
+
         PluggableAuth = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_41-b92b48e.tar.gz";
-          hash = "sha256-Fv5reEqFVVpSvmb4cy4oZBzeKc/fVddoJIsalnW4wUY=";
+          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_42-1da98f4.tar.gz";
+          hash = "sha256-5uBUy7lrr86ApASYPWgF6Wa09mxxP0o+lXLt1gVswlA=";
         };
         OpenIDConnect = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_41-520f4bf.tar.gz";
-          hash = "sha256-gLHaveEzfmpqU9fWATZsUU377FJj2yq//raHZUR/VWk=";
-        };
-        VisualEditor = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_41-1bdb5a0.tar.gz";
-          hash = "sha256-HtKV9Uru0SRtl61nP3PgMcT9t8okB8jGPKFmtYIV1XM=";
-        };
-        SyntaxHighlight = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/SyntaxHighlight_GeSHi-REL1_41-e5818be.tar.gz";
-          hash = "sha256-dvXfOUlvT2Y8ELx83JlEx0S51oKyW4DDbVyUzyh5zag=";
+          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_42-6c28c16.tar.gz";
+          hash = "sha256-X5kUuvxINbuXaLMKRcLOl2L3qbnMT72lg2NA3A9Daj8=";
         };
       };
     };
