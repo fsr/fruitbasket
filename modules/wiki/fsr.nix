@@ -82,18 +82,13 @@ in
         # the dir in the mediawiki-1.42.3.tar.gz inside of the extension folder is called "SyntaxHighlight_GeSHi" not "SyntaxHighlight"
         SyntaxHighlight_GeSHi = null;
 
-        # fetching from gerrit is broken
-        PluggableAuth = pkgs.fetchFromGitHub {
-          owner = "wikimedia";
-          repo = "mediawiki-extensions-PluggableAuth";
-          rev = "7.3.0";
-          hash = "sha256-d9hztPSdAcyNxaxiB5Bfb4UhfLrjqpJbkto+pxfSPMY=";
+        PluggableAuth = pkgs.fetchzip {
+          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_42-1da98f4.tar.gz";
+          hash = "sha256-5uBUy7lrr86ApASYPWgF6Wa09mxxP0o+lXLt1gVswlA=";
         };
-        OpenIDConnect = pkgs.fetchFromGitHub {
-          owner = "wikimedia";
-          repo = "mediawiki-extensions-OpenIDConnect";
-          rev = "8.2.0";
-          hash = "sha256-wVlAEMcBphw/MoREjiG90UWpQrV3aGAdhPd3rCrI/+Y=";
+        OpenIDConnect = pkgs.fetchzip {
+          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_42-6c28c16.tar.gz";
+          hash = "sha256-X5kUuvxINbuXaLMKRcLOl2L3qbnMT72lg2NA3A9Daj8=";
         };
       };
     };
