@@ -64,7 +64,8 @@ in
         # https://www.mediawiki.org/wiki/Extension:PluggableAuth
         # https://www.mediawiki.org/wiki/Extension:OpenID_Connect
         $wgOpenIDConnect_MigrateUsersByEmail = true;
-        $wgPluggableAuth_EnableLocalLogin = true;
+        //$wgOpenIDConnect_MigrateUsersByUserName = true;
+        $wgPluggableAuth_EnableLocalLogin = false;
         $wgPluggableAuth_Config["iFSR Login"] = [
           "plugin" => "OpenIDConnect",
           "data" => [
@@ -85,14 +86,14 @@ in
         PluggableAuth = pkgs.fetchFromGitHub {
           owner = "wikimedia";
           repo = "mediawiki-extensions-PluggableAuth";
-          rev = "REL1_42";
-          hash = "sha256-DKDVcAfWL90FmZbSsdx1J5PkGu47EsDQmjlCpcgLCn4=";
+          rev = "7.3.0";
+          hash = "sha256-d9hztPSdAcyNxaxiB5Bfb4UhfLrjqpJbkto+pxfSPMY=";
         };
         OpenIDConnect = pkgs.fetchFromGitHub {
           owner = "wikimedia";
           repo = "mediawiki-extensions-OpenIDConnect";
-          rev = "REL1_42";
-          hash = "sha256-0egGL3Gr7UQPdd2fjPEThcdJx+H+PcdXEGfQFMe45Sk=";
+          rev = "8.2.0";
+          hash = "sha256-wVlAEMcBphw/MoREjiG90UWpQrV3aGAdhPd3rCrI/+Y=";
         };
       };
     };
