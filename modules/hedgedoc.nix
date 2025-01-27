@@ -49,6 +49,7 @@ in
         # allow anonymous editing, but not creation of pads
         allowAnonymous = false;
         allowAnonymousEdits = true;
+        allowAnonymousUploads = false;
         defaultPermission = "limited";
         defaultNotePath = builtins.toString template;
         # ldap auth

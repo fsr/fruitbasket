@@ -34,4 +34,10 @@ in
     };
 
   }));
+
+  hedgedoc = prev.hedgedoc.overrideAttrs ({ patches ? [ ], ... }: {
+    patches = patches ++ [
+      ./hedgedoc/0001-anonymous-uploads.patch
+    ];
+  });
 }
