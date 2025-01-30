@@ -210,11 +210,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1738245261,
-        "narHash": "sha256-6UGqnmO/e7hwI73qszBco39UcsZ3b/cCQA6MwQvAYBg=",
+        "lastModified": 1738260727,
+        "narHash": "sha256-dqwlhg3L5SPoHSWbdI10EL0Vs/7BGW76h+q05laKyTA=",
         "ref": "refs/heads/main",
-        "rev": "74cafbb6f0a0067cbacee31cfa12c387ea1670d2",
-        "revCount": 8,
+        "rev": "72c70b74f9216a3cb2913df91c8edf8516de1800",
+        "revCount": 9,
         "type": "git",
         "url": "https://git.ifsr.de/frieder.hannenheim/notenrechner.git"
       },
