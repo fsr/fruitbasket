@@ -78,7 +78,7 @@
     },
     "flake-utils_3": {
       "inputs": {
-        "systems": "systems_4"
+        "systems": "systems_5"
       },
       "locked": {
         "lastModified": 1681202837,
@@ -202,6 +202,27 @@
         "type": "indirect"
       }
     },
+    "notenrechner": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1738236630,
+        "narHash": "sha256-CP3Ng4QuU9BMHxQ8DLoqsfpSrUPGls8Dhh226u9ct0Y=",
+        "ref": "refs/heads/main",
+        "rev": "9b30e7f948135363235640e5d2b34f69ab0accef",
+        "revCount": 7,
+        "type": "git",
+        "url": "https://git.ifsr.de/frieder.hannenheim/notenrechner.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.ifsr.de/frieder.hannenheim/notenrechner.git"
+      }
+    },
     "poetry2nix": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -254,6 +275,7 @@
         "kpp": "kpp",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_2",
+        "notenrechner": "notenrechner",
         "print-interface": "print-interface",
         "sops-nix": "sops-nix",
         "vscode-server": "vscode-server"
@@ -338,6 +360,21 @@
         "type": "github"
       }
     },
+    "systems_5": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
@@ -357,6 +394,24 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "utils": {
+      "inputs": {
+        "systems": "systems_4"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },

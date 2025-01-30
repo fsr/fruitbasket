@@ -12,5 +12,6 @@
     ./userdir.nix
     ./ftp.nix
     ./hyperilo.nix
+    ./notenrechner.nix
   ];
 }
