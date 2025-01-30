@@ -14,6 +14,9 @@
     ese-manual.url = "git+https://git.ifsr.de/ese/manual-website";
     ese-manual.inputs.nixpkgs.follows = "nixpkgs";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
+    notenrechner.url = "git+https://git.ifsr.de/frieder.hannenheim/notenrechner.git";
+    notenrechner.inputs.nixpkgs.follows = "nixpkgs";
+
 
     course-management = {
       url = "github:fsr/course-management";
