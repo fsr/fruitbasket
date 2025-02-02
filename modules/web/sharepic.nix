@@ -36,6 +36,9 @@ in
       root = "/srv/web/sharepic";
       extraConfig = ''
         index index.php index.html;
+        allow 141.30.0.0/16;
+        allow 141.76.0.0/16;
+        deny all;
       '';
 
       locations = {
