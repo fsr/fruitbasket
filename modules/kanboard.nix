@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   domain = "kanboard.${config.networking.domain}";
   domain_short = "kb.${config.networking.domain}";
