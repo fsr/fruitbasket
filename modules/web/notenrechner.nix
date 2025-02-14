@@ -1,6 +1,8 @@
-{ config, specialArgs, ... }: let
+{ config, specialArgs, ... }:
+let
   domain = "notenrechner.${config.networking.domain}";
-in {
+in
+{
   services.nginx.virtualHosts."${domain}" = {
     root = specialArgs.notenrechner.packages."x86_64-linux".default;
   };
