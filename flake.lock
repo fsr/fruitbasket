@@ -101,11 +101,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740578352,
-        "narHash": "sha256-2uBsRMh1Iz7gds6E3ygsXbKcNhxk+56VreKpOvnKlD8=",
+        "lastModified": 1740579405,
+        "narHash": "sha256-ehH2pSzasFZL9tyS0JULxn+ZBmAkCkH3RIl8zNE3cNY=",
         "owner": "fsr",
         "repo": "kpp",
-        "rev": "d46e9c7397c8e35bef8ce9bcea10a3106af9143a",
+        "rev": "24ad3618e814113a7260da3ff21a8d5c83a2b111",
         "type": "github"
       },
       "original": {
