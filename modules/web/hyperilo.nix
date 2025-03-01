@@ -12,6 +12,7 @@
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade_capitalized;
+      proxy_set_header Authorization ""; # drop the basic auth headers, otherwise remote console doesn't work
     '';
   };
 
