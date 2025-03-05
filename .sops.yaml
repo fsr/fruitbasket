@@ -8,7 +8,6 @@ keys:
   - &fugi BF37903AE6FD294C4C674EE24472A20091BFA792
   - &emmanuel E83F398E6423179FE4F63D4FF085CAD394DE329D
   - &joachim  B1A16011B86BACB56ADB713DB712039D23133661
-  - &jonasga FB44F0746DF25F0B24A2EAE586C8A257C3EC82AB
   - &hendrik FBBFAC260D9283D1EF2397DD3CA65E9DD6EB319D
   - &frieder age1x76ajqw8w4l5vlkwt5s3flz5a5jq5qlxv7uppmnf8ckj9egh9ekqjclzt6
   - &quitte age1wvdnprpnq2rcc4se3zpx2p267n0apxg2jucvlm93e3pfj439ephqh2506t
@@ -24,7 +23,6 @@ creation_rules:
         - *rouven
         - *fugi
         - *joachim
-        - *jonasga
         - *hendrik
         age:
         - *frieder
@@ -38,7 +36,6 @@ creation_rules:
         - *rouven
         - *fugi
         - *joachim
-        - *jonasga
         - *hendrik
         age:
         - *frieder
@@ -52,6 +49,5 @@ creation_rules:
         - *rouven
         - *fugi
         - *joachim
-        - *jonasga
         - *hendrik
         - *frieder
