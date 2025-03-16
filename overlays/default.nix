@@ -41,14 +41,4 @@ in
       ./hedgedoc/0001-anonymous-uploads.patch
     ];
   });
-  # patch to remove the nixspam blocklist. Remove after next rspamd release
-  rspamd = prev.rspamd.overrideAttrs ({ patches ? [ ], ... }: {
-    patches = patches ++ [
-      (fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/rspamd/rspamd/pull/5300.diff";
-        hash = "sha256-7zY+l5ADLWgPTTBNG/GxX23uX2OwQ33hyzSuokTLgqc=";
-      })
-    ];
-  });
-
 }
