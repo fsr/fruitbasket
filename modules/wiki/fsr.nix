@@ -38,6 +38,7 @@ in
       };
 
       extraConfig = ''
+        wfLoadSkin( 'MinervaNeue' );
         $wgSitename = "FSR Wiki";
         $wgArticlePath = '/$1';
 
@@ -57,6 +58,7 @@ in
         $wgUseAjax = true;
         $wgEnableMWSuggest = true;
         $wgDefaultSkin = 'timeless';
+        $wgDefaultMobileSkin = 'minerva';
 
         //TODO what about $wgUpgradeKey ?
 
@@ -75,13 +77,15 @@ in
           ],
         ];
       '';
-
       extensions = {
         # some extensions are included and can enabled by passing null
         VisualEditor = null;
         # the dir in the mediawiki-1.42.3.tar.gz inside of the extension folder is called "SyntaxHighlight_GeSHi" not "SyntaxHighlight"
         SyntaxHighlight_GeSHi = null;
-
+        MobileFrontend = pkgs.fetchzip {
+          url = "https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_43-3b4cac8.tar.gz";
+          hash = "sha256-aJOArZl+oO/ADjxIhlFVGS8hGmpSp6nsgC7XkKEk1Ks=";
+        };
         PluggableAuth = pkgs.fetchzip {
           url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_42-1da98f4.tar.gz";
           hash = "sha256-5uBUy7lrr86ApASYPWgF6Wa09mxxP0o+lXLt1gVswlA=";
