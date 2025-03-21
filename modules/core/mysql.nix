@@ -10,7 +10,6 @@
     user = "mysql";
     location = "/var/lib/backup/mysql";
     databases = [
-      "decisions"
       "fsrewsp"
       "nightline"
       "wiki_ese"
