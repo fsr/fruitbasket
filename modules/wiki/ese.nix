@@ -6,6 +6,9 @@ let
 in
 {
 
+  system.activationScripts.hacky-mediawiki-convert = ''
+    cp ${pkgs.imagemagick}/bin/convert /srv/web/wiki.ese/convert
+  '';
   users.users.${user} = {
     group = group;
     isSystemUser = true;

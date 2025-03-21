@@ -114,6 +114,7 @@
     zsh
     unzip
     yazi
+    imagemagick
   ];
 }
 
