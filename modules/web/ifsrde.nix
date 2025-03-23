@@ -60,6 +60,7 @@ in
         "~ ^/cmd(/?[^\\n|\\r]*)$".return = "301 https://pad.ifsr.de$1";
         "/bbb".return = "301 https://bbb.tu-dresden.de/b/fsr-58o-tmf-yy6";
         "/kpp".return = "301 https://kpp.ifsr.de";
+        "/mese".return = "301 https://ifsr.de/news/mese-and-welcome-back";
         "/sso".return = "301 https://sso.ifsr.de/realms/internal/account";
         # security
         "~* /(\.git|cache|bin|logs|backup|tests)/.*$".return = "403";
