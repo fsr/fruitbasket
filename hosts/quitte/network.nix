@@ -15,6 +15,7 @@
 
     firewall = {
       logRefusedConnections = false;
+      trustedInterfaces = [ "podman0"];
     };
   };
 

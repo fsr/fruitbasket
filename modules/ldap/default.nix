@@ -82,9 +82,4 @@ in
       };
     };
   };
-  networking.firewall = {
-    extraInputRules = ''
-      ip saddr { 141.30.86.192/26, 141.76.100.128/25, 10.88.0.1/16 } tcp dport 636 accept comment "Allow ldaps access from office nets and podman"
-    '';
-  };
 }
