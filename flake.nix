@@ -37,6 +37,7 @@
     , vscode-server
     , course-management
     , print-interface
+    , authentik
     , ...
     }@inputs:
     let
@@ -75,10 +76,13 @@
             ese-manual.nixosModules.default
             course-management.nixosModules.default
             vscode-server.nixosModules.default
+            authentik.nixosModules.default
+
             ./hosts/quitte/configuration.nix
             ./options
 
             ./modules/core
+            ./modules/authentik
             ./modules/ldap
             ./modules/mail
             ./modules/web

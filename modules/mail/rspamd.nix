@@ -184,6 +184,7 @@ in
     redis = {
       vmOverCommit = true;
       servers.rspamd = {
+        port = 0;
         enable = true;
       };
     };

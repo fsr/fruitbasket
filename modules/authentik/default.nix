@@ -1,11 +1,8 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   domain = "idm.${config.networking.domain}";
 in
 {
-  age.secrets.authentik-core = {
-    file = ../../../../secrets/nuc/authentik/core.age;
-  };
   sops.secrets."authentik/env" = { };
   services.authentik = {
     enable = true;
@@ -16,5 +13,4 @@ in
     };
     environmentFile = config.sops.secrets."authentik/env".path;
   };
-
 }
