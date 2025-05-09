@@ -93,6 +93,7 @@
             ./modules/matrix
             ./modules/keycloak
             ./modules/monitoring
+            ./modules/unbound
 
             ./modules/nix-serve.nix
             ./modules/hedgedoc.nix
