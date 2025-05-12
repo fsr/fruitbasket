@@ -102,7 +102,7 @@
             ./modules/vaultwarden.nix
             ./modules/forgejo
             ./modules/kanboard.nix
-            ./modules/zammad.nix
+            # ./modules/zammad.nix
             # ./modules/decisions.nix
             ./modules/stream.nix
             # ./modules/struktur-bot.nix
