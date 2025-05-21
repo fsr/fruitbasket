@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./ifsrdenew.nix
     ./ifsrde.nix
     ./ese.nix
     ./infoscreen.nix
