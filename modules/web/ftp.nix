@@ -135,8 +135,8 @@ in
                         Dieser Ordner ist nur aus dem Uni-Netz zugänglich.
                     </p>
                     <ul class="help-list">
-                        <li>Stellen Sie sicher, dass Sie mit dem TUD-Netzwerk verbunden sind</li>
-                        <li>Oder wählen Sie sich über VPN ein</li>
+                        <li>Stelle  sicher, dass du dich im Campusnetz befindest</li>
+                        <li>oder nutze das EduVPN um dich zu verbinden.</li>
                     </ul>
                 </div>
 
@@ -148,8 +148,8 @@ in
                         This directory is only accessible from the TUD network.
                     </p>
                     <ul class="help-list">
-                        <li>Make sure you are connected to the TUD network</li>
-                        <li>Or connect via VPN</li>
+                        <li>Make sure you are connected to the Campus network</li>
+                        <li>or connect via EduVPN.</li>
                     </ul>
                 </div>
             </div>
