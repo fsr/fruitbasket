@@ -119,7 +119,7 @@ in
 
   services.nginx.virtualHosts.${domain} = {
     locations."/" = {
-      proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:/";
+      proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:";
       proxyWebsockets = true;
     };
     locations."/api/v1/users/search".return = "403";
