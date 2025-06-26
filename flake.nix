@@ -17,10 +17,7 @@
     notenrechner.url = "git+https://git.ifsr.de/frieder.hannenheim/notenrechner.git";
     notenrechner.inputs.nixpkgs.follows = "nixpkgs";
     authentik = {
-      # change to old one when we are at 25.05
-      # see https://github.com/nix-community/authentik-nix/issues/56 for context
-      url = "github:MarcelCoding/authentik-nix";
-      # url = "github:nix-community/authentik-nix";
+      url = "github:nix-community/authentik-nix";
     };
 
 

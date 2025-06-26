@@ -197,6 +197,7 @@ in
             extraConfig = ''
               allow 141.30.0.0/16;
               allow 141.76.0.0/16;
+              allow 2a13:dd80::/29;
               deny all;
             '';
           };

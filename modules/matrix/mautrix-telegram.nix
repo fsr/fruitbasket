@@ -17,22 +17,11 @@ in
 
   sops.secrets.mautrix-telegram_env = { };
 
-  services.matrix-synapse.settings.app_service_config_files = [
-    # The registration file is automatically generated after starting the
-    # appservice for the first time.
-    registrationFileSynapse
-  ];
-
-  systemd.tmpfiles.rules = [
-    # copy registration file over to synapse
-    "C ${registrationFileSynapse} - - - - ${registrationFileMautrix}"
-    "Z /var/lib/matrix-synapse/ - matrix-synapse matrix-synapse - -"
-  ];
-
   services.mautrix-telegram = {
     enable = true;
 
     environmentFile = config.sops.secrets.mautrix-telegram_env.path;
+    registerToSynapse = true;
 
     settings = {
       homeserver = {
@@ -57,14 +46,4 @@ in
       };
     };
   };
-
-  # If we don't explicitly set {a,h}s_token, mautrix-telegram will try to read them from the registrationFile
-  # and write them to the settingsFile in /nix/store, which obviously fails.
-  systemd.services.mautrix-telegram.serviceConfig.ExecStart =
-    lib.mkForce (pkgs.writeShellScript "start" ''
-      export MAUTRIX_TELEGRAM_APPSERVICE_AS_TOKEN=$(grep as_token ${registrationFileMautrix} | cut -d' ' -f2-)
-      export MAUTRIX_TELEGRAM_APPSERVICE_HS_TOKEN=$(grep hs_token ${registrationFileMautrix} | cut -d' ' -f2-)
-
-      ${pkgs.mautrix-telegram}/bin/mautrix-telegram --config='${settingsFile}'
-    '');
 }

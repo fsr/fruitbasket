@@ -19,6 +19,10 @@ in
     993 # IMAPS
     4190 # Managesieve
   ];
+    environment.systemPackages = [
+    pkgs.dovecot_pigeonhole
+  ];
+
   sops.secrets."dovecot_ldap_search".owner = config.services.dovecot2.user;
   services.dovecot2 = {
     enable = true;
@@ -65,9 +69,6 @@ in
         specialUse = "Archive";
       };
     };
-    modules = [
-      pkgs.dovecot_pigeonhole
-    ];
     # set to satisfy the sieveScripts check, will be overridden by userdb lookups anyways
     mailUser = "vmail";
     mailGroup = "vmail";
