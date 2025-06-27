@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, nixpkgs-legacy, ... }:
 let
   sogo-hostname = "mail.${config.networking.domain}";
 in
@@ -9,6 +9,11 @@ in
       owner = config.systemd.services.sogo.serviceConfig.User;
     };
   };
+  nixpkgs.overlays =  [
+  (self: super: {
+      sogo = nixpkgs-legacy.legacyPackages."${pkgs.system}".sogo;
+    })
+  ];
 
   services = {
     memcached.enable = true;
