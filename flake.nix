@@ -100,6 +100,7 @@
             ./modules/nextcloud.nix
             ./modules/vaultwarden.nix
             ./modules/forgejo
+            ./modules/anubis.nix
             ./modules/kanboard.nix
             # ./modules/zammad.nix
             # ./modules/decisions.nix

@@ -119,9 +119,14 @@ in
 
   services.nginx.virtualHosts.${domain} = {
     locations."/" = {
-      proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:";
+      proxyPass = "http://unix:${config.services.anubis.instances.forgejo.settings.BIND}";
       proxyWebsockets = true;
     };
     locations."/api/v1/users/search".return = "403";
+  };
+
+  services.anubis.instances.forgejo.settings = {
+    TARGET = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";
+    SERVE_ROBOTS_TXT = true;
   };
 }
