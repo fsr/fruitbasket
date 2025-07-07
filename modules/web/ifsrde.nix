@@ -5,7 +5,6 @@ let
   webRoot = "/srv/web/ifsrdenew";
 in
 {
-
   users.users.${user} = {
     group = group;
     isSystemUser = true;
@@ -21,6 +20,9 @@ in
       locations = {
         "/" = {
           tryFiles = "$uri $uri/ =404";
+          extraConfig = ''
+            error_page 404 /404.html;
+          '';
         };
         "~ ^/cmd(/?[^\\n|\\r]*)$".return = "301 https://pad.ifsr.de$1";
         "/bbb".return = "301 https://bbb.tu-dresden.de/b/fsr-58o-tmf-yy6";
@@ -28,11 +30,9 @@ in
         # important redirects from the old website
         "/service/altklausuren".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
         "/service/komplexpruefungen".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
-        "~ ^/fachschaftsrat(/?[^\\n|\\r]*)$".return = "301 https://ifsr.de/about/$1";
-        "~ ^/service(/?[^\\n|\\r]*)$".return = "301 https://ifsr.de/services/$1";
-        "/sitzung".return = "301 https://ifsr.de/sitzung-und-protokolle/";
-        # security
-        ## End - Security
+        "~ ^/fachschaftsrat(/?[^\\n|\\r]*)$".return = "301 https://ifsr.de/about$1";
+        "~ ^/service/?[^\\n|\\r]*$".return = "301 https://ifsr.de/studium/services";
+        "~ /sitzung/?$".return = "301 https://ifsr.de/sitzung-und-protokolle/";
       };
     };
   };
