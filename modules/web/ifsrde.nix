@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
   user = "fsr-web";
   group = "fsr-web";
@@ -25,16 +25,13 @@ in
         "~ ^/cmd(/?[^\\n|\\r]*)$".return = "301 https://pad.ifsr.de$1";
         "/bbb".return = "301 https://bbb.tu-dresden.de/b/fsr-58o-tmf-yy6";
         "/kpp".return = "301 https://kpp.ifsr.de";
-        "/mese".return = "301 https://ifsr.de/news/mese-and-welcome-back";
-        "/sso".return = "301 https://sso.ifsr.de/realms/internal/account";
+        # important redirects from the old website
+        "/service/altklausuren".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
+        "/service/komplexpruefungen".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
+        "~ ^/fachschaftsrat(/?[^\\n|\\r]*)$".return = "301 https://ifsr.de/about/$1";
+        "~ ^/service(/?[^\\n|\\r]*)$".return = "301 https://ifsr.de/services/$1";
+        "/sitzung".return = "301 https://ifsr.de/sitzung-und-protokolle/";
         # security
-        "~* /(\.git|cache|bin|logs|backup|tests)/.*$".return = "403";
-        # deny running scripts inside core system folders
-        "~* /(system|vendor)/.*\.(txt|xml|md|html|json|yaml|yml|php|pl|py|cgi|twig|sh|bat)$".return = "403";
-        # deny running scripts inside user folder
-        "~* /user/.*\.(txt|md|json|yaml|yml|php|pl|py|cgi|twig|sh|bat)$".return = "403";
-        # deny access to specific files in the root folder
-        "~ /(LICENSE\.txt|composer\.lock|composer\.json|nginx\.conf|web\.config|htaccess\.txt|\.htaccess)".return = "403";
         ## End - Security
       };
     };
