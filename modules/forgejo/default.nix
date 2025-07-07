@@ -75,6 +75,7 @@ in
       webhook.ALLOWED_HOST_LIST = "*.ifsr.de";
       cors = {
         ENABLED = true;
+        ALLOW_DOMAIN = "https://ifsr.de";
       };
     };
   };
