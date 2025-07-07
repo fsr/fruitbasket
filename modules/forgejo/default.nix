@@ -123,6 +123,10 @@ in
       proxyPass = "http://unix:${config.services.anubis.instances.forgejo.settings.BIND}";
       proxyWebsockets = true;
     };
+    # These paths are used by Decap and don't work when routed through anubis
+    locations."/login/oauth/access_token".proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:";
+    locations."/api/v1".proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:";
+
     locations."/api/v1/users/search".return = "403";
   };
 
