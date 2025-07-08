@@ -15,6 +15,9 @@ in
   };
   services.nginx = {
 
+    virtualHosts."www.${config.networking.domain}" = {
+      locations."/".return = "301 $scheme://ifsr.de$request_uri";
+    };
     virtualHosts."${config.networking.domain}" = {
       root = webRoot;
       locations = {
@@ -28,6 +31,7 @@ in
         "/bbb".return = "301 https://bbb.tu-dresden.de/b/fsr-58o-tmf-yy6";
         "/kpp".return = "301 https://kpp.ifsr.de";
         # important redirects from the old website
+        "~ /studium/stoffkiste/?$".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
         "/service/altklausuren".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
         "/service/komplexpruefungen".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
         "~ ^/fachschaftsrat(/?[^\\n|\\r]*)$".return = "301 https://ifsr.de/about$1";
