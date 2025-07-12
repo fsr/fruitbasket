@@ -30,7 +30,6 @@
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-legacy
     , sops-nix
     , nix-index-database
     , kpp

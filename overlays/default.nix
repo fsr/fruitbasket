@@ -1,7 +1,6 @@
 _final: prev:
 let
   inherit (prev) fetchurl;
-  inherit (prev) fetchpatch;
   inherit (prev) callPackage;
 in
 {

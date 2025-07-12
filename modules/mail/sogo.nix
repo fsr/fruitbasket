@@ -10,7 +10,7 @@ in
     };
   };
   nixpkgs.overlays =  [
-  (self: super: {
+  (_self: _super: {
       sogo = nixpkgs-legacy.legacyPackages."${pkgs.system}".sogo;
     })
   ];

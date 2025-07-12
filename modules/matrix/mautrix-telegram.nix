@@ -1,9 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 let
   homeserverDomain = config.services.matrix-synapse.settings.server_name;
-  registrationFileSynapse = "/var/lib/matrix-synapse/telegram-registration.yaml";
-  registrationFileMautrix = "/var/lib/mautrix-telegram/telegram-registration.yaml";
-  settingsFile = builtins.head (builtins.match ".*--config='(.*)' \\\\.*" config.systemd.services.mautrix-telegram.preStart);
 in
 {
   services.postgresql = {
