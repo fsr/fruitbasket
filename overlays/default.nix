@@ -2,6 +2,8 @@ _final: prev:
 let
   inherit (prev) fetchurl;
   inherit (prev) callPackage;
+  inherit (prev) libpq;
+  inherit (prev) lib;
 in
 {
   # AGDSN is running an outdated version that we have to comply to
@@ -22,6 +24,13 @@ in
       });
     })
   ];
+  sope = (prev.sope.overrideAttrs (old: {
+    postInstall = old.postInstall + ''
+    patchelf $out/lib/GNUstep/GDLAdaptors-*/PostgreSQL.gdladaptor/PostgreSQL \
+      --add-needed libpq.so \
+      --add-rpath ${lib.makeLibraryPath [ libpq ]}
+    '';
+  }));
 
   keycloak_ifsr_theme = callPackage ../modules/keycloak/theme.nix { };
   portunus = callPackage ./portunus.nix { };

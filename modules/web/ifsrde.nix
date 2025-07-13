@@ -32,6 +32,7 @@ in
         "/kpp".return = "301 https://kpp.ifsr.de";
         # important redirects from the old website
         "~ /studium/stoffkiste/?$".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
+        "~ /service/notenrechner/?$".return = "301 https://notenrechner.ifsr.de";
         "/service/altklausuren".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
         "/service/komplexpruefungen".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
         "~ ^/fachschaftsrat(/?[^\\n|\\r]*)$".return = "301 https://ifsr.de/about$1";

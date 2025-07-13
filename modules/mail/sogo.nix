@@ -9,12 +9,6 @@ in
       owner = config.systemd.services.sogo.serviceConfig.User;
     };
   };
-  nixpkgs.overlays =  [
-  (_self: _super: {
-      sogo = nixpkgs-legacy.legacyPackages."${pkgs.system}".sogo;
-    })
-  ];
-
   services = {
     memcached.enable = true;
     sogo = {
