@@ -2,7 +2,7 @@
 let
   user = "fsr-web";
   group = "fsr-web";
-  webRoot = "/srv/web/ifsrdenew";
+  webRoot = "/srv/web/ifsr.de";
 in
 {
   users.users.${user} = {
@@ -42,7 +42,7 @@ in
     };
   };
 
-  users.users."ese-deploy" = {
+  users.users."ifsrde-deploy" = {
     isNormalUser = true;
     openssh.authorizedKeys.keys = [
       ''command="${pkgs.rrsync}/bin/rrsync ${webRoot}",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFRIojP9vBbxy0fCEJFMNKXgkTA7Sju9mn+i01mYzovU''
