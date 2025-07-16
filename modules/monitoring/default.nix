@@ -33,9 +33,9 @@ in
         login_attribute_path = "username";
         name_attribute_path = "full_name";
 
-        auth_url = "https://sso.ifsr.de/realms/internal/protocol/openid-connect/auth";
-        token_url = "https://sso.ifsr.de/realms/internal/protocol/openid-connect/token";
-        api_url = "https://sso.ifsr.de/realms/internal/protocol/openid-connect/userinfo";
+        auth_url = "https://idm.ifsr.de/application/o/authorize/";
+        token_url = "https://idm.ifsr.de/application/o/token/";
+        api_url = "https://idm.ifsr.de/application/o/userinfo/";
         role_attribute_path = "contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'";
       };
     };
