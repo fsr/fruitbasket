@@ -52,15 +52,14 @@ in
         allowAnonymousUploads = false;
         defaultPermission = "limited";
         defaultNotePath = builtins.toString template;
-        # ldap auth
-        ldap = rec {
-          url = "ldap://localhost";
-          searchBase = "ou=users,${config.services.portunus.ldap.suffix}";
-          searchFilter = "(uid={{username}})";
-          bindDn = "uid=${config.services.portunus.ldap.searchUserName},${searchBase}";
-          bindCredentials = "\${LDAP_CREDENTIALS}";
-          useridField = "uid";
-          providerName = "iFSR";
+        oauth2 = {
+          prodiderName = "iFSR";
+          authorizationUrl = "https://idm.ifsr.de/application/o/authorize/";
+          tokenUrl = "https://idm.ifsr.de/application/o/token/";
+          userProfileUrl = "https://idm.ifsr.de/application/o/userinfo/";
+          clientId = "pad";
+          clientSectret = "\${OIDC_SECRET}";
+          scope = [ "openid" "email" "profile" "groups" ];
         };
       };
     };
@@ -98,7 +97,7 @@ in
 
   systemd.services.hedgedoc.preStart = lib.mkBefore ''
     export SESSION_SECRET="$(cat ${config.sops.secrets.hedgedoc_session_secret.path})"
-    export LDAP_CREDENTIALS="$(cat ${config.sops.secrets.hedgedoc_ldap_search.path})"
+    export OIDC_SECRET="$(cat ${config.sops.secrets."hegdedoc/oidc_secret".path})"
   '';
 }
 
