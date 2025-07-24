@@ -88,7 +88,6 @@
             ./modules/courses
             ./modules/wiki
             ./modules/matrix
-            ./modules/keycloak
             ./modules/monitoring
             ./modules/unbound
 

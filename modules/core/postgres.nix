@@ -9,7 +9,6 @@
       "git"
       "grafana"
       "hedgedoc"
-      "keycloak"
       "matrix-synapse"
       "mautrix-telegram"
       "mediawiki"
@@ -19,7 +18,6 @@
       "vaultwarden"
       "mailman"
       "mailman-web"
-      "zammad"
     ];
   };
 

@@ -26,13 +26,12 @@ in
   ];
   sope = (prev.sope.overrideAttrs (old: {
     postInstall = old.postInstall + ''
-    patchelf $out/lib/GNUstep/GDLAdaptors-*/PostgreSQL.gdladaptor/PostgreSQL \
-      --add-needed libpq.so \
-      --add-rpath ${lib.makeLibraryPath [ libpq ]}
+      patchelf $out/lib/GNUstep/GDLAdaptors-*/PostgreSQL.gdladaptor/PostgreSQL \
+        --add-needed libpq.so \
+        --add-rpath ${lib.makeLibraryPath [ libpq ]}
     '';
   }));
 
-  keycloak_ifsr_theme = callPackage ../modules/keycloak/theme.nix { };
   portunus = callPackage ./portunus.nix { };
   mediawiki = (prev.mediawiki.overrideAttrs (_old: rec {
     version = "1.43.0";
