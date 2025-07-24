@@ -53,13 +53,16 @@ in
         defaultPermission = "limited";
         defaultNotePath = builtins.toString template;
         oauth2 = {
-          prodiderName = "iFSR";
-          authorizationUrl = "https://idm.ifsr.de/application/o/authorize/";
-          tokenUrl = "https://idm.ifsr.de/application/o/token/";
-          userProfileUrl = "https://idm.ifsr.de/application/o/userinfo/";
-          clientId = "pad";
-          clientSectret = "\${OIDC_SECRET}";
-          scope = [ "openid" "email" "profile" "groups" ];
+          providerName = "iFSR";
+          authorizationURL = "https://idm.ifsr.de/application/o/authorize/";
+          tokenURL = "https://idm.ifsr.de/application/o/token/";
+          userProfileURL = "https://idm.ifsr.de/application/o/userinfo/";
+          clientID = "hedgedoc";
+          clientSecret = "\${OIDC_SECRET}";
+          scope = [ "openid" "email" "profile" ];
+          userProfileUsernameAttr= "preferred_username";
+          userProfileDisplayNameAttr= "name";
+          userProfileEmailAttr= "email";
         };
       };
     };
@@ -89,6 +92,7 @@ in
     in
     {
       hedgedoc_session_secret.owner = user;
+      "hedgedoc/oidc_secret".owner = user;
       hedgedoc_ldap_search = {
         key = "portunus/search-password";
         owner = user;
@@ -97,7 +101,7 @@ in
 
   systemd.services.hedgedoc.preStart = lib.mkBefore ''
     export SESSION_SECRET="$(cat ${config.sops.secrets.hedgedoc_session_secret.path})"
-    export OIDC_SECRET="$(cat ${config.sops.secrets."hegdedoc/oidc_secret".path})"
+    export OIDC_SECRET="$(cat ${config.sops.secrets."hedgedoc/oidc_secret".path})"
   '';
 }
 
