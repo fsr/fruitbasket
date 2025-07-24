@@ -71,7 +71,7 @@ in
         $wgPluggableAuth_Config["iFSR Login"] = [
           "plugin" => "OpenIDConnect",
           "data" => [
-            "providerURL" => "https://sso.ifsr.de/realms/internal",
+            "providerURL" => "https://idm.ifsr.de/application/o/wiki/",
             "clientID" => "wiki",
             "clientsecret" => file_get_contents('${config.sops.secrets."mediawiki/oidc_secret".path}'),
           ],
