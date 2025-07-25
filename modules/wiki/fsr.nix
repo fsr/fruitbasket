@@ -68,6 +68,7 @@ in
         $wgOpenIDConnect_MigrateUsersByEmail = true;
         //$wgOpenIDConnect_MigrateUsersByUserName = true;
         $wgPluggableAuth_EnableLocalLogin = false;
+        $wgPluggableAuth_EnableAutoLogin = true;
         $wgPluggableAuth_Config["iFSR Login"] = [
           "plugin" => "OpenIDConnect",
           "data" => [
