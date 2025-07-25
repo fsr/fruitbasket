@@ -88,12 +88,12 @@ in
           hash = "sha256-aJOArZl+oO/ADjxIhlFVGS8hGmpSp6nsgC7XkKEk1Ks=";
         };
         PluggableAuth = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_42-1da98f4.tar.gz";
-          hash = "sha256-5uBUy7lrr86ApASYPWgF6Wa09mxxP0o+lXLt1gVswlA=";
+          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_43-9e67166.tar.gz";
+          hash = "sha256-hmRx/aswVIoXENxWUn4jM2M4/1Ahv7au3ltYN1SoYuo=";
         };
         OpenIDConnect = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_42-6c28c16.tar.gz";
-          hash = "sha256-X5kUuvxINbuXaLMKRcLOl2L3qbnMT72lg2NA3A9Daj8=";
+          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_43-c6a351c.tar.gz";
+          hash = "sha256-vDvO9gMZC5Mvmcfh4oLOqA/a/sfFqHycqisKTCjdKaI=";
         };
       };
     };
