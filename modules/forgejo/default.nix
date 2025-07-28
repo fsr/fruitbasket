@@ -90,6 +90,7 @@ in
       proxyWebsockets = true;
     };
     # These paths are used by Decap and don't work when routed through anubis
+    locations."/user/login".return = "301 https://git.ifsr.de/user/oauth2/iFSR";
     locations."/login/oauth/access_token".proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:";
     locations."/api/v1".proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:";
 
