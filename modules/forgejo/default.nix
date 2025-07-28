@@ -77,46 +77,12 @@ in
         ENABLED = true;
         ALLOW_DOMAIN = "https://ifsr.de";
       };
+      oauth2_client = {
+        ENABLE_AUTO_REGISTRATION=true;
+        ACCOUNT_LINKING="auto";
+      };
     };
   };
-
-  systemd.services.forgejo.preStart =
-    let
-      exe = lib.getExe config.services.forgejo.package;
-      portunus = config.services.portunus;
-      basedn = "ou=users,${portunus.ldap.suffix}";
-      ldapConfigArgs = ''
-        --name LDAP \
-        --active \
-        --security-protocol unencrypted \
-        --host '${portunus.domain}' \
-        --port 389 \
-        --user-search-base '${basedn}' \
-        --user-filter '(&(objectClass=posixAccount)(uid=%s))' \
-        --admin-filter '(isMemberOf=cn=admins,ou=groups,${portunus.ldap.suffix})' \
-        --username-attribute uid \
-        --firstname-attribute givenName \
-        --surname-attribute sn \
-        --email-attribute mail \
-        --public-ssh-key-attribute sshPublicKey \
-        --bind-dn 'uid=search,${basedn}' \
-        --bind-password "`cat ${config.sops.secrets.gitea_ldap_search.path}`" \
-        --synchronize-users
-      '';
-    in
-    lib.mkAfter /* sh */ ''
-      # Check if LDAP is already configured
-      ldap_line=$(${exe} admin auth list | grep "LDAP" | head -n 1)
-
-      if [[ -n "$ldap_line" ]]; then
-        # update ldap config
-        id=$(echo "$ldap_line" | ${pkgs.gawk}/bin/awk '{print $1}')
-        ${exe} admin auth update-ldap --id $id ${ldapConfigArgs}
-      else
-        # initially configure ldap
-        ${exe} admin auth add-ldap ${ldapConfigArgs}
-      fi
-    '';
 
   services.nginx.virtualHosts.${domain} = {
     locations."/" = {
