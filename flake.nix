@@ -51,7 +51,6 @@
         quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
         tomate = self.nixosConfigurations.tomate.config.system.build.toplevel;
       });
-      formatter = forAllSystems (system: pkgs.${system}.nixpkgs-fmt);
       hydraJobs = forAllSystems (system: {
         quitte = self.packages.${system}.quitte;
       });

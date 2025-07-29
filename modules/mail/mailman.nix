@@ -24,31 +24,31 @@
       };
       ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = false;
       ACCOUNT_PREVENT_ENUMERATION = true;
-      SOCIALACCOUNT_EMAIL_AUTHENTICATION=true; 
+      SOCIALACCOUNT_EMAIL_AUTHENTICATION = true;
 
       INSTALLED_APPS = [
-
-      "hyperkitty"
-      "postorius"
-      "django_mailman3"
-      "django.contrib.admin"
-      "django.contrib.auth"
-      "django.contrib.contenttypes"
-      "django.contrib.sessions"
-      "django.contrib.sites"
-      "django.contrib.messages"
-      "django.contrib.staticfiles"
-      "django.contrib.humanize"
-      "rest_framework"
-      "django_gravatar"
-      "compressor"
-      "haystack"
-      "django_extensions"
-      "django_q"
-      "allauth"
-      "allauth.account"
-      "allauth.socialaccount"
-      "allauth.socialaccount.providers.openid_connect" ];
+        "hyperkitty"
+        "postorius"
+        "django_mailman3"
+        "django.contrib.admin"
+        "django.contrib.auth"
+        "django.contrib.contenttypes"
+        "django.contrib.sessions"
+        "django.contrib.sites"
+        "django.contrib.messages"
+        "django.contrib.staticfiles"
+        "django.contrib.humanize"
+        "rest_framework"
+        "django_gravatar"
+        "compressor"
+        "haystack"
+        "django_extensions"
+        "django_q"
+        "allauth"
+        "allauth.account"
+        "allauth.socialaccount"
+        "allauth.socialaccount.providers.openid_connect"
+      ];
     };
   };
   services.postfix = {
