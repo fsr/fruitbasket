@@ -15,12 +15,12 @@ in
   };
 
 
-    services.redis = {
-      servers.zammad = {
-        port = lib.mkForce 6380;
-        enable = true;
-      };
+  services.redis = {
+    servers.zammad = {
+      port = lib.mkForce 6380;
+      enable = true;
     };
+  };
   # disably spammy logs
   systemd.services.zammad-web.preStart = ''
     sed -i -e "s|debug|warn|" ./config/environments/production.rb 

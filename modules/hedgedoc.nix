@@ -60,9 +60,9 @@ in
           clientID = "hedgedoc";
           clientSecret = "\${OIDC_SECRET}";
           scope = [ "openid" "email" "profile" ];
-          userProfileUsernameAttr= "preferred_username";
-          userProfileDisplayNameAttr= "name";
-          userProfileEmailAttr= "email";
+          userProfileUsernameAttr = "preferred_username";
+          userProfileDisplayNameAttr = "name";
+          userProfileEmailAttr = "email";
         };
       };
     };

@@ -43,7 +43,7 @@ in
         auth_request_set        $auth_cookie $upstream_http_set_cookie;
         proxy_pass_request_body off;
         proxy_set_header        Content-Length "";
-      ''; 
+      '';
       "@goauthentik_proxy_signin".extraConfig = ''
         internal;
         add_header Set-Cookie $auth_cookie;
