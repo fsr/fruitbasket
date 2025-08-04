@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 let
   domain = "git.${config.networking.domain}";
   gitUser = "git";
@@ -7,11 +7,6 @@ in
   imports = [
     ./actions.nix
   ];
-  sops.secrets.gitea_ldap_search = {
-    key = "portunus/search-password";
-    owner = config.services.forgejo.user;
-  };
-
   users.users.${gitUser} = {
     isSystemUser = true;
     home = config.services.forgejo.stateDir;

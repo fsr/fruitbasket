@@ -86,18 +86,10 @@ in
     };
   };
 
-  sops.secrets =
-    let
-      user = config.systemd.services.hedgedoc.serviceConfig.User;
-    in
-    {
-      hedgedoc_session_secret.owner = user;
-      "hedgedoc/oidc_secret".owner = user;
-      hedgedoc_ldap_search = {
-        key = "portunus/search-password";
-        owner = user;
-      };
-    };
+  sops.secrets = let user = config.systemd.services.hedgedoc.serviceConfig.User; in {
+    hedgedoc_session_secret.owner = user;
+    "hedgedoc/oidc_secret".owner = user;
+  };
 
   systemd.services.hedgedoc.preStart = lib.mkBefore ''
     export SESSION_SECRET="$(cat ${config.sops.secrets.hedgedoc_session_secret.path})"
