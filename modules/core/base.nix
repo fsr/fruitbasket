@@ -37,6 +37,16 @@
   };
   programs.mosh.enable = true;
 
+  # keep LESS for e.g. `sudo -u postgres psql`
+  security.sudo.extraConfig = ''
+    Defaults:root,%wheel env_keep+=LESS
+  '';
+
+  environment.variables = rec {
+    LESS = "-FSR";
+    SYSTEMD_LESS = LESS;
+  };
+
   # vs code server
   services.vscode-server.enable = true;
 
