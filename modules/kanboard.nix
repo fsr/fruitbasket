@@ -70,6 +70,9 @@ in
       extraConfig = ''
         try_files $uri /index.php;
       '';
+
+      # auto redirect login to sso
+      locations."/login".return = "302 /oauth/callback";
     };
   };
 }
