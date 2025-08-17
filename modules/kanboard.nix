@@ -4,6 +4,23 @@ let
   domain_short = "kb.${config.networking.domain}";
 
   cfg = config.services.kanboard;
+
+  plugins = {
+    Telegram = pkgs.fetchFromGitHub {
+      owner = "manuvarkey";
+      repo = "kanboard-plugin-telegram";
+      rev = "05933dae827cbe84d36441bf6d301f1f9751fbbe";
+      hash = "sha256-+xvYC3bikNxFFQN33X557zwq5cMDo1gUG9H99dJ9f5U=";
+    };
+    OAuth2 = pkgs.fetchFromGitHub {
+      owner = "kanboard";
+      repo = "plugin-oauth2";
+      rev = "affb65ce40392290b0547f3ed5f41a62aa323518";
+      hash = "sha256-yUYjle/pdU8Cir4WhLgg8PflPnZQq5s9tgRcrsApbpc=";
+    };
+  };
+
+  pluginsDir = pkgs.linkFarm "kanboard-plugins" plugins;
 in
 {
   sops.secrets."kanboard_env" = { };
@@ -29,7 +46,7 @@ in
 
     settings = {
       ENABLE_URL_REWRITE = true;
-      PLUGINS_DIR = "${cfg.dataDir}/plugins";
+      PLUGINS_DIR = toString pluginsDir;
     };
   };
 
