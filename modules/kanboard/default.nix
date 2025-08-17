@@ -16,7 +16,11 @@ let
       owner = "kanboard";
       repo = "plugin-oauth2";
       rev = "affb65ce40392290b0547f3ed5f41a62aa323518";
-      hash = "sha256-yUYjle/pdU8Cir4WhLgg8PflPnZQq5s9tgRcrsApbpc=";
+      postFetch = ''
+        cd $out
+        patch -p1 < ${./plugin-oauth2-admin-role.patch}
+      '';
+      hash = "sha256-S/mm7cJUHMyU8qgcu9jq9LUAKPZPhRgQFU8db9pugBw=";
     };
   };
 

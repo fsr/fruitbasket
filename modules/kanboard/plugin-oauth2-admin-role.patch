@@ -1,0 +1,27 @@
+diff --git a/User/GenericOAuth2UserProvider.php b/User/GenericOAuth2UserProvider.php
+index 7e501fa..3ab7ad0 100644
+--- a/User/GenericOAuth2UserProvider.php
++++ b/User/GenericOAuth2UserProvider.php
+@@ -4,6 +4,7 @@ namespace Kanboard\Plugin\OAuth2\User;
+ 
+ use Kanboard\Core\Base;
+ use Kanboard\Core\User\UserProviderInterface;
++use Kanboard\Core\Security\Role;
+ use Pimple\Container;
+ 
+ /**
+@@ -121,7 +122,13 @@ class GenericOAuth2UserProvider extends Base implements UserProviderInterface
+      */
+     public function getRole()
+     {
+-        return '';
++        $userGroups = $this->getExternalGroupIds();
++
++        if (in_array('admins', $userGroups)) {
++            return Role::APP_ADMIN;
++        }
++
++        return Role::APP_USER;
+     }
+ 
+     /**
