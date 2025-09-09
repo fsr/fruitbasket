@@ -45,15 +45,22 @@ in
         # hostname used in helo command. It is recommended to have this match the reverse dns entry
         smtp_helo_name = config.networking.rDNS;
         smtpd_banner = "${config.networking.rDNS} ESMTP $mail_name";
-        smtp_tls_security_level = "may";
         smtpd_tls_security_level = "may";
         smtpd_tls_auth_only = true;
-        smtpd_tls_protocols = [
-          "!SSLv2"
-          "!SSLv3"
-          "!TLSv1"
-          "!TLSv1.1"
-        ];
+        smtpd_tls_mandatory_protocols = ">=TLSv1.2";
+        smtpd_tls_protocols = ">=TLSv1 .2";
+
+        smtp_tls_security_level = "may";
+        smtp_tls_mandatory_protocols = ">=TLSv1.2";
+        smtp_tls_protocols = ">=TLSv1.2";
+
+        tls_preempt_cipherlist = "no";
+        tls_eecdh_auto_curves = "X25519 prime256v1 secp384r1";
+        tls_ffdhe_auto_groups = "";
+        smtp_tls_mandatory_ciphers = "medium";
+        smtpd_tls_mandatory_ciphers = "medium";
+        tls_medium_cipherlist = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-CHACHA20-POLY1305";
+
         # "reject_non_fqdn_hostname"
         smtpd_recipient_restrictions = [
           "permit_sasl_authenticated"
