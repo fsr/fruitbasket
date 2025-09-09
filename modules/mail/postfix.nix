@@ -48,7 +48,7 @@ in
         smtpd_tls_security_level = "may";
         smtpd_tls_auth_only = true;
         smtpd_tls_mandatory_protocols = ">=TLSv1.2";
-        smtpd_tls_protocols = ">=TLSv1 .2";
+        smtpd_tls_protocols = ">=TLSv1.2";
 
         smtp_tls_security_level = "may";
         smtp_tls_mandatory_protocols = ">=TLSv1.2";
