@@ -2,16 +2,16 @@
 let
   hostname = "mail.${config.networking.domain}";
   dovecot-ldap-args = pkgs.writeText "ldap-args" ''
-    uris = ldap://localhost
-    dn = uid=search, ou=users, dc=ifsr, dc=de
+    uris = ldap://idm.ifsr.de:3389
+    dn = cn=ldap-search,ou=users,dc=ifsr,dc=de
     auth_bind = yes
     !include ${config.sops.secrets."dovecot_ldap_search".path}
 
     ldap_version = 3
     scope = subtree
-    base = dc=ifsr, dc=de
-    user_filter = (&(objectClass=posixAccount)(uid=%n))
-    pass_filter = (&(objectClass=posixAccount)(uid=%n))
+    base = dc=ifsr,dc=de
+    user_filter = (&(objectClass=posixAccount)(cn=%n))
+    pass_filter = (&(objectClass=posixAccount)(cn=%n))
   '';
 in
 {
