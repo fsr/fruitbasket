@@ -18,14 +18,13 @@ in
         WOWorkersCount = 10;
         SOGoUserSources = ({
           type = ldap;
-          CNFieldName = cn;
-          UIDFieldName = uid;
-          IDFieldName = uid;
-
-          baseDN = "ou=users, dc=ifsr, dc=de";
-          bindDN = "uid=search, ou=users, dc=ifsr, dc=de";
+          CNFieldName = name;
+          UIDFieldName = cn;
+          IDFieldName = cn;
+          baseDN = "ou=users,dc=ifsr,dc=de";
+          bindDN = "cn=ldap-search,ou=users,dc=ifsr,dc=de";
           bindPassword = LDAP_SEARCH;
-          hostname = "ldap://localhost";
+          hostname = "ldap://idm.ifsr.de:3389";
           canAuthenticate = YES;
           id = directory;
       
