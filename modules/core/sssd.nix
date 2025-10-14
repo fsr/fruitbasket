@@ -17,20 +17,31 @@
       [ssh]
 
       [nss]
+      filter_groups = root
+      filter_users = root
 
       [pam]
 
       [domain/ldap]
       auth_provider = ldap
-      ldap_uri = ldaps://auth.ifsr.de
+      id_provider = ldap
+      chpass_provider = ldap
+      auth_provider = ldap
+      access_provider = ldap
+      cache_credentials = True
+
+      ldap_uri = ldap://idm.ifsr.de:3389
+      ldap_id_use_start_tls = false
+      ldap_schema = rfc2307bis
+      ldap_search_base = dc=ifsr,dc=de
+      ldap_user_object_class = user
+      ldap_user_name = cn
+      ldap_group_object_class = group
+      ldap_group_name = cn
+      
+      ldap_default_bind_dn = cn=ldap-search,ou=users,dc=ifsr,dc=de
       ldap_default_authtok_type = password
       ldap_default_authtok = $SSSD_LDAP_DEFAULT_AUTHTOK
-      ldap_search_base = dc=ifsr,dc=de
-      id_provider = ldap
-      ldap_default_bind_dn = uid=search,ou=users,dc=ifsr,dc=de
-      cache_credentials = True
-      ldap_tls_cacert = /etc/ssl/certs/ca-bundle.crt
-      ldap_tls_reqcert = hard
     '';
 
   };
