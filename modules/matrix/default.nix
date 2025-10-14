@@ -105,14 +105,13 @@ in
                 - module: ldap_auth_provider.LdapAuthProviderModule
                   config:
                     enabled: true
-                    uri: ldap://localhost
-                    base: ou=users,${portunus.ldap.suffix}
-                    # taken from kaki config
+                    uri: ldap://idm.ifsr.de:3389
+                    base: ou=users,dc=ifsr,dc=de
                     attributes:
-                      uid: uid
-                      mail: uid
-                      name: cn
-                    bind_dn: uid=search,ou=users,${portunus.ldap.suffix}
+                      uid: cn
+                      mail: mail
+                      name: name
+                    bind_dn: cn=ldap-search,ou=users,dc=ifsr,dc=de
                     bind_password_file: ${config.sops.secrets.matrix_ldap_search.path}
             '';
         })
