@@ -1,9 +1,5 @@
 { config, ... }:
 {
-  sops.secrets.mailman_ldap_search = {
-    key = "portunus/search-password";
-    owner = config.services.mailman.webUser;
-  };
   services.mailman = {
     enable = true;
     serve.enable = true;
