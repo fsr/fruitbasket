@@ -6,7 +6,6 @@ let
       {
         name = "admins";
         long_name = "Portunus Admin";
-        members = [ "admin" ];
         permissions.portunus.is_admin = true;
       }
       {
@@ -22,15 +21,6 @@ let
     ];
     users = [
       {
-        login_name = "admin";
-        given_name = "admin";
-        family_name = "admin";
-        password.from_command = [
-          "${pkgs.coreutils}/bin/cat"
-          config.sops.secrets."portunus/admin-password".path
-        ];
-      }
-      {
         login_name = "search";
         given_name = "search";
         family_name = "search";
@@ -44,7 +34,6 @@ let
 in
 {
   sops.secrets = {
-    "portunus/admin-password".owner = config.services.portunus.user;
     "portunus/search-password".owner = config.services.portunus.user;
   };
 
