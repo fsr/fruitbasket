@@ -54,21 +54,8 @@ in
     ldap = {
       suffix = "dc=ifsr,dc=de";
       searchUserName = "search";
-
-      # normally disables port 389 (but not with our patch), use 636 with tls
-      # `portunus.domain` resolves to localhost
-      tls = true;
     };
   };
 
   security.pam.services.sshd.makeHomeDir = true;
-
-  services.nginx = {
-    enable = true;
-    virtualHosts."${config.services.portunus.domain}" = {
-      locations = {
-        "/".proxyPass = "http://localhost:${toString config.services.portunus.port}";
-      };
-    };
-  };
 }
