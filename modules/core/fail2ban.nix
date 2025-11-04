@@ -15,12 +15,12 @@
         enabled = true
         # aggressive mode to add blocking for aborted connections
         filter = dovecot[mode=aggressive]
-        maxretry = 15
+        maxretry = 6
       '';
       postfix = ''
         enabled = true
         filter = postfix[mode=aggressive]
-        maxretry = 15
+        maxretry = 6
       '';
       sshd.settings.maxretry = 15;
     };
