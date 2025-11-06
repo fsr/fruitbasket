@@ -44,22 +44,13 @@ in
   };
 
   services.nginx.virtualHosts.${hostName} = {
-    # phil redirects
-    locations =
-      let
-        philDomain = "https://kurse-phil.ifsr.de";
-        courses = [ "238" "239" "240" "241" "242" "243" ];
-        subjects = [
-          "ESE 2023 PHIL Campustour"
-          "ESE 2023 PHIL Bowlingabend"
-          "ESE 2023 PHIL Filmabend"
-          "ESE 2023 PHIL Wandern"
-          "ESE 2023 PHIL Spieleabend Pen and Paper"
-        ];
-      in
-      {
-        "~ \"^/course/(${builtins.concatStringsSep "|" courses})/\"".return = "301 ${philDomain}/course/$1";
-        "~ \"^/subject/(${builtins.concatStringsSep "|" subjects})/\"".return = "301 ${philDomain}/subject/$1";
-      };
+    locations."/" = {
+      proxyPass = lib.mkForce "http://unix:${config.services.anubis.instances.courses.settings.BIND}";
+      proxyWebsockets = true;
+    };
+  };
+  services.anubis.instances.courses.settings = let cfg = config.services.course-management; in {
+    TARGET = "http://${cfg.listenAddress}:${toString cfg.listenPort}";
+    SERVE_ROBOTS_TXT = true;
   };
 }
