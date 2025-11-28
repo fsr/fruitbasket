@@ -49,8 +49,9 @@ in
       proxyWebsockets = true;
     };
   };
-  services.anubis.instances.courses.settings = let cfg = config.services.course-management; in {
-    TARGET = "http://${cfg.listenAddress}:${toString cfg.listenPort}";
-    SERVE_ROBOTS_TXT = true;
-  };
+  services.anubis.instances.courses.settings =
+    let cfg = config.services.course-management; in {
+      TARGET = "http://${cfg.listenAddress}:${toString cfg.listenPort}";
+      SERVE_ROBOTS_TXT = true;
+    };
 }
