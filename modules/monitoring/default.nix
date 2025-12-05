@@ -84,6 +84,13 @@ in
         }];
         scrape_interval = "60s";
       }
+      {
+        job_name = "authentik";
+        static_configs = [{
+          targets = [ "127.0.0.1:9300" ];
+        }];
+        scrape_interval = "15s";
+      }
     ];
   };
 
