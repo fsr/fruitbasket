@@ -99,8 +99,7 @@ in
       extraConfigFiles = [
         (pkgs.writeTextFile {
           name = "matrix-synapse-extra-config.yml";
-          text = let portunus = config.services.portunus; in
-            ''
+          text = ''
               modules:
                 - module: ldap_auth_provider.LdapAuthProviderModule
                   config:

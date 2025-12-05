@@ -1,4 +1,4 @@
-{ pkgs, config, lib, nixpkgs-legacy, ... }:
+{ config, lib, ... }:
 let
   sogo-hostname = "mail.${config.networking.domain}";
 in

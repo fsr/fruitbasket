@@ -29,9 +29,6 @@
   outputs =
     { self
     , nixpkgs
-    , sops-nix
-    , nix-index-database
-    , kpp
     , ese-manual
     , vscode-server
     , course-management
@@ -46,7 +43,7 @@
 
     in
     {
-      packages = forAllSystems (system: rec {
+      packages = forAllSystems (_system: rec {
         default = quitte;
         quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
         tomate = self.nixosConfigurations.tomate.config.system.build.toplevel;
