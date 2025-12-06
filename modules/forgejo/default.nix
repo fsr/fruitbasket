@@ -2,6 +2,7 @@
 let
   domain = "git.${config.networking.domain}";
   gitUser = "git";
+  upstreamUrl = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";
 in
 {
   imports = [
@@ -84,16 +85,17 @@ in
       proxyPass = "http://unix:${config.services.anubis.instances.forgejo.settings.BIND}";
       proxyWebsockets = true;
     };
-    # These paths are used by Decap and don't work when routed through anubis
+    # These paths are used by Decap or Forgejo Actions and don't work when routed through anubis
     locations."/user/login".return = "301 https://git.ifsr.de/user/oauth2/iFSR";
-    locations."/login/oauth/access_token".proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:";
-    locations."/api".proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}:";
+    locations."/login/oauth/access_token".proxyPass = "http://${upstreamUrl}:";
+    locations."/api".proxyPass = "http://${upstreamUrl}:";
+    locations."/twirp/github.actions.results.api.v1.ArtifactService".proxyPass = "http://${upstreamUrl}:";
 
     locations."/api/v1/users/search".return = "403";
   };
 
   services.anubis.instances.forgejo.settings = {
-    TARGET = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";
+    TARGET = upstreamUrl;
     SERVE_ROBOTS_TXT = true;
   };
 }
