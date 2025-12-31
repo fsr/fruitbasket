@@ -75,18 +75,18 @@
     listenAddresses = [ "0.0.0.0:631" ];
   };
 
-  sops.secrets."print/smtp-password" = {
-    owner = config.services.print-interface.user;
-    group = config.services.print-interface.group;
-  };
+  # sops.secrets."print/smtp-password" = {
+  #   owner = config.services.print-interface.user;
+  #   group = config.services.print-interface.group;
+  # };
 
-  services.print-interface = {
-    enable = true;
-    smtp = {
-      username = "print";
-      passwordFile = config.sops.secrets."print/smtp-password".path;
-    };
-  };
+  # services.print-interface = {
+  #   enable = true;
+  #   smtp = {
+  #     username = "print";
+  #     passwordFile = config.sops.secrets."print/smtp-password".path;
+  #   };
+  # };
 
   services.avahi = {
     enable = true;
