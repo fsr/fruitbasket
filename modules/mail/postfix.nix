@@ -35,8 +35,6 @@ in
       origin = "${domain}";
       destination = [ "${hostname}" "${domain}" "localhost" ];
       networksStyle = "host"; # localhost and own public IP
-      sslCert = "/var/lib/acme/${hostname}/fullchain.pem";
-      sslKey = "/var/lib/acme/${hostname}/key.pem";
       config = {
         home_mailbox = "Maildir/";
         # 25 MiB
@@ -45,6 +43,10 @@ in
         # hostname used in helo command. It is recommended to have this match the reverse dns entry
         smtp_helo_name = config.networking.rDNS;
         smtpd_banner = "${config.networking.rDNS} ESMTP $mail_name";
+        smtp_tls_chain_files = [
+          "/var/lib/acme/${hostname}/fullchain.pem"
+          "/var/lib/acme/${hostname}/key.pem"
+        ];
         smtpd_tls_security_level = "may";
         smtpd_tls_auth_only = true;
         smtpd_tls_mandatory_protocols = ">=TLSv1.2";
