@@ -95,6 +95,8 @@ in
   };
 
   services.anubis.instances.forgejo.settings = {
+    BIND = "/run/anubis/anubis-courses/anubis.sock";
+    METRICS_BIND = "/run/anubis/anubis-courses/anubis-metrics.sock";
     TARGET = upstreamUrl;
     SERVE_ROBOTS_TXT = true;
   };

@@ -51,6 +51,8 @@ in
   };
   services.anubis.instances.courses.settings =
     let cfg = config.services.course-management; in {
+      BIND = "/run/anubis/anubis-forgejo/anubis.sock";
+      METRICS_BIND = "/run/anubis/anubis-forgejo/anubis-metrics.sock";
       TARGET = "http://${cfg.listenAddress}:${toString cfg.listenPort}";
       SERVE_ROBOTS_TXT = true;
     };
