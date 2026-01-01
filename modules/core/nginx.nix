@@ -26,7 +26,6 @@
     networking.firewall.allowedUDPPorts = [ 443 ];
     services.nginx = {
       enable = true;
-      package = pkgs.nginxQuic;
       additionalModules = [ pkgs.nginxModules.pam ];
       recommendedProxySettings = true;
       recommendedGzipSettings = true;
