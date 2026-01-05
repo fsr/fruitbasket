@@ -24,7 +24,7 @@ in
 {
   imports = [ ./mautrix-telegram.nix ];
   sops.secrets.matrix_ldap_search = {
-    key = "portunus/search-password";
+    key = "ldap/search-password";
     owner = config.systemd.services.matrix-synapse.serviceConfig.User;
   };
   nixpkgs.config.permittedInsecurePackages = [
@@ -100,19 +100,19 @@ in
         (pkgs.writeTextFile {
           name = "matrix-synapse-extra-config.yml";
           text = ''
-              modules:
-                - module: ldap_auth_provider.LdapAuthProviderModule
-                  config:
-                    enabled: true
-                    uri: ldap://idm.ifsr.de:3389
-                    base: ou=users,dc=ifsr,dc=de
-                    attributes:
-                      uid: cn
-                      mail: mail
-                      name: name
-                    bind_dn: cn=ldap-search,ou=users,dc=ifsr,dc=de
-                    bind_password_file: ${config.sops.secrets.matrix_ldap_search.path}
-            '';
+            modules:
+              - module: ldap_auth_provider.LdapAuthProviderModule
+                config:
+                  enabled: true
+                  uri: ldap://idm.ifsr.de:3389
+                  base: ou=users,dc=ifsr,dc=de
+                  attributes:
+                    uid: cn
+                    mail: mail
+                    name: name
+                  bind_dn: cn=ldap-search,ou=users,dc=ifsr,dc=de
+                  bind_password_file: ${config.sops.secrets.matrix_ldap_search.path}
+          '';
         })
       ];
     };

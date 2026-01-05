@@ -78,7 +78,6 @@
 
             ./modules/core
             ./modules/authentik
-            ./modules/ldap
             ./modules/mail
             ./modules/web
             ./modules/courses

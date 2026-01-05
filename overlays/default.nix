@@ -1,7 +1,6 @@
 _final: prev:
 let
   inherit (prev) fetchurl;
-  inherit (prev) callPackage;
   inherit (prev) libpq;
   inherit (prev) lib;
 in
@@ -27,7 +26,6 @@ in
     '';
   }));
 
-  portunus = callPackage ./portunus.nix { };
   mediawiki = (prev.mediawiki.overrideAttrs (_old: rec {
     version = "1.43.0";
 

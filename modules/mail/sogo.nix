@@ -5,7 +5,7 @@ in
 {
   sops.secrets = {
     sogo_ldap_search = {
-      key = "portunus/search-password";
+      key = "ldap/search-password";
       owner = config.systemd.services.sogo.serviceConfig.User;
     };
   };
