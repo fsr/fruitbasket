@@ -3,12 +3,12 @@ keys:
   - &felix F8634A1CFF7D61608503A70B24363525EA0E8A99
   - &revol-xut 91EBE87016391323642A6803B966009D57E69CC6
   - &simon 47E7559E037A35652DBBF8AA8D3C82F9F309F8EC
-  - &rouven 116987A8DD3F78FF8601BF4DB95E8FE6B11C4D09
   - &helene B43C3A8A92CA28486AC6C4E2F115100C787C1C19
   - &fugi BF37903AE6FD294C4C674EE24472A20091BFA792
   - &emmanuel E83F398E6423179FE4F63D4FF085CAD394DE329D
   - &joachim  B1A16011B86BACB56ADB713DB712039D23133661
   - &hendrik FBBFAC260D9283D1EF2397DD3CA65E9DD6EB319D
+  - &rouven age10n47sthtmnzqrldk2ascrazn7y82rqz6scxxszkcfa2j5h9z2fnsel72gl
   - &frieder age1x76ajqw8w4l5vlkwt5s3flz5a5jq5qlxv7uppmnf8ckj9egh9ekqjclzt6
   - &quitte age1wvdnprpnq2rcc4se3zpx2p267n0apxg2jucvlm93e3pfj439ephqh2506t
   - &tomate age18lwgjazaxujqgcc5j0gjllnykhtjn6p0q44jzrsk4au2a5k6nd9s77kd6d
@@ -20,11 +20,11 @@ creation_rules:
         - *bennofs
         - *revol-xut
         - *felix
-        - *rouven
         - *fugi
         - *joachim
         - *hendrik
         age:
+        - *rouven
         - *frieder
         - *quitte
   - path_regex: secrets/tomate\.yaml$
@@ -33,11 +33,11 @@ creation_rules:
         - *bennofs
         - *revol-xut
         - *felix
-        - *rouven
         - *fugi
         - *joachim
         - *hendrik
         age:
+        - *rouven
         - *frieder
         - *tomate
   - path_regex: secrets/admin\.yaml$
@@ -51,3 +51,4 @@ creation_rules:
         - *joachim
         - *hendrik
         - *frieder
+
