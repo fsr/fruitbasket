@@ -71,7 +71,6 @@
       ../../keys/ssh/jannusch
       ../../keys/ssh/jannusch-arch
       ../../keys/ssh/tassilo
-      ../../keys/ssh/rouven
       ../../keys/ssh/joachim
     ];
   };
