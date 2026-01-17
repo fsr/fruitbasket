@@ -49,8 +49,8 @@
     };
   };
   services.postfix = {
-    relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
-    config = {
+    settings.main = {
+      relay_domains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
       mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
       transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
       virtual_alias_maps = [ "hash:/var/lib/mailman/data/postfix_vmap" ];

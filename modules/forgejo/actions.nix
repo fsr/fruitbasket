@@ -2,7 +2,7 @@
 {
   sops.secrets."forgejo/runner-token" = { };
   services.gitea-actions-runner = {
-    package = pkgs.forgejo-actions-runner;
+    package = pkgs.forgejo-runner;
     instances."quitte" = {
       enable = true;
       labels = [

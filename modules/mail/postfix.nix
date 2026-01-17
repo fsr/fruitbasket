@@ -30,16 +30,16 @@ in
       enable = true;
       enableSubmission = true;
       enableSubmissions = true;
-      hostname = "${hostname}";
-      domain = "${domain}";
-      origin = "${domain}";
-      destination = [ "${hostname}" "${domain}" "localhost" ];
-      networksStyle = "host"; # localhost and own public IP
-      config = {
+      settings.main = {
+        myhostname = "${hostname}";
+        mydomain = "${domain}";
+        myorigin = "${domain}";
+        mydestination = [ "${hostname}" "${domain}" "localhost" ];
         home_mailbox = "Maildir/";
         # 25 MiB
-        message_size_limit = "26214400";
+        message_size_limit = 26214400;
         mynetworks = [ "[::1]/128" "127.0.0.0/8" "10.0.0.0/8" "141.30.30.194/32" "[fe80::]/64" "[2a13:dd85:b23:1::]/64" ];
+        mynetworks_style = "host"; # localhost and own public IP
         # hostname used in helo command. It is recommended to have this match the reverse dns entry
         smtp_helo_name = config.networking.rDNS;
         smtpd_banner = "${config.networking.rDNS} ESMTP $mail_name";

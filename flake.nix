@@ -50,7 +50,7 @@
         tomate = self.nixosConfigurations.tomate.config.system.build.toplevel;
       });
       hydraJobs = forAllSystems (system: {
-        quitte = self.packages.${system}.quitte;
+        # quitte = self.packages.${system}.quitte;
       });
 
       devShells = forAllSystems (system: {
