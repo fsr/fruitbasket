@@ -54,6 +54,7 @@ in
           # proxy to synapse
           locations."/_matrix".proxyPass = "http://[::1]:8008";
           locations."/_synapse/client".proxyPass = "http://[::1]:8008";
+          locations."/health".proxyPass = "http://[::1]:8008";
         };
 
         # element
