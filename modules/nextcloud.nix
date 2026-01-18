@@ -11,7 +11,7 @@ in
     nextcloud = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
       hostName = domain;
       https = true; # Use https for all urls
       config = {
