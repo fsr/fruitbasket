@@ -18,7 +18,9 @@
     notenrechner.url = "git+https://git.ifsr.de/frieder.hannenheim/notenrechner.git";
     notenrechner.inputs.nixpkgs.follows = "nixpkgs";
     authentik = {
-      url = "github:nix-community/authentik-nix";
+      # url = "github:nix-community/authentik-nix";
+      # https://github.com/nix-community/authentik-nix/pull/85 
+      url = "github:Pentusha/authentik-nix";
     };
 
 
