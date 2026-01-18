@@ -44,8 +44,8 @@ in
         smtp_helo_name = config.networking.rDNS;
         smtpd_banner = "${config.networking.rDNS} ESMTP $mail_name";
         smtpd_tls_chain_files = [
-          "/var/lib/acme/${hostname}/fullchain.pem"
           "/var/lib/acme/${hostname}/key.pem"
+          "/var/lib/acme/${hostname}/fullchain.pem"
         ];
         smtpd_tls_security_level = "may";
         smtpd_tls_auth_only = true;
