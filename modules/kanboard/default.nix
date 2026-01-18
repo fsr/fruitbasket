@@ -32,18 +32,6 @@ in
   services.kanboard = {
     enable = true;
     nginx = null;
-
-    # to prevent downgrade from docker image version
-    package = pkgs.kanboard.overrideAttrs rec {
-      version = "1.2.46";
-      src = pkgs.fetchFromGitHub {
-        owner = "kanboard";
-        repo = "kanboard";
-        tag = "v${version}";
-        hash = "sha256-IYnlBNa4f+ZpOttQHlIZi8wsZYJuB/kWWLwhQK8vdQY=";
-      };
-    };
-
     phpfpm.settings = {
       clear_env = false;
     };
