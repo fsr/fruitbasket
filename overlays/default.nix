@@ -25,14 +25,4 @@ in
         --add-rpath ${lib.makeLibraryPath [ libpq ]}
     '';
   }));
-
-  mediawiki = (prev.mediawiki.overrideAttrs (_old: rec {
-    version = "1.43.0";
-
-    src = fetchurl {
-      url = "https://releases.wikimedia.org/mediawiki/${prev.lib.versions.majorMinor version}/mediawiki-${version}.tar.gz";
-      hash = "sha256-VuCn/i/3jlC5yHs9WJ8tjfW8qwAY5FSypKI5yFhr2O4=";
-    };
-
-  }));
 }

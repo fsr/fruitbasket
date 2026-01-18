@@ -84,16 +84,16 @@ in
         # the dir in the mediawiki-1.42.3.tar.gz inside of the extension folder is called "SyntaxHighlight_GeSHi" not "SyntaxHighlight"
         SyntaxHighlight_GeSHi = null;
         MobileFrontend = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_43-3b4cac8.tar.gz";
-          hash = "sha256-aJOArZl+oO/ADjxIhlFVGS8hGmpSp6nsgC7XkKEk1Ks=";
+          url = "https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_44-93b8f3d.tar.gz";
+          hash = "sha256-Dhu21+s2u9b18RIdm/z63vX22+S2aLO81mQOWI457bw=";
         };
         PluggableAuth = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_43-9e67166.tar.gz";
-          hash = "sha256-hmRx/aswVIoXENxWUn4jM2M4/1Ahv7au3ltYN1SoYuo=";
+          url = "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_44-9cf6960.tar.gz";
+          hash = "sha256-jx3Pw4jZ86WO0jwNyIBguNLCpwzxKEDJDAzm5I7YtNM=";
         };
         OpenIDConnect = pkgs.fetchzip {
-          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_43-c6a351c.tar.gz";
-          hash = "sha256-vDvO9gMZC5Mvmcfh4oLOqA/a/sfFqHycqisKTCjdKaI=";
+          url = "https://extdist.wmflabs.org/dist/extensions/OpenIDConnect-REL1_44-438d993.tar.gz";
+          hash = "sha256-TpFEToogaN76Ll6jkbU0CMfNQT/+Zl7xny8woPr7Oh8=";
         };
       };
     };
