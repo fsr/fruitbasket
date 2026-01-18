@@ -43,7 +43,7 @@ in
         # hostname used in helo command. It is recommended to have this match the reverse dns entry
         smtp_helo_name = config.networking.rDNS;
         smtpd_banner = "${config.networking.rDNS} ESMTP $mail_name";
-        smtp_tls_chain_files = [
+        smtpd_tls_chain_files = [
           "/var/lib/acme/${hostname}/fullchain.pem"
           "/var/lib/acme/${hostname}/key.pem"
         ];
