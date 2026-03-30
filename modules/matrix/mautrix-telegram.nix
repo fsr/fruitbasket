@@ -40,6 +40,10 @@ in
           "@admin:${homeserverDomain}" = "admin";
         };
         relay_user_distinguishers = [ ];
+        encryption = {
+          allow = true;
+          default = false;
+        };
       };
     };
   };
