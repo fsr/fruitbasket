@@ -60,7 +60,6 @@
           ];
         };
       });
-      overlays.default = import ./overlays;
       nixosConfigurations = {
         quitte = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
