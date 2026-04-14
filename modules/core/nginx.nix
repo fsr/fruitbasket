@@ -26,7 +26,6 @@
     networking.firewall.allowedUDPPorts = [ 443 ];
     services.nginx = {
       enable = true;
-      additionalModules = [ pkgs.nginxModules.pam ];
       recommendedProxySettings = true;
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
@@ -55,9 +54,5 @@
         email = "root@${config.networking.domain}";
       };
     };
-    security.pam.services.nginx.text = ''
-      auth required ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
-      account required ${pkgs.nss_pam_ldapd}/lib/security/pam_ldap.so
-    '';
   };
 }
