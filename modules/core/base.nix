@@ -45,6 +45,10 @@
     };
   };
   programs.mosh.enable = true;
+  systemd.services.sshd.serviceConfig = {
+    RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX AF_NETLINK";
+  };
+
 
   # keep LESS for e.g. `sudo -u postgres psql`
   security.sudo.extraConfig = ''
