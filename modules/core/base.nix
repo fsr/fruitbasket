@@ -4,6 +4,14 @@
       experimental-features = nix-command flakes
     '';
   };
+  boot = {
+    blacklistedKernelModules = [
+      "esp4"
+      "esp6"
+      "rxrpc"
+      "algif_aead"
+    ];
+  };
 
   system.activationScripts.report-nixos-changes = {
     supportsDryActivation = true;
