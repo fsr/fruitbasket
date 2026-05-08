@@ -31,9 +31,7 @@
     '';
   };
 
-  # Select internationalisation properties.
   console = {
-    #font = "Lat2-Terminus16";
     font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
     keyMap = pkgs.lib.mkForce "uk";
   };
@@ -90,8 +88,6 @@
   programs.vim.enable = true;
   programs.vim.defaultEditor = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     atop
     btop
