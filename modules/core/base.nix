@@ -127,6 +127,7 @@
     whois
     eza
     zsh
+    fish
     unzip
     yazi
     imagemagick
