@@ -7,7 +7,7 @@ in
   services.nginx = {
     virtualHosts."${domain}" = {
       locations."= /" = {
-        return = "302 /2025/";
+        return = "302 /2026/";
       };
       locations."/" = {
         root = webRoot;
