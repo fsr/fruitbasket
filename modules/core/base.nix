@@ -10,6 +10,7 @@
       "esp6"
       "rxrpc"
       "algif_aead"
+      "rds"
     ];
   };
 
