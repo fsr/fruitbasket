@@ -58,7 +58,7 @@ in
 
   services.prometheus = {
     enable = true;
-    port = 9001;
+    port = 9090;
     exporters = {
       node = {
         enable = true;
