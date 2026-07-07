@@ -9,6 +9,7 @@ in
     extraConfig = ''
       fancyindex on;
       fancyindex_exact_size off;
+      fancyindex_hide_symlinks on;
       error_page 403 /403.html;
       fancyindex_localtime on;
       charset utf-8;
@@ -18,7 +19,7 @@ in
       allow 141.76.0.0/16;
       deny all;
     '';
-    locations."~ /komplexpruef".extraConfig = ''
+    locations."~ /(komplexpruef|gedankenprotokolle)".extraConfig = ''
       default_type text/plain;
     '';
     locations."=/403.html" = {
