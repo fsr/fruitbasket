@@ -91,13 +91,13 @@ in
       };
       "userdb ldap" = {
         ldap_filter = "(&(objectClass=posixAccount)(uid=%{user}))";
-        ldap_bind = true;
+        fields = {
+          home = "%{ldap:homeDirectory}";
+          uid = "%{ldap:uidNumber}";
+          gid = "%{ldap:gidNumber}";
+        };
       };
 
-      "mail_plugins" = {
-        quota = true;
-      };
-      quota_storage_size = "10G";
       "protocol imap" = {
         mail_plugins = {
           imap_filter_sieve = true;
@@ -156,6 +156,21 @@ in
           user = "postfix";
         };
       };
+      "mail_plugins" = {
+        quota = true;
+      };
+      quota_storage_size = "10G";
+      quota_status_nouser = "DUNNO";
+      quota_status_overquota = "552 5.2.2 Mailbox is full";
+      quota_status_success = "DUNNO";
+      "service quota-status" = {
+        executable = "quota-status -p postfix";
+        "inet_listener quota-status" =  {
+          port = 12340;
+        };
+        client_limit = 1;
+      };
+
     };
   };
 }
