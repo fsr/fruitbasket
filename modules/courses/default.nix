@@ -35,7 +35,6 @@ in
   };
 
   services.postgresql = {
-    enable = lib.mkForce true; # upstream bacula config wants to disable it, so we need to force
     ensureUsers = [{
       name = "course-management";
       ensureDBOwnership = true;

@@ -10,7 +10,6 @@ in
 {
   services = {
     postgresql = {
-      enable = true;
       ensureUsers = [
         {
           name = "hedgedoc";

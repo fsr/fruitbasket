@@ -33,7 +33,6 @@ in
 
   services = {
     postgresql = {
-      enable = true;
       ensureUsers = [{
         name = "matrix-synapse";
       }];

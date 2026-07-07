@@ -21,7 +21,6 @@ in
     };
   };
   services.postgresql = {
-    enable = true;
     ensureUsers = [
       {
         name = "vaultwarden";

@@ -58,7 +58,6 @@
     };
   };
   services.postgresql = {
-    enable = true;
     ensureUsers = [
       {
         name = "mailman";

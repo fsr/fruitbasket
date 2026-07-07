@@ -45,7 +45,6 @@ in
       timezone = "Europe/Berlin";
     };
     postgresql = {
-      enable = true;
       ensureUsers = [
         {
           name = "sogo";

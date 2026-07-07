@@ -1,5 +1,11 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_18;
+    settings.max_connections = 1000;
+  };
+
   # automatically back up all databases
   services.postgresqlBackup = {
     enable = true;
@@ -20,6 +26,4 @@
       "mailman-web"
     ];
   };
-
-  services.postgresql.settings.max_connections = 1000;
 }
