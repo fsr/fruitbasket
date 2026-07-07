@@ -5,7 +5,7 @@ in
 {
   imports = [
     ./postfix.nix
-    ./dovecot2.nix
+    ./dovecot.nix
     ./rspamd.nix
     ./sogo.nix
     ./mailman.nix
