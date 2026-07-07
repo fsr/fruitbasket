@@ -6,6 +6,9 @@ in
   sops.secrets."grafana/oidc_secret" = {
     owner = "grafana";
   };
+  sops.secrets."grafana/secret_key" = {
+    owner = "grafana";
+  };
   # grafana configuration
   services.grafana = {
     enable = true;
@@ -16,6 +19,7 @@ in
         http_port = 2342;
         root_url = "https://monitoring.ifsr.de";
       };
+      security.secret_key = "$__file{${config.sops.secrets."grafana/secret_key".path}}";
       database = {
         type = "postgres";
         user = "grafana";

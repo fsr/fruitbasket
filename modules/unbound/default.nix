@@ -1,8 +1,8 @@
 { ... }:
 {
-  services.resolved.extraConfig = ''
-    DNSStubListener=no
-  '';
+  services.resolved.settings.Resolve = {
+    DNSStubListener = false;
+  };
   services.unbound = {
     enable = true;
     settings = {
