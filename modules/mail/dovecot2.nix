@@ -1,18 +1,6 @@
 { lib, config, pkgs, ... }:
 let
   hostname = "mail.${config.networking.domain}";
-  dovecot-ldap-args = pkgs.writeText "ldap-args" ''
-    uris = ldap://idm.ifsr.de:3389
-    dn = cn=ldap-search,ou=users,dc=ifsr,dc=de
-    auth_bind = yes
-    !include ${config.sops.secrets."dovecot_ldap_search".path}
-
-    ldap_version = 3
-    scope = subtree
-    base = dc=ifsr,dc=de
-    user_filter = (&(objectClass=posixAccount)(cn=%n))
-    pass_filter = (&(objectClass=posixAccount)(cn=%n))
-  '';
 in
 {
   networking.firewall.allowedTCPPorts = [
@@ -23,68 +11,116 @@ in
     pkgs.dovecot_pigeonhole
   ];
 
-  sops.secrets."dovecot_ldap_search".owner = config.services.dovecot2.user;
+  sops.secrets."dovecot_ldap_search" = {
+    key = "ldap/search-password";
+  };
   services.dovecot2 = {
     enable = true;
-    enableImap = true;
-    enableQuota = true;
-    quotaGlobalPerUser = "10G";
-    enableLmtp = true;
-    enablePAM = false;
-    mailLocation = "maildir:~/Maildir";
-    sslServerCert = "/var/lib/acme/${hostname}/fullchain.pem";
-    sslServerKey = "/var/lib/acme/${hostname}/key.pem";
-    protocols = [ "imap" "sieve" ];
-    mailPlugins = {
-      globally.enable = [ "listescape" ];
-      perProtocol = {
-        imap = {
-          enable = [ "imap_sieve" "imap_filter_sieve" ];
+    package = pkgs.dovecot;
+    sieve.pipeBins = (map lib.getExe [
+      (pkgs.writeShellScriptBin "learn-ham.sh" "exec ${pkgs.rspamd}/bin/rspamc learn_ham")
+      (pkgs.writeShellScriptBin "learn-spam.sh" "exec ${pkgs.rspamd}/bin/rspamc learn_spam")
+    ]);
+
+    settings = {
+
+      dovecot_config_version = "2.4.3";
+      dovecot_storage_version = "2.4.3";
+      auth_allow_cleartext = false;
+      auth_username_format = "%{user | username | lower}";
+      mail_driver = "maildir";
+      mail_path = "~/Maildir";
+      mailbox_list_storage_escape_char = "%";
+      protocols = "imap sieve imap lmtp";
+      ssl = "required";
+      ssl_min_protocol = "TLSv1.2";
+      ssl_server_prefer_ciphers = "client";
+      ssl_curve_list = "X25519MLKEM768:X25519:prime256v1:secp384r1";
+      ssl_cipher_list = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305";
+      "ssl_server" = {
+        cert_file = "/var/lib/acme/${hostname}/fullchain.pem";
+        key_file = "/var/lib/acme/${hostname}/key.pem";
+      };
+      "namespace inbox" = {
+        inbox = true;
+        separator = "/";
+        "mailbox Archive" = {
+          auto = false;
+          special_use = "\\Archive";
         };
-        lmtp = {
-          enable = [ "sieve" ];
+        "mailbox Drafts" = {
+          auto = "create";
+          special_use = "\\Drafts";
+        };
+        "mailbox Sent" = {
+          auto = "create";
+          special_use = "\\Sent";
+        };
+        "mailbox Spam" = {
+          auto = "create";
+          special_use = "\\Junk";
+          "sieve_script script-1" = {
+            cause = "COPY,APPEND,FLAG";
+            driver = "file";
+            path = ./report-spam.sieve;
+            type = "before";
+          };
+        };
+        "mailbox Trash" = {
+          auto = "create";
+          special_use = "\\Trash";
+        };
+
+        "imapsieve_from Spam" = {
+          "sieve_script ham" = {
+            cause = "COPY";
+            driver = "file";
+            path = ./report-ham.sieve;
+            type = "before";
+          };
         };
       };
-    };
-    mailboxes = {
-      Spam = {
-        auto = "subscribe";
-        specialUse = "Junk";
-        autoexpunge = "60d";
+
+      ldap_uris = "ldap://idm.ifsr.de:3389";
+      ldap_auth_dn = "cn=ldap-search,ou=users,dc=ifsr,dc=de";
+      ldap_auth_dn_password = "<${config.sops.secrets."dovecot_ldap_search".path}";
+      ldap_base = "dc=ifsr,dc=de";
+      "passdb ldap" = {
+        ldap_filter = "(&(objectClass=posixAccount)(uid=%{user}))";
+        ldap_bind = true;
       };
-      Sent = {
-        auto = "subscribe";
-        specialUse = "Sent";
+      "userdb ldap" = {
+        ldap_filter = "(&(objectClass=posixAccount)(uid=%{user}))";
+        ldap_bind = true;
       };
-      Drafts = {
-        auto = "subscribe";
-        specialUse = "Drafts";
+
+      "mail_plugins" = {
+        quota = true;
       };
-      Trash = {
-        auto = "subscribe";
-        specialUse = "Trash";
+      quota_storage_size = "10G";
+      "protocol imap" = {
+        mail_plugins = {
+          imap_filter_sieve = true;
+          imap_sieve = true;
+          quota = true;
+        };
       };
-      Archive = {
-        auto = "no";
-        specialUse = "Archive";
+
+      "protocol lmtp" = {
+        mail_plugins = {
+          sieve = true;
+        };
       };
-    };
-    # set to satisfy the sieveScripts check, will be overridden by userdb lookups anyways
-    mailUser = "vmail";
-    mailGroup = "vmail";
-    sieve = {
-      # just pot something in here to prevent empty strings
-      extensions = [ "notify" ];
-      pipeBins = map lib.getExe [
-        (pkgs.writeShellScriptBin "learn-ham.sh" "exec ${pkgs.rspamd}/bin/rspamc learn_ham")
-        (pkgs.writeShellScriptBin "learn-spam.sh" "exec ${pkgs.rspamd}/bin/rspamc learn_spam")
-      ];
-      plugins = [
-        "sieve_imapsieve"
-        "sieve_extprograms"
-      ];
-      scripts = {
-        before = pkgs.writeText "spam.sieve" ''
+      sieve_plugins = {
+        sieve_imapsieve = true;
+        sieve_extprograms = true;
+      };
+      sieve_global_extensions = {
+        "vnd.dovecot.pipe" = true;
+      };
+      "sieve_script sort-spam" = {
+        driver = "file";
+        path = pkgs.writeText "spam.sieve" ''
           require "fileinto";
 
           if anyof(
@@ -93,71 +129,33 @@ in
                   fileinto "Spam";
           }
         '';
+        type = "before";
+      };
+
+      "service managesieve-login" = {
+        restart_request_count = 1;
+        "inet_listener sieve" = {
+          port = 4190;
+        };
+      };
+      "service auth" = {
+        user = "root";
+
+        "unix_listener /var/lib/postfix/auth" = {
+          group = "postfix";
+          mode = 0660;
+          user = "postfix";
+        };
+      };
+      "service lmtp" = {
+        client_limit = 1;
+
+        "unix_listener dovecot-lmtp" = {
+          group = "postfix";
+          mode = 0660;
+          user = "postfix";
+        };
       };
     };
-    imapsieve.mailbox = [
-      {
-        # Spam: From elsewhere to Spam folder or flag changed in Spam folder
-        name = "Spam";
-        causes = [ "COPY" "APPEND" "FLAG" ];
-        before = ./report-spam.sieve;
-
-      }
-      {
-        # From Junk folder to elsewhere
-        name = "*";
-        from = "Spam";
-        causes = [ "COPY" ];
-        before = ./report-ham.sieve;
-      }
-    ];
-    extraConfig = ''
-      auth_username_format = %Ln
-      passdb {
-        driver = ldap
-        args = ${dovecot-ldap-args}
-      }
-      userdb {
-        driver = ldap
-        args = ${dovecot-ldap-args}
-      }
-      service auth {
-        unix_listener /var/lib/postfix/auth {
-          group = postfix
-          mode = 0660
-          user = postfix
-        }
-      }
-      service managesieve-login {
-        inet_listener sieve {
-          port = 4190
-        }
-        service_count = 1
-      }
-
-      namespace inbox {
-        separator = /
-        inbox = yes
-      }
-
-      service lmtp {
-        unix_listener dovecot-lmtp {
-          group = postfix
-          mode = 0600
-          user = postfix
-        }
-        client_limit = 1
-      }
-
-
-      plugin {
-        # https://doc.dovecot.org/configuration_manual/plugins/listescape_plugin/
-        listescape_char = "\\"
-      }
-      ssl_min_protocol = TLSv1.2
-      ssl_prefer_server_ciphers = no
-      ssl_curve_list = X25519:prime256v1:secp384r1
-      ssl_cipher_list = ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-CHACHA20-POLY1305
-    '';
   };
 }
