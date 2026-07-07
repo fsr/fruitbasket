@@ -12,7 +12,6 @@
     ./userdir.nix
     ./ftp.nix
     ./hyperilo.nix
-    # deactivated until made ready for 26.05
-    # ./notenrechner.nix
+    ./notenrechner.nix
   ];
 }

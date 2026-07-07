@@ -47,11 +47,6 @@ in
     locations."/" = {
       proxyPass = lib.mkForce "http://unix:${config.services.anubis.instances.courses.settings.BIND}";
       proxyWebsockets = true;
-      extraConfig = ''
-        allow 141.30.0.0/16;
-        allow 141.76.0.0/16;
-        deny all;
-      '';
     };
   };
   services.anubis.instances.courses.settings =

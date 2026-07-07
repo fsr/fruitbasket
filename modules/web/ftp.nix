@@ -9,7 +9,6 @@ in
     extraConfig = ''
       fancyindex on;
       fancyindex_exact_size off;
-      fancyindex_hide_symlinks on;
       error_page 403 /403.html;
       fancyindex_localtime on;
       charset utf-8;

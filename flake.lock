@@ -339,17 +339,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1767392195,
-        "narHash": "sha256-XLip8IKAuml0G0Yqknfs0rPH11rAdQmHTFqv3A/qDaw=",
+        "lastModified": 1783453384,
+        "narHash": "sha256-CZxwMUnOrkl/6YTOXuoF8DwbBXytO44Y9CHyhyoyx7o=",
         "ref": "refs/heads/main",
-        "rev": "9cac16e82292b7de7deab5939da8e7543412efc0",
-        "revCount": 12,
+        "rev": "fc1bc9d1853e95d56ac74110a09dc5016ce67a80",
+        "revCount": 13,
         "type": "git",
-        "url": "https://git.ifsr.de/frieder.hannenheim/notenrechner.git"
+        "url": "https://git.ifsr.de/rouven.seifert/notenrechner.git"
       },
       "original": {
         "type": "git",
-        "url": "https://git.ifsr.de/frieder.hannenheim/notenrechner.git"
+        "url": "https://git.ifsr.de/rouven.seifert/notenrechner.git"
       }
     },
     "poetry2nix": {

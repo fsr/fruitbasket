@@ -11,7 +11,7 @@
     location = "/var/lib/backup/mysql";
     databases = [
       "fsrewsp"
-      "nightline"
+      # "nightline"
       "wiki_ese"
       "wiki_vernetzung"
     ];
