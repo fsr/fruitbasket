@@ -90,6 +90,7 @@
             ./modules/padlist.nix
             ./modules/nextcloud.nix
             ./modules/vaultwarden.nix
+            ./modules/pretix.nix
             ./modules/forgejo
             ./modules/anubis.nix
             ./modules/kanboard
