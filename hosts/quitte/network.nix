@@ -14,11 +14,6 @@
     };
   };
 
-  services.resolved = {
-    enable = true;
-    fallbackDns = [ "9.9.9.9" ];
-  };
-
   systemd.network = {
     enable = true;
     wait-online.anyInterface = true;

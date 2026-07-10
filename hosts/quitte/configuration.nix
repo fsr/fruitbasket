@@ -16,6 +16,7 @@
   # boot.kernelParams = [ "video=VGA-1:1024x768@30" ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
 
   services.zfs = {
     trim.enable = true;
