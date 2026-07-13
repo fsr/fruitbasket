@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, ... }:
 {
   # set default options for virtualHosts
   options = with lib; {

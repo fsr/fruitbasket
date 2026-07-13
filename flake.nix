@@ -48,7 +48,7 @@
         quitte = self.nixosConfigurations.quitte.config.system.build.toplevel;
         tomate = self.nixosConfigurations.tomate.config.system.build.toplevel;
       });
-      hydraJobs = forAllSystems (system: {
+      hydraJobs = forAllSystems (_system: {
         # quitte = self.packages.${system}.quitte;
       });
 
