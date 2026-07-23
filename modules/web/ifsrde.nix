@@ -30,6 +30,7 @@ in
         "~ ^/cmd(/?[^\\n|\\r]*)$".return = "301 https://pad.ifsr.de$1";
         "/bbb".return = "301 https://bbb.tu-dresden.de/b/fsr-58o-tmf-yy6";
         "/kpp".return = "301 https://kpp.ifsr.de";
+        "/gamejam".return = "301 https://discord.gg/576wAMxqCY";
         "/uni-live-bbb".return = "301 https://bbb.tu-dresden.de/rooms/2vs-uqo-tg1-nfd/join";
         # important redirects from the old website
         "~ /studium/stoffkiste/?$".return = "301 https://ifsr.de/studium/stoffkiste-und-ftp";
