@@ -13,11 +13,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1784899305,
-        "narHash": "sha256-JdDo5+hOPLpwxS3XRfpotjR99jsB02U3BK/XJTZOhFc=",
+        "lastModified": 1785159467,
+        "narHash": "sha256-1LwjkVJK5pst6Atm3uOiZW3eBMY3gs0ICO14eFGlpGw=",
         "owner": "nix-community",
         "repo": "authentik-nix",
-        "rev": "572314712559bca245437e70c733ff83fc6cb5db",
+        "rev": "a492deb563cf54cb8fe134e94a7ba3b01820ca5e",
         "type": "github"
       },
       "original": {
@@ -241,11 +241,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784440659,
-        "narHash": "sha256-Q5kNLlWngt7TaIIZoxDKWMHjiSaNRVqr70FqWCRRfr4=",
+        "lastModified": 1785046085,
+        "narHash": "sha256-UiK+mmZJuLWQVhJ5b2wDzogIYWAesyRm6LA3h3Ulh3Y=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "4f8d52a3598b0dc7db7a5e7b419e3edd9d1ecfdb",
+        "rev": "11665045df8b9938ef811a3bfdc65cffb02b4b70",
         "type": "github"
       },
       "original": {
@@ -256,11 +256,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1784497964,
-        "narHash": "sha256-vlHUuqAcbcH2RKmHbPiuQzbv1pnzzavXnI62RD0bqCU=",
+        "lastModified": 1785090369,
+        "narHash": "sha256-m0pDuRJG7EDo9ri+4Ksu83VsI+PlxNC9lNBfydejce4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "241313f4e8e508cb9b13278c2b0fa25b9ca27163",
+        "rev": "624af665418d3c65d544145b4d34ad696439570e",
         "type": "github"
       },
       "original": {
@@ -318,11 +318,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1784856561,
-        "narHash": "sha256-/HjbyQqfFs3cG7o/zJ25RPaLZqS9a88z6vOGhMoZwRs=",
-        "rev": "597283ad8aa0b331c788e97c4c262d58877074ef",
+        "lastModified": 1785104993,
+        "narHash": "sha256-V1MsJr1brsjtyfzGtnQ4id/qw6NjeYRqTY5vlf9s7CU=",
+        "rev": "8623c4c20aa4ca2f5fb81510d2944066c3fb0d96",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.5984.597283ad8aa0/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.6200.8623c4c20aa4/nixexprs.tar.xz"
       },
       "original": {
         "id": "nixpkgs",
@@ -433,11 +433,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782905613,
-        "narHash": "sha256-SvXJcAemihifkTn4BGvyE5K1FJX9bl4U8DQ5pqKvD0s=",
+        "lastModified": 1784591072,
+        "narHash": "sha256-zP/WaDxrRu8GANZM61+V2LT/7ycEEdoyLWn7M6WzU7M=",
         "owner": "pyproject-nix",
         "repo": "pyproject.nix",
-        "rev": "7af23cfe91064865ecf2e835da28b45b3c6f49fd",
+        "rev": "e3b599ca2e7fcf93d4edf65d7f19bbf6491724f3",
         "type": "github"
       },
       "original": {
@@ -606,11 +606,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783511944,
-        "narHash": "sha256-Z/Ss9rWw9QYcRK+Qqkmty7PB1pIik5XGbrtit+ad2qs=",
+        "lastModified": 1785147819,
+        "narHash": "sha256-udwe836AZe8BYU+YqVc51QLuOeWKoGEmPIMF0ImUfTQ=",
         "owner": "pyproject-nix",
         "repo": "uv2nix",
-        "rev": "83995ef5e4ece3c9c704aa645bbff439e15a0ac3",
+        "rev": "0983f54345137c2dd528ce2c28cb56c2cbdceb2a",
         "type": "github"
       },
       "original": {
