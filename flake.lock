@@ -13,11 +13,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1785159467,
-        "narHash": "sha256-1LwjkVJK5pst6Atm3uOiZW3eBMY3gs0ICO14eFGlpGw=",
+        "lastModified": 1785317240,
+        "narHash": "sha256-KEF/HXXmmP8e/AxFbw8Ptlhb+FVEPoASNcew2xk3TQ0=",
         "owner": "nix-community",
         "repo": "authentik-nix",
-        "rev": "a492deb563cf54cb8fe134e94a7ba3b01820ca5e",
+        "rev": "28f0b3bc96b8e0f664aabb540a2ed61a352e8fc7",
         "type": "github"
       },
       "original": {
@@ -318,11 +318,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1785104993,
-        "narHash": "sha256-V1MsJr1brsjtyfzGtnQ4id/qw6NjeYRqTY5vlf9s7CU=",
-        "rev": "8623c4c20aa4ca2f5fb81510d2944066c3fb0d96",
+        "lastModified": 1785133411,
+        "narHash": "sha256-7S1XAczkWGQbntnS7lEDlvgyq4jYfTWBLv25CkTv7W0=",
+        "rev": "2f5a153c270b70cb0f8c11f46d96d6d3bc39f4e3",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.6200.8623c4c20aa4/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.6282.2f5a153c270b/nixexprs.tar.xz"
       },
       "original": {
         "id": "nixpkgs",
@@ -412,11 +412,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782093830,
-        "narHash": "sha256-6gmEVe69+KlRkZD4PEEV5xAlB9CB0Y9TiuEgQjDrKTQ=",
+        "lastModified": 1785115949,
+        "narHash": "sha256-8AM37BfyGaL2v/SZyg4PupRxJ01Y4htvM+WrTjWrPpo=",
         "owner": "pyproject-nix",
         "repo": "build-system-pkgs",
-        "rev": "430680a19bc85a3bda55f12e4cc1a1aadcf2e478",
+        "rev": "62c0d86027edb1c4f39a5facc09876348144f7c9",
         "type": "github"
       },
       "original": {
