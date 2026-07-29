@@ -83,6 +83,7 @@
             ./modules/wiki
             ./modules/matrix
             ./modules/monitoring
+            ./modules/pretix
             ./modules/unbound
 
             ./modules/nix-serve.nix
@@ -90,7 +91,6 @@
             ./modules/padlist.nix
             ./modules/nextcloud.nix
             ./modules/vaultwarden.nix
-            ./modules/pretix.nix
             ./modules/forgejo
             ./modules/anubis.nix
             ./modules/kanboard
