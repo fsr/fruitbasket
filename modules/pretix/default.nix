@@ -22,7 +22,7 @@ in
         url = "https://${domain}";
         currency = "EUR";
         registration = false;
-        auth_backends = "pretix.base.auth.NativeAuthBackend,pretix_oidc.auth.OIDCAuthBackend";
+        auth_backends = "pretix_oidc.auth.OIDCAuthBackend";
       };
       oidc = {
         title = "iFSR Login";
@@ -33,11 +33,13 @@ in
         end_session_endpoint = "https://idm.ifsr.de/application/o/pretix/end-session/";
         jwks_uri = "https://idm.ifsr.de/application/o/pretix/jwks/";
         client_id="pretix";
-        scopes = "openid,email,profile";
+        scopes = "openid,email,profile,pretix";
+        staff_claim="admin";
+        staff_value="true";
       };
 
       mail = {
-        from = "events@${config.networking.domain}";
+        from = "pretix@${config.networking.domain}";
         host = "127.0.0.1";
         port = 25;
       };
