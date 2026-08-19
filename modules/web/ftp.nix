@@ -18,9 +18,13 @@ in
       allow 141.76.0.0/16;
       deny all;
     '';
-    locations."~ /(komplexpruef|gedankenprotokolle)".extraConfig = ''
+    locations."~ /gedankenprotokolle".extraConfig = ''
       default_type text/plain;
     '';
+    # ugly hacks to visually rename komplexpruef to gedankenprotokolle
+    locations."~/(komplexpruef|komplexpruef%20=>%20gedankenprotokolle)".return = "301 https://ftp.ifsr.de/gedankenprotokolle";
+    locations."~ ^/komplexpruef/([^\\n|\\r]*)$".return = "301 https://ftp.ifsr.de/gedankenprotokolle/$1";
+
     locations."=/403.html" = {
       root = pkgs.writeTextDir "403.html" ''
         <!DOCTYPE html>
