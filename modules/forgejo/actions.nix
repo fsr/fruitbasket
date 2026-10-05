@@ -7,9 +7,9 @@
       enable = true;
       labels = [
         # provide a debian base with nodejs for actions
-        "debian-latest:docker://node:18-bullseye"
+        "debian-latest:docker://library/node:lts"
         # fake the ubuntu name, because node provides no ubuntu builds
-        "ubuntu-latest:docker://node:18-bullseye"
+        "ubuntu-latest:docker://library/node:lts"
         # provide native execution on the host
         # "native:host"
       ];
