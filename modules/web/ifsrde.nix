@@ -3,6 +3,12 @@ let
   user = "fsr-web";
   group = "fsr-web";
   webRoot = "/srv/web/ifsr.de";
+  securityTxt = ''
+    Contact: mailto:abuse@ifsr.de
+    Expires: 2032-12-31T08:00
+    Preferred-Languages: en, de
+    Canonical: https://ifsr.de/.well-known/security.txt
+  '';
 in
 {
   users.users.${user} = {
@@ -40,6 +46,12 @@ in
         "~ ^/fachschaftsrat(/?[^\\n|\\r]*)$".return = "301 https://ifsr.de/about$1";
         "~ ^/service/?[^\\n|\\r]*$".return = "301 https://ifsr.de/studium/services";
         "~ /sitzung/?$".return = "301 https://ifsr.de/sitzung-und-protokolle/";
+        "/.well-known/security.txt" = {
+          extraConfig = ''
+            add_header  Content-Type  text/plain;
+            return 200 "${securityTxt}";
+          '';
+        };
       };
     };
   };
