@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 let
   user = "fsr-web";
   group = "fsr-web";
@@ -49,7 +49,7 @@ in
         "/.well-known/security.txt" = {
           extraConfig = ''
             add_header  Content-Type  text/plain;
-            return 200 "${securityTxt}";
+            return 200 "${lib.strings.replaceString "\n" "\\n" securityTxt}";
           '';
         };
       };
