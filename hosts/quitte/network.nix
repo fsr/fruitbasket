@@ -32,7 +32,7 @@
           Gateway = "141.30.30.193";
         }
         {
-          Gateway = "fe80::7a24:59ff:fe5e:6e2f";
+          Gateway = "2a13:dd85:b23:1::1";
         }
       ];
       networkConfig = {
