@@ -55,6 +55,10 @@
       groups = [ "admins" ];
     }
   ];
+  security.pki.caCertificateBlacklist = [
+    "Comodo AAA Services root"
+    "emSign ECC Root CA - G3"
+  ];
   # prevent fork bombs
   security.pam.loginLimits = [
     {
