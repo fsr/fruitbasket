@@ -33,15 +33,13 @@ in
       root = "/srv/web/vernetzung";
       extraConfig = ''
         index index.php;
+        allow 141.30.0.0/16;
+        allow 141.76.0.0/16;
+        deny all;
       '';
       locations = {
         "/" = {
           tryFiles = "$uri $uri/ @rewrite";
-          extraConfig = ''
-            allow 141.30.0.0/16;
-            allow 141.76.0.0/16;
-            deny all;
-          '';
         };
         "@rewrite".extraConfig = ''
           rewrite ^/(.*)$ /index.php?title=$1&$args;
