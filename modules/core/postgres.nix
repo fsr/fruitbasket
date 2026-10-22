@@ -11,7 +11,6 @@
     enable = true;
     location = "/var/lib/backup/postgresql";
     databases = [
-      "course-management"
       "git"
       "grafana"
       "hedgedoc"

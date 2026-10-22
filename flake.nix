@@ -20,18 +20,12 @@
       url = "github:nix-community/authentik-nix";
     };
 
-
-    course-management = {
-      url = "github:fsr/course-management";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs =
     { self
     , nixpkgs
     , ese-manual
     , vscode-server
-    , course-management
     , print-interface
     , authentik
     , ...
@@ -68,7 +62,6 @@
             inputs.kpp.nixosModules.default
             inputs.nix-index-database.nixosModules.nix-index
             ese-manual.nixosModules.default
-            course-management.nixosModules.default
             vscode-server.nixosModules.default
             authentik.nixosModules.default
 
@@ -79,7 +72,6 @@
             ./modules/authentik
             ./modules/mail
             ./modules/web
-            ./modules/courses
             ./modules/wiki
             ./modules/matrix
             ./modules/monitoring
