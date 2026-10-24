@@ -5,13 +5,11 @@
   callPackage,
   buildPythonPackage,
   fetchPypi,
-  replaceVars,
 
   # build-system
   setuptools,
 
   # runtime
-  openssl,
 
   # dependencies
   oic

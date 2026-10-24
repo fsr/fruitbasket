@@ -1,4 +1,4 @@
-{ pkgs, config, kpp, lib, ... }:
+{ config, kpp, ... }:
 let
   domain = "kpp.${config.networking.domain}";
   user = "kpp";
@@ -19,95 +19,96 @@ in
     uid = uid;
   };
   users.groups.kpp.gid = uid;
-  containers.kpp = let
-    basePackages = config.environment.systemPackages;
+  containers.kpp =
+    let
+      basePackages = config.environment.systemPackages;
     in
 
-  {
-    autoStart = true;
-    privateUsers = "no";
-    bindMounts = {
-      # expose nginx via socket instead of port
-      "/run/containers/kpp" = {
-        hostPath = "/run/containers/kpp";
-        isReadOnly = false;
-      };
-      # actual ftp folder
-      "/srv/ftp/gedankenprotokolle" = {
-        hostPath = "/srv/ftp/gedankenprotokolle";
-        isReadOnly = false;
-      };
-    };
-    config = { config, lib, kpp, pkgs, ... }: {
-      system.stateVersion = "26.05";
-
-      environment.systemPackages = basePackages;
-
-      programs.msmtp = {
-        enable = true;
-        accounts.default = {
-          auth = false;
-          host = "localhost";
+    {
+      autoStart = true;
+      privateUsers = "no";
+      bindMounts = {
+        # expose nginx via socket instead of port
+        "/run/containers/kpp" = {
+          hostPath = "/run/containers/kpp";
+          isReadOnly = false;
+        };
+        # actual ftp folder
+        "/srv/ftp/gedankenprotokolle" = {
+          hostPath = "/srv/ftp/gedankenprotokolle";
+          isReadOnly = false;
         };
       };
-      
-      services.phpfpm.pools.kpp = {
-        user = user;
-        group = group;
-        settings = {
-          "listen.owner" = config.services.nginx.user;
-          "pm" = "dynamic";
-          "pm.max_children" = 32;
-          "pm.max_requests" = 500;
-          "pm.start_servers" = 2;
-          "pm.min_spare_servers" = 2;
-          "pm.max_spare_servers" = 5;
-          "php_admin_value[error_log]" = "stderr";
-          "php_admin_flag[log_errors]" = true;
-          "catch_workers_output" = true;
-          "php_admin_value[sendmail_path]" = "/run/current-system/sw/bin/msmtp -t -i -f noreply@ifsr.de";
+      config = { config, lib, pkgs, ... }: {
+        system.stateVersion = "26.05";
+
+        environment.systemPackages = basePackages;
+
+        programs.msmtp = {
+          enable = true;
+          accounts.default = {
+            auth = false;
+            host = "localhost";
+          };
         };
-        phpEnv."PATH" = lib.makeBinPath [ pkgs.php ];
-      };
 
-      users.users.kpp = {
-        group = group;
-        isSystemUser = true;
-        uid = uid;
-      };
-      users.groups.kpp.gid = uid;
-      systemd.tmpfiles.rules = [
-        "d '${dataDir}' 0700 ${user} ${group} - -"
-      ];
-      services.nginx = {
-        enable = true;
-        defaultListen = [{
-          addr = "unix:/run/containers/kpp/nginx.sock";
-        }];
+        services.phpfpm.pools.kpp = {
+          user = user;
+          group = group;
+          settings = {
+            "listen.owner" = config.services.nginx.user;
+            "pm" = "dynamic";
+            "pm.max_children" = 32;
+            "pm.max_requests" = 500;
+            "pm.start_servers" = 2;
+            "pm.min_spare_servers" = 2;
+            "pm.max_spare_servers" = 5;
+            "php_admin_value[error_log]" = "stderr";
+            "php_admin_flag[log_errors]" = true;
+            "catch_workers_output" = true;
+            "php_admin_value[sendmail_path]" = "/run/current-system/sw/bin/msmtp -t -i -f noreply@ifsr.de";
+          };
+          phpEnv."PATH" = lib.makeBinPath [ pkgs.php ];
+        };
 
-        virtualHosts.${domain} = {
-          root = webRoot;
-          locations = {
-            "= /" = {
-              extraConfig = ''
-                rewrite ^ /index.php;
-              '';
-            };
-            "~ \.php$" = {
-              extraConfig = ''
-                try_files $uri =404;
-                fastcgi_pass unix:${config.services.phpfpm.pools.kpp.socket};
-                fastcgi_index index.php;
-                include ${pkgs.nginx}/conf/fastcgi_params;
-                include ${pkgs.nginx}/conf/fastcgi.conf;
-              '';
+        users.users.kpp = {
+          group = group;
+          isSystemUser = true;
+          uid = uid;
+        };
+        users.groups.kpp.gid = uid;
+        systemd.tmpfiles.rules = [
+          "d '${dataDir}' 0700 ${user} ${group} - -"
+        ];
+        services.nginx = {
+          enable = true;
+          defaultListen = [{
+            addr = "unix:/run/containers/kpp/nginx.sock";
+          }];
+
+          virtualHosts.${domain} = {
+            root = webRoot;
+            locations = {
+              "= /" = {
+                extraConfig = ''
+                  rewrite ^ /index.php;
+                '';
+              };
+              "~ \.php$" = {
+                extraConfig = ''
+                  try_files $uri =404;
+                  fastcgi_pass unix:${config.services.phpfpm.pools.kpp.socket};
+                  fastcgi_index index.php;
+                  include ${pkgs.nginx}/conf/fastcgi_params;
+                  include ${pkgs.nginx}/conf/fastcgi.conf;
+                '';
+              };
             };
           };
         };
-      };
 
+      };
     };
-  };
   services.nginx.virtualHosts."${domain}" = rec {
     locations = {
       "/" = {

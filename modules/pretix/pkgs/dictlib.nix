@@ -1,6 +1,5 @@
 # obscure dependency of pretix-oidc
 {
-  lib,
   buildPythonPackage,
   fetchPypi,
   setuptools,
