@@ -28,6 +28,7 @@
     , vscode-server
     , print-interface
     , authentik
+    , kpp
     , ...
     }@inputs:
     let
