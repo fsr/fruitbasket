@@ -7,8 +7,8 @@ in
     root = pkgs.fetchFromGitHub {
       owner = "jannikmenzel";
       repo = "iFSR-Sharepicgenerator";
-      rev = "ac721d5fff2dba1f046939a6d6532b1a8cfceba8";
-      hash = "sha256-of+N58TDt2BcbDVEriKn6rjQVl0GdV4ZMEblrdUutZk=";
+      rev = "fa67f34a33c4cf4fce598d5a930a3faa9e9950fb";
+      hash = "sha256-/f9Y4TARMeI7xDhjI1jr+s2FsNGTnWUKJ0VkXOwV3ZM=";
     };
     locations = {
       "/".extraConfig = ''
