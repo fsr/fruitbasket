@@ -13,7 +13,6 @@
     };
     ese-manual.url = "git+https://git.ifsr.de/ese/manual-website";
     ese-manual.inputs.nixpkgs.follows = "nixpkgs";
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
     notenrechner.url = "git+https://git.ifsr.de/frieder.hannenheim/notenrechner.git";
     notenrechner.inputs.nixpkgs.follows = "nixpkgs";
     authentik = {
@@ -25,7 +24,6 @@
     { self
     , nixpkgs
     , ese-manual
-    , vscode-server
     , print-interface
     , authentik
     , ...
@@ -62,7 +60,6 @@
             inputs.kpp.nixosModules.default
             inputs.nix-index-database.nixosModules.nix-index
             ese-manual.nixosModules.default
-            vscode-server.nixosModules.default
             authentik.nixosModules.default
 
             ./hosts/quitte/configuration.nix
@@ -101,7 +98,6 @@
           modules = [
             inputs.sops-nix.nixosModules.sops
             inputs.nix-index-database.nixosModules.nix-index
-            vscode-server.nixosModules.default
             print-interface.nixosModules.default
             ./hosts/tomate/configuration.nix
             ./modules/core/base.nix
