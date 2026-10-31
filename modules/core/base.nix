@@ -61,9 +61,6 @@
     SYSTEMD_LESS = LESS;
   };
 
-  # vs code server
-  services.vscode-server.enable = true;
-
   # set root ssh keys
   users.users.root.openssh.authorizedKeys = {
     keys = [
