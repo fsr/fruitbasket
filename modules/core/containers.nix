@@ -4,6 +4,9 @@
   virtualisation = {
     docker = {
       enable = true;
+      daemon.settings = {
+        firewall-backend= "nftables";
+      };
     };
     # podman = {
     #   enable = true;
@@ -16,6 +19,7 @@
     # };
   };
   virtualisation.oci-containers.backend = "docker";
+  systemd.services.docker.path = [ pkgs.nftables ];
 
 
   # Useful otherdevelopment tools
