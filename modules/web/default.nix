@@ -3,7 +3,6 @@
   imports = [
     ./ifsrde.nix
     ./ese.nix
-    ./infoscreen.nix
     ./kpp.nix
     ./nightline.nix
     ./fsrewsp.nix
