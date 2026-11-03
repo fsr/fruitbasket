@@ -25,8 +25,6 @@ in
     in
 
     {
-      autoStart = true;
-      privateUsers = "no";
       bindMounts = {
         # expose nginx via socket instead of port
         "/run/containers/kpp" = {
@@ -40,10 +38,6 @@ in
         };
       };
       config = { config, lib, pkgs, ... }: {
-        system.stateVersion = "26.05";
-
-        environment.systemPackages = basePackages;
-
         programs.msmtp = {
           enable = true;
           accounts.default = {

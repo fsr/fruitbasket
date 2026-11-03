@@ -1,32 +1,58 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, nix-index-database, ... }:
+let
+  basePackages = config.environment.systemPackages;
+in
 {
-  virtualisation.containers.enable = true;
-  virtualisation = {
-    docker = {
-      enable = true;
-      daemon.settings = {
-        firewall-backend= "nftables";
-      };
+  options = with lib; {
+    containers = mkOption {
+      type = types.attrsOf (types.submodule
+        ({ name, ... }: {
+          config = {
+            autoStart = true;
+            privateUsers = "no";
+
+            config = {pkgs, ...}: {
+              system.stateVersion = "26.05";
+              imports = [
+                ./zsh.nix
+                nix-index-database.nixosModules.nix-index
+              ];
+              environment.systemPackages = basePackages;
+            };
+          };
+        })
+      );
     };
-    # podman = {
-    #   enable = true;
-
-    #   # Create a `docker` alias for podman, to use it as a drop-in replacement
-    #   dockerCompat = true;
-
-    #   # Required for containers under podman-compose to be able to talk to each other.
-    #   defaultNetwork.settings.dns_enabled = true;
-    # };
   };
-  virtualisation.oci-containers.backend = "docker";
-  systemd.services.docker.path = [ pkgs.nftables ];
+  config = {
+    virtualisation.containers.enable = true;
+    virtualisation = {
+      docker = {
+        enable = true;
+        daemon.settings = {
+          firewall-backend= "nftables";
+        };
+      };
+      # podman = {
+      #   enable = true;
+
+      #   # Create a `docker` alias for podman, to use it as a drop-in replacement
+      #   dockerCompat = true;
+
+      #   # Required for containers under podman-compose to be able to talk to each other.
+      #   defaultNetwork.settings.dns_enabled = true;
+      # };
+    };
+    virtualisation.oci-containers.backend = "docker";
+    systemd.services.docker.path = [ pkgs.nftables ];
 
 
-  # Useful otherdevelopment tools
-  environment.systemPackages = with pkgs; [
-    dive # look into docker image layers
-    # podman-tui # status of containers in the terminal
-    #docker-compose # start group of containers for dev
-    #podman-compose # start group of containers for dev
-  ];
+    # Useful otherdevelopment tools
+    environment.systemPackages = with pkgs; [
+      dive # look into docker image layers
+      # podman-tui # status of containers in the terminal
+      #docker-compose # start group of containers for dev
+      #podman-compose # start group of containers for dev
+    ];
+  };
 }
