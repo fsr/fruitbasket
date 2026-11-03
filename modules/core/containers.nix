@@ -11,7 +11,7 @@ in
             autoStart = true;
             privateUsers = "no";
 
-            config = {pkgs, ...}: {
+            config = { pkgs, ... }: {
               system.stateVersion = "26.05";
               imports = [
                 ./zsh.nix
@@ -30,7 +30,7 @@ in
       docker = {
         enable = true;
         daemon.settings = {
-          firewall-backend= "nftables";
+          firewall-backend = "nftables";
         };
       };
       # podman = {

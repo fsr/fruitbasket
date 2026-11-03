@@ -26,7 +26,7 @@
     , ese-manual
     , print-interface
     , authentik
-    , nix-index-database 
+    , nix-index-database
     , ...
     }@inputs:
     let

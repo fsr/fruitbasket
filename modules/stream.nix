@@ -17,14 +17,14 @@ in
   };
   containers.owncast = {
     autoStart = true;
-    config = {...}: {
+    config = { ... }: {
       services.owncast = {
         enable = true;
         port = 13142;
         listen = "[::ffff:127.0.0.1]";
         rtmp-port = 1935;
       };
-      
+
     };
   };
   networking.firewall = {
