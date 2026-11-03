@@ -21,6 +21,9 @@ in
 
     hedgedoc = {
       enable = true;
+      package = pkgs.hedgedoc.override {
+        nodejs = pkgs.nodejs_26;
+      };
       settings = {
         allowFreeURL = true;
         port = 3002;
