@@ -1,5 +1,5 @@
 { config, ... }:
-let cfg = config.services.owncast;
+let cfg = config.containers.owncast.config.services.owncast;
 in
 {
   services = {
@@ -14,11 +14,17 @@ in
         };
       };
     };
-    owncast = {
-      enable = true;
-      port = 13142;
-      listen = "[::ffff:127.0.0.1]";
-      rtmp-port = 1935;
+  };
+  containers.owncast = {
+    autoStart = true;
+    config = {...}: {
+      services.owncast = {
+        enable = true;
+        port = 13142;
+        listen = "[::ffff:127.0.0.1]";
+        rtmp-port = 1935;
+      };
+      
     };
   };
   networking.firewall = {
