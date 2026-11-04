@@ -16,7 +16,6 @@ in
     };
   };
   containers.owncast = {
-    autoStart = true;
     config = { ... }: {
       services.owncast = {
         enable = true;
