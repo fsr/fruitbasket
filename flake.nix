@@ -74,7 +74,6 @@
             ./modules/matrix
             ./modules/monitoring
             ./modules/pretix
-            ./modules/unbound
 
             ./modules/nix-serve.nix
             ./modules/hedgedoc.nix

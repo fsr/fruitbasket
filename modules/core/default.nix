@@ -9,6 +9,7 @@
     ./mysql.nix
     ./nginx.nix
     ./postgres.nix
+    ./unbound.nix
     ./sssd.nix
     ./zsh.nix
   ];
