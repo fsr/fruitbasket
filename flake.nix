@@ -44,6 +44,8 @@
       hydraJobs = forAllSystems (_system: {
         # quitte = self.packages.${system}.quitte;
       });
+      overlays.default = import ./overlays;
+      
 
       devShells = forAllSystems (system: {
         default = pkgs.${system}.mkShell {
@@ -89,7 +91,9 @@
             # ./modules/struktur-bot.nix
             {
               sops.defaultSopsFile = ./secrets/quitte.yaml;
+              nixpkgs.overlays = [ self.overlays.default ];
             }
+
           ];
         };
         tomate = nixpkgs.lib.nixosSystem {
