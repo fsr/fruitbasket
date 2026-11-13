@@ -88,6 +88,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHD1ZkrAmC9g5eJPDgv4zuEM+UIIEWromDzM1ltHt4TM fugi@blaze"
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLlITzcTVnSi8EpEW3leSuqYCDhbnJyoGCjFOtIJ0Dl5uRNm0UNXS7AbQtLLylEeI1+/qinQDEWAJ6cBDAaPfNw= rouven@thinkpad"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINJgYI2rXmw4uPXAMmOgqgJEwYfwj/IBExTCzs9Dgo+R w0lff"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK6e4Qbp7wuvNu8S0c+S6eIolYbMX8qUFP3WcgboXDYG duvani@APad"
     ];
     keyFiles = [
       ../../keys/ssh/marcus-sapphire
