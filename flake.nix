@@ -84,7 +84,6 @@
             ./modules/vaultwarden.nix
             ./modules/forgejo
             ./modules/anubis.nix
-            ./modules/kanboard
             # ./modules/zammad.nix
             # ./modules/decisions.nix
             ./modules/stream.nix
