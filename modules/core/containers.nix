@@ -1,4 +1,4 @@
-{ config, pkgs, lib, nix-index-database, ... }:
+{ self, config, pkgs, lib, nix-index-database, ... }:
 let
   basePackages = config.environment.systemPackages;
 in
@@ -11,11 +11,14 @@ in
             autoStart = true;
             privateUsers = "no";
 
-            config = { pkgs, ... }: {
+            config = {
               system.stateVersion = "26.05";
               imports = [
                 ./zsh.nix
                 nix-index-database.nixosModules.nix-index
+                {
+                  nixpkgs.overlays = [ self.overlays.default ];
+                }
               ];
               environment.systemPackages = basePackages;
             };
