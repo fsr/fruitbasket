@@ -38,15 +38,6 @@ in
             }
           }
         '';
-        "dmarc.conf".text = ''
-          reporting {
-            enabled = true;
-            email = 'noreply-dmarc@${config.networking.domain}';
-            domain = '${config.networking.domain}';
-            org_name = '${config.networking.domain}';
-            from_name = 'DMARC Aggregate Report';
-          }
-        '';
         "dkim_signing.conf".text = ''
           selector = "quitte2024";
           allow_username_mismatch = true;
@@ -237,18 +228,6 @@ in
           '';
         };
       };
-    };
-  };
-  systemd = {
-    services.rspamd-dmarc-report = {
-      description = "rspamd dmarc reporter";
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.rspamd}/bin/rspamadm dmarc_report -v";
-        User = "rspamd";
-        Group = "rspamd";
-      };
-      startAt = "daily";
     };
   };
 }
