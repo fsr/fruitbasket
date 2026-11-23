@@ -6,7 +6,7 @@ in
   options = with lib; {
     containers = mkOption {
       type = types.attrsOf (types.submodule
-        ({ name, ... }: {
+        ({ ... }: {
           config = {
             autoStart = true;
             privateUsers = "no";
