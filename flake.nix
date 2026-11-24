@@ -83,6 +83,7 @@
             ./modules/vaultwarden.nix
             ./modules/forgejo
             ./modules/anubis.nix
+            ./modules/minecraft.nix
             # ./modules/zammad.nix
             # ./modules/decisions.nix
             ./modules/stream.nix
