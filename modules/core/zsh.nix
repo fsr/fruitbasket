@@ -4,9 +4,9 @@
   programs.command-not-found.enable = false;
   programs.nix-index-database.comma.enable = true;
   environment.systemPackages = with pkgs; [
-    # fzf
     bat
     duf
+    zoxide
   ];
   programs.fzf = {
     keybindings = true;
