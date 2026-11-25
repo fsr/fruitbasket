@@ -16,7 +16,9 @@
     notenrechner.url = "git+https://git.ifsr.de/frieder.hannenheim/notenrechner.git";
     notenrechner.inputs.nixpkgs.follows = "nixpkgs";
     authentik = {
-      url = "github:nix-community/authentik-nix";
+      # url = "github:nix-community/authentik-nix";
+      # use Marcel's fork until https://github.com/nix-community/authentik-nix/pull/241 in merged
+      url = "github:MarcelCoding/authentik-nix/update";
     };
 
   };
@@ -44,7 +46,7 @@
         # quitte = self.packages.${system}.quitte;
       });
       overlays.default = import ./overlays;
-      
+
 
       devShells = forAllSystems (system: {
         default = pkgs.${system}.mkShell {
