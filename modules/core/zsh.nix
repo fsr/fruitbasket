@@ -6,10 +6,12 @@
   environment.systemPackages = with pkgs; [
     bat
     duf
-    zoxide
   ];
   programs.fzf = {
     keybindings = true;
+  };
+  programs.zoxide = {
+    enable = true;
   };
   programs.zsh = {
     enable = true;
