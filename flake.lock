@@ -14,16 +14,15 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1795636189,
+        "lastModified": 1795759412,
         "narHash": "sha256-36gdc+7S0mTtghwB3GOKs4YBm7gqULVUL87DMpjq6sE=",
-        "owner": "MarcelCoding",
+        "owner": "nix-community",
         "repo": "authentik-nix",
-        "rev": "25a0733383d377988926944ba8579bc6d27e9efd",
+        "rev": "e1c27387944d5c6fac1ae292b42ba8fc4dec11cb",
         "type": "github"
       },
       "original": {
-        "owner": "MarcelCoding",
-        "ref": "update",
+        "owner": "nix-community",
         "repo": "authentik-nix",
         "type": "github"
       }
