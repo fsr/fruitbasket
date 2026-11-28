@@ -25,6 +25,7 @@ in
         user = "grafana";
         host = "/run/postgresql";
       };
+      auth.disable_login_form = true;
       "auth.generic_oauth" = {
         enabled = true;
         name = "iFSR";
